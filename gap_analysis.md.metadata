@@ -1,0 +1,4 @@
+{
+  "ArtifactType": "other",
+  "Summary": "A detailed gap analysis comparing the features of the original PHP website with the new Next.js implementation, highlighting missing pages, data migration needs, and dynamic routing requirements."
+}

@@ -1,0 +1,101 @@
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: white;
+    border-right: 1px solid var(--border);
+    height: fit-content;
+    padding: 2rem 1rem 2rem 0;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary);
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item {
+    margin-bottom: 0.5rem;
+}
+
+.link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--muted-foreground);
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.link:hover {
+    background-color: var(--muted);
+    color: var(--primary);
+    transform: translateX(4px);
+}
+
+.linkActive {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.linkActive:hover {
+    background-color: var(--secondary);
+    color: white;
+    transform: none;
+}
+
+.subList {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
+    border-left: 2px solid var(--border);
+}
+
+.subLink {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--muted-foreground);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.subLink:hover {
+    color: var(--secondary);
+}
+
+.socialSection {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+}
+
+.socialIcons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.socialIcon {
+    color: var(--muted-foreground);
+    transition: color 0.2s;
+}
+
+.socialIcon:hover {
+    color: var(--secondary);
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        display: none;
+    }
+}

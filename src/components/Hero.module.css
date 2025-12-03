@@ -1,0 +1,95 @@
+.hero {
+    position: relative;
+    height: 600px;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+}
+
+.bgImage {
+    position: absolute;
+    inset: 0;
+    opacity: 0.5;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8), transparent);
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    padding: 0 1rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background-color: rgba(14, 165, 233, 0.2);
+    color: var(--secondary);
+    border: 1px solid rgba(14, 165, 233, 0.3);
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(4px);
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    max-width: 48rem;
+    line-height: 1.1;
+}
+
+@media (min-width: 768px) {
+    .title {
+        font-size: 4.5rem;
+    }
+}
+
+.highlight {
+    color: transparent;
+    background-clip: text;
+    background-image: linear-gradient(to right, var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+}
+
+.description {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    max-width: 42rem;
+    color: #e5e7eb;
+    line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+    .description {
+        font-size: 1.5rem;
+    }
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.btnOutline {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.btnOutline:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
