@@ -126,6 +126,162 @@ In this technique the specimen is cemented to a quartz rod of identical cross se
 Young's Modulus of specimen is calculated using ultrasonic velocity and density measurements.<br/><br/>
 <strong>INSTRUMENT:</strong> Piezoelectric Oscillator, power supply, quartz rod, holder, quartz rod with sample, connecting cables and R.F. meter.`
   },
+
+  // Physics Laboratory Instruments (Category 3228)
+  {
+    id: '7129',
+    name: 'B-H Curve Unit',
+    slug: 'b-h-curve-unit',
+    itemCode: 'BHC-01',
+    image: '7129.jpg',
+    categoryId: '3228',
+    description: 'Determination of Energy Band Gap of Silicon, Germanium etc using diodes and light emitting diodes.',
+    fullDescription: `<strong>Objective:</strong> Determination of Energy Band Gap of Silicon, Germanium etc using diodes and light emitting diodes.<br/><br/>
+This apparatus provides comprehensive study of magnetic properties of ferromagnetic materials through B-H curve analysis.`
+  },
+  {
+    id: '7130',
+    name: 'Forbidden Energy Gap Kit',
+    slug: 'forbidden-energy-gap-kit',
+    itemCode: 'FEGK-01',
+    image: '7130.jpg',
+    categoryId: '3228',
+    description: 'MEASUREMENT of Energy Band Gap of Semiconductors like Si, Ge etc using p-n junction diodes and LEDs.',
+    fullDescription: `<strong>Objective:</strong> MEASUREMENT of Energy Band Gap of Semiconductors like Si, Ge etc using p-n junction diodes and LEDs<br/><br/>
+This kit enables students to determine the energy band gap of semiconductor materials through practical measurements.`
+  },
+  {
+    id: '7131',
+    name: 'Fourier Analysis Kit',
+    slug: 'fourier-analysis-kit',
+    itemCode: 'FAK-01',
+    image: '7131.jpg',
+    categoryId: '3228',
+    description: 'Analyze complex waves and verify the existence of different harmonics and measure their relative amplitudes.',
+    fullDescription: `<strong>Objective:</strong> TO Analyze complex wave (square, clipped sine wave triangular wave etc.)<br/>
+TO verify the existence of different harmonics and measure their relative amplitudes.<br/><br/>
+This kit provides hands-on experience with Fourier series analysis and harmonic composition of complex waveforms.`
+  },
+  {
+    id: '7132',
+    name: 'Lattice Dynamics Kit',
+    slug: 'lattice-dynamics-kit',
+    itemCode: 'LDK-01',
+    image: '7132.jpg',
+    categoryId: '3228',
+    description: 'Study of the Dispersion relation for Mono-atomic and Di-atomic Lattice structures.',
+    fullDescription: `<strong>Objective:</strong> 1. Study of the Dispersion relation for "Mono-atomic Lattice". Determination of the Cut-off frequency and Comparison with theory.<br/>
+2. Study of the Dispersion relation for the Di-atomic Lattice, Acoustical mode and Energy Gap. Comparison with theory.<br/><br/>
+This kit provides comprehensive understanding of lattice vibrations and phonon dispersion in crystalline materials.`
+  },
+  {
+    id: '7133',
+    name: 'Stefan\'s Constant Kit',
+    slug: 'stefans-constant-kit',
+    itemCode: 'SCK-01',
+    image: '7133.jpg',
+    categoryId: '3228',
+    description: 'Determination of Stefan\'s constant by the black copper radiation plates using Electrical Method.',
+    fullDescription: `<strong>OBJECTIVE:</strong> Stefan's constant by the black copper radiation plates (Electrical Method).<br/><br/>
+This kit allows students to verify Stefan-Boltzmann law and determine Stefan's constant experimentally.`
+  },
+  {
+    id: '7134',
+    name: 'Boltzman Constant Kit',
+    slug: 'boltzman-constant-kit',
+    itemCode: 'BCK-01',
+    image: '7134.jpg',
+    categoryId: '3228',
+    description: 'MEASUREMENT of Boltzman\'s Constant using semiconductor Diode.',
+    fullDescription: `<strong>Objective:</strong> MEASUREMENT of Boltzman's Constant using semiconductor Diode.<br/><br/>
+This apparatus enables precise determination of Boltzmann's constant through semiconductor diode characteristics.`
+  },
+  {
+    id: '7135',
+    name: 'Capacitance and Permittivity Kit',
+    slug: 'capacitance-and-permittivity-kit',
+    itemCode: 'CPK-01',
+    image: '7135.jpg',
+    categoryId: '3228',
+    description: 'Study of Series and Parallel combination of capacitances and factors determining capacitance.',
+    fullDescription: `<strong>Objective:</strong> To Study - (1) Series and Parallel combination of capacitances.<br/>
+(2) Factors that determine the capacitance of a parallel plate Capacitor ( area of overlap, distance between the plates and the medium )<br/><br/>
+This kit provides comprehensive understanding of capacitance and dielectric properties.`
+  },
+  {
+    id: '7136',
+    name: 'Photodiode Characteristics Apparatus',
+    slug: 'photodiode-characteristics-apparatus',
+    itemCode: 'PCA-01',
+    image: '7136.jpg',
+    categoryId: '3228',
+    description: 'Study I-V characteristics in reverse bias and measure variation of photocurrent.',
+    fullDescription: `<strong>Objective:</strong> To Study I-V characteristics in reverse bias and to measure variation of photocurrent as a function of reverse voltage and intensity.<br/><br/>
+This apparatus enables detailed study of photodiode behavior and photoelectric effect applications.`
+  },
+  {
+    id: '7137',
+    name: 'LED and Laser Diode Characteristics Apparatus',
+    slug: 'led-and-laser-diode-characteristics-apparatus',
+    itemCode: 'LLDCA-01',
+    image: '7137.jpg',
+    categoryId: '3228',
+    description: 'Study I-V and P-I characteristics of LED and Diode Laser.',
+    fullDescription: `<strong>Objective:</strong> To Study I-V characteristics of LED and Diode Laser. To Study P-I characteristics of LED and Diode Laser.<br/><br/>
+This apparatus provides comprehensive analysis of LED and laser diode performance characteristics.`
+  },
+  {
+    id: '7138',
+    name: 'Laser Experiment Kits',
+    slug: 'laser-experiment-kits',
+    itemCode: 'LEK-01',
+    image: '7138.jpg',
+    categoryId: '3228',
+    description: 'Comprehensive laser experiments including power distribution, beam spot size, and wavelength measurement.',
+    fullDescription: `<strong>OBJECTIVE:</strong><br/>
+• Determination of Power distribution within beam.<br/>
+• Measurement of beam spot size.<br/>
+• Measurement of divergence of LASER beam.<br/>
+• Determination of wavelength of LASER.<br/>
+• Determination of grating element of reflection type grating.<br/><br/>
+This comprehensive kit enables various laser optics experiments and measurements.`
+  },
+  {
+    id: '7139',
+    name: 'Fiber Optic Apparatus',
+    slug: 'fiber-optic-apparatus',
+    itemCode: 'FOA-01',
+    image: '7139.jpg',
+    categoryId: '3228',
+    description: 'Measure Numerical Aperture, Acceptance angle and attenuation in Optical Fiber.',
+    fullDescription: `<strong>Objective:</strong> To MEASURE Numerical Aperture and Acceptance angle of Optical Fiber.<br/>
+To MEASURE attenuation in Optical Fiber.<br/><br/>
+This apparatus provides hands-on experience with fiber optic communication principles and measurements.`
+  },
+
+  // Chemistry Laboratory Instruments (Category 3229)
+  {
+    id: '7140',
+    name: 'Dipolemeter',
+    slug: 'dipolemeter',
+    itemCode: 'DPM-01',
+    image: '7140.jpg',
+    categoryId: '3229',
+    description: 'Determination of dielectric constant of non aqueous liquid and Dipole Moment.',
+    fullDescription: `<strong>Objective:</strong> Determination of dielectric constant of non aqueous liquid at different concentration and hence determination of Dipole Moment (e.g. of Nitrobenzene etc.)<br/><br/>
+This instrument enables precise measurement of dielectric properties and dipole moments of various liquids.`
+  },
+  {
+    id: '7141',
+    name: 'Abbe Refractometers',
+    slug: 'abbe-refractometers',
+    itemCode: 'ARF-01',
+    image: '7141.jpg',
+    categoryId: '3229',
+    description: 'Accurate measurement of refractive indices of liquids and transparent solids.',
+    fullDescription: `Get accuracy Abbe Refractometers at Mittal Enterprises for measuring refractive indices of liquids and transparent solids.<br/><br/>
+Abbe refractometers are essential instruments for determining the refractive index and quality of various substances in research and quality control laboratories.`
+  },
 ];
 
 // Get products by category
