@@ -38,6 +38,51 @@
   --color-accent-soft: #e7f0ef;
 }
 
+/* Steel — cool grey paper, deep ink, cobalt accent.
+   Nordic / Teenage Engineering / engineering-catalog feel. */
+[data-theme="steel"] {
+  --color-paper: #ededea;
+  --color-surface: #f7f7f4;
+  --color-ink: #0a0c10;
+  --color-ink-2: #2a2e34;
+  --color-ink-muted: #4c525a;
+  --color-rule: #d6d6d2;
+  --color-rule-strong: #b0b0ac;
+  --color-accent: #1e56d6;
+  --color-accent-hover: #1644ad;
+  --color-accent-soft: #dee6f7;
+}
+
+/* Meridian — steel bones, emerald accent. Research/lab biology adjacent,
+   cleaner and less "tech-startup" than steel's cobalt. */
+[data-theme="meridian"] {
+  --color-paper: #ecefeb;
+  --color-surface: #f7f9f5;
+  --color-ink: #0b100d;
+  --color-ink-2: #26302a;
+  --color-ink-muted: #4a544d;
+  --color-rule: #d4d8d0;
+  --color-rule-strong: #aeb2aa;
+  --color-accent: #1f6b48;
+  --color-accent-hover: #14502f;
+  --color-accent-soft: #d9e7df;
+}
+
+/* Signal — industrial safety. Steel paper + bright amber/saffron.
+   Think aircraft instruments, oscilloscope readouts, PPE signage. */
+[data-theme="signal"] {
+  --color-paper: #ecebe6;
+  --color-surface: #f6f5f0;
+  --color-ink: #111213;
+  --color-ink-2: #2e3033;
+  --color-ink-muted: #52565c;
+  --color-rule: #d4d2c9;
+  --color-rule-strong: #ada9a0;
+  --color-accent: #c17817;
+  --color-accent-hover: #935a0c;
+  --color-accent-soft: #f4e5cf;
+}
+
 html {
   scroll-behavior: smooth;
 }
