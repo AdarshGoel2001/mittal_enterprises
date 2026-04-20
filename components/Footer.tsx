@@ -19,7 +19,7 @@ export default function Footer() {
                 />
               </span>
               <div className="flex flex-col leading-tight">
-                <span className="text-ink font-semibold tracking-tight">Mittal Enterprises</span>
+                <span className="text-ink font-semibold tracking-tight uppercase">Mittal Enterprises</span>
                 <span className="eyebrow text-[0.65rem]">Lab Equipments · ISO 9001:2008</span>
               </div>
             </div>
