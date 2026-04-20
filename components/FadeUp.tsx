@@ -19,18 +19,19 @@ export default function FadeUp({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let frame = 0;
 
     const reduced = typeof window !== 'undefined'
       && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     if (reduced || typeof IntersectionObserver === 'undefined') {
-      setVisible(true);
-      return;
+      frame = requestAnimationFrame(() => setVisible(true));
+      return () => cancelAnimationFrame(frame);
     }
 
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight && rect.bottom > 0) {
-      setVisible(true);
-      return;
+      frame = requestAnimationFrame(() => setVisible(true));
+      return () => cancelAnimationFrame(frame);
     }
 
     const io = new IntersectionObserver(
@@ -45,7 +46,10 @@ export default function FadeUp({
       { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (

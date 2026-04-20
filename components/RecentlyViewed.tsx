@@ -23,11 +23,13 @@ export default function RecentlyViewed({ excludeId }: { excludeId?: string }) {
   const [ids, setIds] = useState<string[]>([]);
 
   useEffect(() => {
+    let frame = 0;
     try {
       const raw = window.localStorage.getItem(KEY);
       const list: string[] = raw ? JSON.parse(raw) : [];
-      setIds(list.filter((id) => id !== excludeId));
+      frame = requestAnimationFrame(() => setIds(list.filter((id) => id !== excludeId)));
     } catch {}
+    return () => cancelAnimationFrame(frame);
   }, [excludeId]);
 
   const items = ids

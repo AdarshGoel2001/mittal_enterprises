@@ -18,9 +18,10 @@ export default function CountUp({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let frame = 0;
     if (typeof IntersectionObserver === 'undefined') {
-      setValue(end);
-      return;
+      frame = requestAnimationFrame(() => setValue(end));
+      return () => cancelAnimationFrame(frame);
     }
 
     const io = new IntersectionObserver(
@@ -33,9 +34,11 @@ export default function CountUp({
               const t = Math.min(1, (now - start) / duration);
               const eased = 1 - Math.pow(1 - t, 3);
               setValue(Math.round(end * eased));
-              if (t < 1) requestAnimationFrame(tick);
+              if (t < 1) {
+                frame = requestAnimationFrame(tick);
+              }
             };
-            requestAnimationFrame(tick);
+            frame = requestAnimationFrame(tick);
             io.unobserve(entry.target);
           }
         });
@@ -43,7 +46,10 @@ export default function CountUp({
       { threshold: 0.4 }
     );
     io.observe(el);
-    return () => io.disconnect();
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(frame);
+    };
   }, [end, duration]);
 
   return (

@@ -23,6 +23,7 @@ export default function ThemeSwitcher() {
   const [current, setCurrent] = useState<ThemeName>('graphite-teal');
 
   useEffect(() => {
+    let frame = 0;
     const fromUrl = searchParams.get('theme');
     const fromStorage = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null;
     const resolved: ThemeName = isTheme(fromUrl) ? fromUrl : isTheme(fromStorage) ? fromStorage : 'graphite-teal';
@@ -30,7 +31,8 @@ export default function ThemeSwitcher() {
     try {
       localStorage.setItem(STORAGE_KEY, resolved);
     } catch {}
-    setCurrent(resolved);
+    frame = requestAnimationFrame(() => setCurrent(resolved));
+    return () => cancelAnimationFrame(frame);
   }, [searchParams]);
 
   const pick = (id: ThemeName) => {
