@@ -18,6 +18,26 @@
   --container-page: 1200px;
 }
 
+/* ── Themes ────────────────────────────────────────────────────────────────
+   Applied via data-theme attribute on <html>. Default (no attribute) is
+   graphite-teal. Override the --color-* tokens defined in @theme above; all
+   utility classes (bg-paper, text-ink, border-accent, etc.) pick them up.
+   Add a new palette here, then append its name in components/ThemeSwitcher.
+   ────────────────────────────────────────────────────────────────────── */
+
+[data-theme="graphite-teal"] {
+  --color-paper: #f8f7f3;
+  --color-surface: #ffffff;
+  --color-ink: #0c0f0e;
+  --color-ink-2: #2d302e;
+  --color-ink-muted: #55554f;
+  --color-rule: #e6e3d9;
+  --color-rule-strong: #c8c4b7;
+  --color-accent: #0e4f4f;
+  --color-accent-hover: #0a3838;
+  --color-accent-soft: #e7f0ef;
+}
+
 html {
   scroll-behavior: smooth;
 }
