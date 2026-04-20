@@ -3,13 +3,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { productCategories } from '@/lib/data';
 import { products, getProductBySlug } from '@/lib/products-data';
-import InnerBanner from '@/components/InnerBanner';
+import { extractModels } from '@/lib/product-utils';
+import PageHeader from '@/components/PageHeader';
 import Sidebar from '@/components/Sidebar';
-import Breadcrumb from '@/components/Breadcrumb';
+import RecentlyViewed from '@/components/RecentlyViewed';
+import TrackRecent from '@/components/TrackRecent';
 
 export async function generateStaticParams() {
   return products.map((product) => {
-    const category = productCategories.find(c => c.id === product.categoryId);
+    const category = productCategories.find((c) => c.id === product.categoryId);
     return {
       slug: category?.slug || '',
       productSlug: product.slug,
@@ -26,128 +28,179 @@ export default async function ProductDetailPage({
   const category = productCategories.find((c) => c.slug === slug);
   const product = getProductBySlug(productSlug);
 
-  if (!category || !product) {
-    notFound();
-  }
+  if (!category || !product) notFound();
+
+  const { models, html } = extractModels(product.fullDescription);
+  const related = products
+    .filter((p) => p.categoryId === category.id && p.id !== product.id)
+    .slice(0, 3);
+
+  const enquiryHref = `/enquiry?product=${encodeURIComponent(product.name)}&code=${encodeURIComponent(product.itemCode)}&category=${encodeURIComponent(category.slug)}`;
 
   return (
     <>
-      <InnerBanner />
+      <TrackRecent productId={product.id} />
+      <PageHeader
+        eyebrow={`${category.name} · ${product.itemCode}`}
+        title={product.name}
+        description={product.description}
+        breadcrumbs={[
+          { label: 'Products', href: '/products' },
+          { label: category.name, href: `/products/${category.slug}` },
+          { label: product.name, href: `/products/${category.slug}/${product.slug}` },
+        ]}
+      />
 
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 py-6">
-          {/* Sidebar */}
-          <div className="md:col-span-4 lg:col-span-3">
-            <Sidebar activeCategory={category.slug} />
-          </div>
+      <section>
+        <div className="wrap py-16 md:py-20">
+          <div className="grid md:grid-cols-12 gap-10 md:gap-16">
+            <aside className="md:col-span-3">
+              <Sidebar activeCategory={category.slug} />
+            </aside>
 
-          {/* Main Content */}
-          <div className="md:col-span-8 lg:col-span-9">
-            <Breadcrumb
-              items={[
-                { label: category.name, href: `/products/${category.slug}` },
-                { label: product.name, href: `/products/${category.slug}/${product.slug}` },
-              ]}
-            />
+            <div className="md:col-span-9">
+              <div className="mb-6">
+                <Link
+                  href={`/products/${category.slug}`}
+                  className="inline-flex items-center gap-2 text-sm text-ink-muted hover:text-ink transition-colors"
+                >
+                  <span aria-hidden>←</span> Back to {category.name}
+                </Link>
+              </div>
 
-            <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">
-              {product.name}
-            </h1>
-
-            {/* Product Detail */}
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-                {/* Product Image */}
-                <div className="lg:col-span-5">
-                  <div className="relative h-64 md:h-96 overflow-hidden rounded-lg bg-white border">
+              <div className="grid md:grid-cols-12 gap-10">
+                <div className="md:col-span-6">
+                  <div className="relative aspect-square bg-paper border border-rule overflow-hidden">
                     <Image
                       src={`/images/products/${product.image}`}
                       alt={product.name}
                       fill
-                      className="object-contain p-4"
+                      className="object-contain p-8"
+                      priority
                     />
                   </div>
                 </div>
 
-                {/* Product Info */}
-                <div className="lg:col-span-7">
-                  <div className="mb-4">
-                    <span className="text-red-600 font-semibold">
-                      Code: {product.itemCode}
-                    </span>
-                  </div>
-
-                  <div className="mb-6">
-                    <h2 className="text-xl font-bold mb-3">Details</h2>
-                    <div className="prose max-w-none text-gray-700">
-                      <p>{product.description}</p>
+                <div className="md:col-span-6">
+                  <dl className="border border-rule divide-y divide-rule">
+                    <div className="flex items-center justify-between px-5 py-4">
+                      <dt className="mono text-xs tracking-widest uppercase text-ink-muted">Item code</dt>
+                      <dd className="mono text-sm text-ink">{product.itemCode}</dd>
                     </div>
-                  </div>
-
-                  <div className="border-t pt-4">
-                    <div className="mb-4">
-                      <label className="font-semibold block mb-2">Quantity</label>
-                      <input
-                        type="number"
-                        defaultValue={1}
-                        min={1}
-                        className="w-24 px-3 py-2 border border-gray-300 rounded"
-                      />
+                    <div className="flex items-center justify-between px-5 py-4">
+                      <dt className="mono text-xs tracking-widest uppercase text-ink-muted">Category</dt>
+                      <dd className="text-sm text-ink">{category.name}</dd>
                     </div>
+                  </dl>
 
-                    <div className="flex flex-wrap gap-3">
-                      <Link
-                        href={`/enquiry?product=${encodeURIComponent(product.name)}`}
-                        className="bg-[#01c2c7] text-white py-3 px-8 hover:bg-[#3685d2] transition-colors inline-block font-semibold"
-                      >
-                        Enquiry
-                      </Link>
+                  {models.length > 0 && (
+                    <div className="mt-6">
+                      <p className="mono text-[0.7rem] tracking-widest uppercase text-ink-muted mb-3">
+                        Available models
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {models.map((m) => (
+                          <span
+                            key={m}
+                            className="mono text-xs tracking-wide px-3 py-1.5 border border-rule text-ink-2 bg-surface"
+                          >
+                            {m}
+                          </span>
+                        ))}
+                      </div>
                     </div>
+                  )}
+
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    <Link
+                      href={enquiryHref}
+                      className="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3.5 rounded-sm hover:bg-accent transition-colors"
+                    >
+                      Request quote <span aria-hidden>→</span>
+                    </Link>
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-sm border border-ink text-ink hover:bg-ink hover:text-paper transition-colors"
+                    >
+                      Contact us
+                    </Link>
                   </div>
                 </div>
               </div>
 
-              {/* Full Description */}
-              {product.fullDescription && (
-                <div className="border-t pt-8">
+              {html && (
+                <div className="mt-16 pt-10 border-t border-rule">
+                  <p className="eyebrow mb-6">Details</p>
                   <div
-                    className="prose max-w-none text-gray-700"
-                    dangerouslySetInnerHTML={{ __html: product.fullDescription }}
+                    className="prose prose-sm md:prose-base max-w-3xl text-ink-2 leading-relaxed [&_strong]:text-ink [&_strong]:font-semibold [&_strong]:tracking-tight [&_strong]:block [&_strong]:mt-6 [&_strong]:mb-2 [&_strong:first-child]:mt-0 [&_br]:my-0"
+                    dangerouslySetInnerHTML={{ __html: html }}
                   />
                 </div>
               )}
-            </div>
 
-            {/* Related Actions */}
-            <div className="mt-8 bg-[#f6f6f6] p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-4">Interested in this product?</h3>
-              <p className="text-gray-700 mb-6">
-                Contact us to learn more about {product.name} and how it can benefit your laboratory or research institution.
-              </p>
-              <div className="flex flex-wrap gap-4">
+              {related.length > 0 && (
+                <div className="mt-16 pt-10 border-t border-rule">
+                  <div className="flex items-end justify-between mb-6">
+                    <p className="eyebrow">Related in {category.name}</p>
+                    <Link
+                      href={`/products/${category.slug}`}
+                      className="text-sm text-ink-muted hover:text-ink transition-colors"
+                    >
+                      View all →
+                    </Link>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-px bg-rule border border-rule">
+                    {related.map((p) => (
+                      <Link
+                        key={p.id}
+                        href={`/products/${category.slug}/${p.slug}`}
+                        className="group bg-surface hover:bg-paper transition-colors p-5 flex flex-col gap-3"
+                      >
+                        <div className="relative aspect-square bg-paper overflow-hidden">
+                          <Image
+                            src={`/images/products/${p.image}`}
+                            alt={p.name}
+                            fill
+                            className="object-contain p-4 transition-transform duration-500 group-hover:scale-[1.04]"
+                            sizes="(min-width: 768px) 25vw, 50vw"
+                          />
+                        </div>
+                        <div>
+                          <p className="mono text-[0.65rem] tracking-widest uppercase text-ink-muted mb-1">
+                            {p.itemCode}
+                          </p>
+                          <p className="text-sm font-medium text-ink leading-snug line-clamp-2">
+                            {p.name}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <RecentlyViewed excludeId={product.id} />
+
+              <div className="mt-16 bg-ink text-paper p-8 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div>
+                  <p className="mono text-xs tracking-widest uppercase text-paper/60 mb-2">
+                    Interested in this instrument?
+                  </p>
+                  <h3 className="text-xl md:text-2xl font-semibold tracking-tight">
+                    Get full specs and pricing.
+                  </h3>
+                </div>
                 <Link
-                  href={`/enquiry?product=${encodeURIComponent(product.name)}`}
-                  className="bg-[#01c2c7] text-white py-3 px-8 hover:bg-[#3685d2] transition-colors inline-block"
+                  href={enquiryHref}
+                  className="shrink-0 inline-flex items-center gap-2 bg-paper text-ink px-6 py-3.5 rounded-sm hover:bg-accent hover:text-paper transition-colors"
                 >
-                  Send Enquiry
-                </Link>
-                <Link
-                  href="/contact"
-                  className="bg-[#6bbf39] text-white py-3 px-8 hover:bg-[#3685d2] transition-colors inline-block"
-                >
-                  Contact Us
-                </Link>
-                <Link
-                  href={`/products/${category.slug}`}
-                  className="border-2 border-gray-400 text-gray-700 py-3 px-8 hover:bg-gray-100 transition-colors inline-block"
-                >
-                  Back to {category.name}
+                  Send enquiry <span aria-hidden>→</span>
                 </Link>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 }
