@@ -4,6 +4,7 @@ import ProductCard from "@/components/ProductCard";
 import FadeUp from "@/components/FadeUp";
 import CountUp from "@/components/CountUp";
 import { productCategories, companyInfo } from "@/lib/data";
+import { companyAudiences, companyCredentials } from "@/lib/company-content";
 
 type Stat = { value: string; label: string; count?: number };
 
@@ -12,36 +13,6 @@ const stats: Stat[] = [
   { value: "6", label: "Product Categories", count: 6 },
   { value: "ISO", label: "9001:2008 Certified" },
   { value: "FIEO", label: "Registered Member" },
-];
-
-const credentials = [
-  {
-    title: "Trademark & Design Registered",
-    body: "Every instrument we manufacture is covered by Trademark, Design Registration and Copyright.",
-  },
-  {
-    title: "Research-grade precision",
-    body: "Digital micrometer accuracy to ±0.001mm. Cited in peer-reviewed journals.",
-  },
-  {
-    title: "ISO 9001:2008 certified",
-    body: "Quality systems aligned to international standards. Documentation included with every unit.",
-  },
-  {
-    title: "Global delivery",
-    body: "Supplying universities, PG colleges and research labs across India and worldwide.",
-  },
-];
-
-const audiences = [
-  "Engineering Colleges",
-  "Post-Graduate Colleges",
-  "Universities",
-  "Physics Departments",
-  "Chemistry Departments",
-  "Polymer Science Labs",
-  "Material Science Labs",
-  "R&D Centres",
 ];
 
 export default function Home() {
@@ -155,7 +126,7 @@ export default function Home() {
             </div>
 
             <div className="md:col-span-8 grid sm:grid-cols-2 gap-px bg-rule border border-rule">
-              {credentials.map((c, i) => (
+              {companyCredentials.map((c, i) => (
                 <FadeUp key={i} delay={i * 80} className="bg-surface p-6 md:p-8">
                   <p className="mono text-[0.7rem] tracking-widest uppercase text-accent mb-4">
                     {String(i + 1).padStart(2, '0')}
@@ -181,7 +152,7 @@ export default function Home() {
             </h2>
           </div>
           <div className="flex flex-wrap gap-2">
-            {audiences.map((a) => (
+            {companyAudiences.map((a) => (
               <span
                 key={a}
                 className="inline-flex items-center px-4 py-2 text-sm text-ink-2 border border-rule bg-surface rounded-sm"

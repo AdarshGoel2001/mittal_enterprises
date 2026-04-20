@@ -1,25 +1,7 @@
 import Link from 'next/link';
 import { companyInfo } from '@/lib/data';
+import { profilePillars } from '@/lib/company-content';
 import PageHeader from '@/components/PageHeader';
-
-const pillars = [
-  {
-    title: 'Quality products',
-    body: 'All instruments manufactured to the highest standards and covered by Trademark, Design Registration and Copyright.',
-  },
-  {
-    title: 'Expert support',
-    body: 'Comprehensive support for installation, training and maintenance across every instrument we ship.',
-  },
-  {
-    title: 'Research & development',
-    body: 'Continuous R&D brings the latest innovations in laboratory instrumentation to our customers.',
-  },
-  {
-    title: 'Global delivery',
-    body: 'Serving educational institutions and research laboratories worldwide with timely delivery.',
-  },
-];
 
 export default function ProfilePage() {
   return (
@@ -57,7 +39,7 @@ export default function ProfilePage() {
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-rule border border-rule">
-            {pillars.map((p, i) => (
+            {profilePillars.map((p, i) => (
               <div key={i} className="bg-surface p-6 md:p-8">
                 <p className="mono text-[0.7rem] tracking-widest uppercase text-accent mb-4">
                   {String(i + 1).padStart(2, '0')}

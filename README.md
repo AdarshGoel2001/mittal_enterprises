@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Mittal Enterprises
+
+Next.js site for Mittal Enterprises, with a Gemini-powered website assistant grounded in the local product and company catalog.
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create your local environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+3. Add your Gemini key to `.env.local`:
+
+```bash
+GEMINI_API_KEY=your_key_here
+```
+
+Google's Gemini docs say the API libraries also accept `GOOGLE_API_KEY`, and that `GOOGLE_API_KEY` takes priority if both are set:
+https://ai.google.dev/gemini-api/docs/api-key
+
+4. Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Chatbot setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The chat widget is mounted in `components/ChatBubble.tsx`, and the server-side Gemini route lives in `app/api/chat/route.ts`.
 
-## Learn More
+Grounding data comes from:
 
-To learn more about Next.js, take a look at the following resources:
+- `lib/data.ts`
+- `lib/products-data.ts`
+- `lib/company-content.ts`
+- `lib/chat/catalog.ts`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The assistant is intentionally constrained to website data. If pricing, lead time, or a spec is not present in the local catalog, it will direct the user to the enquiry or contact pages instead of inventing it.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Notes
 
-## Deploy on Vercel
+- Default model: `gemini-2.5-flash`
+- Optional override: `GEMINI_MODEL`
+- The API key is never exposed to the browser. Requests go through the Next.js server route.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Official Gemini references used for this setup:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Gemini API keys: https://ai.google.dev/gemini-api/docs/api-key
+- Gemini models: https://ai.google.dev/gemini-api/docs/models
+- `generateContent` API: https://ai.google.dev/api/generate-content

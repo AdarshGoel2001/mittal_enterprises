@@ -2,137 +2,237 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-type Message = { from: 'bot' | 'user'; text: string };
+type Source = {
+  id: string;
+  kind: 'company' | 'category' | 'product';
+  title: string;
+  url: string;
+};
+
+type Message = {
+  role: 'assistant' | 'user';
+  content: string;
+  sources?: Source[];
+};
 
 const INITIAL_MESSAGES: Message[] = [
-  { from: 'bot', text: 'Hi — I can help with product specs, lead time or bulk enquiries. What are you looking for?' },
+  {
+    role: 'assistant',
+    content:
+      'Ask about products, item codes, company details, international shipping, or quote guidance. I only answer from the website catalog.',
+  },
 ];
 
 const QUICK_REPLIES = [
-  'Ultrasonic Interferometer specs',
-  'Bulk order pricing',
-  'International shipping',
-  'Request a quote',
+  'Show ultrasonic interferometer options',
+  'Which products are in nano science instruments?',
+  'How do I request a bulk quote?',
+  'What international shipping support do you offer?',
 ];
+
+function messageBody(content: string) {
+  return content.split('\n').map((line, index) => (
+    <p key={index} className={index > 0 ? 'mt-2' : ''}>
+      {line}
+    </p>
+  ));
+}
 
 export default function ChatBubble() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState('');
+  const [sending, setSending] = useState(false);
   const endRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, open]);
+  }, [messages, open, sending]);
 
-  const send = (text: string) => {
+  async function send(text: string) {
     const trimmed = text.trim();
-    if (!trimmed) return;
-    setMessages((m) => [...m, { from: 'user', text: trimmed }]);
+    if (!trimmed || sending) return;
+
+    const nextMessages: Message[] = [...messages, { role: 'user', content: trimmed }];
+    setMessages(nextMessages);
     setInput('');
-    setTimeout(() => {
-      setMessages((m) => [
-        ...m,
+    setSending(true);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: nextMessages.map((message) => ({
+            role: message.role,
+            content: message.content,
+          })),
+        }),
+      });
+
+      const payload = (await response.json()) as {
+        configured?: boolean;
+        message?: string;
+        error?: string;
+        sources?: Source[];
+      };
+
+      if (!response.ok) {
+        throw new Error(payload.error || 'The assistant could not respond.');
+      }
+
+      setMessages((current) => [
+        ...current,
         {
-          from: 'bot',
-          text: "Thanks — a team member will follow up shortly. For a faster response, you can also use the enquiry form.",
+          role: 'assistant',
+          content: payload.message || 'I could not generate an answer.',
+          sources: payload.sources,
         },
       ]);
-    }, 650);
-  };
+    } catch (error) {
+      const fallback =
+        error instanceof Error
+          ? error.message
+          : 'The assistant could not respond. Please try again in a moment.';
+
+      setMessages((current) => [
+        ...current,
+        {
+          role: 'assistant',
+          content: fallback,
+        },
+      ]);
+    } finally {
+      setSending(false);
+    }
+  }
 
   return (
     <>
-      {/* Panel */}
       <div
         aria-hidden={!open}
-        className={`fixed bottom-24 right-5 z-50 w-[22rem] max-w-[calc(100vw-2.5rem)] bg-surface border border-rule shadow-2xl rounded-sm origin-bottom-right transition-all duration-200 ${
-          open ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'
+        className={`fixed bottom-24 right-5 z-50 w-[24rem] max-w-[calc(100vw-2rem)] border border-rule bg-surface shadow-2xl rounded-sm origin-bottom-right transition-all duration-200 ${
+          open ? 'pointer-events-auto opacity-100 scale-100' : 'pointer-events-none opacity-0 scale-95'
         }`}
       >
-        <div className="flex items-center justify-between px-4 py-3 border-b border-rule bg-ink text-paper">
+        <div className="flex items-center justify-between border-b border-rule bg-ink px-4 py-3 text-paper">
           <div>
-            <p className="mono text-[0.65rem] tracking-widest uppercase text-paper/60">Mittal Enterprises</p>
-            <p className="text-sm font-medium">Ask us anything</p>
+            <p className="mono text-[0.65rem] uppercase tracking-widest text-paper/60">Mittal Enterprises</p>
+            <p className="text-sm font-medium">Product Assistant</p>
           </div>
           <button
+            type="button"
             onClick={() => setOpen(false)}
             aria-label="Close chat"
-            className="w-8 h-8 flex items-center justify-center text-paper/70 hover:text-paper transition-colors"
+            className="flex h-8 w-8 items-center justify-center text-paper/70 transition-colors hover:text-paper"
           >
             ×
           </button>
         </div>
 
-        <div className="h-80 overflow-y-auto p-4 space-y-3 bg-paper">
-          {messages.map((m, i) => (
-            <div
-              key={i}
-              className={`max-w-[85%] text-sm leading-relaxed px-3.5 py-2.5 rounded-sm ${
-                m.from === 'bot'
-                  ? 'bg-surface border border-rule text-ink-2'
-                  : 'bg-ink text-paper ml-auto'
-              }`}
-            >
-              {m.text}
-            </div>
-          ))}
-          <div ref={endRef} />
+        <div className="h-[28rem] overflow-y-auto bg-paper p-4">
+          <div className="space-y-3">
+            {messages.map((message, index) => (
+              <div key={`${message.role}-${index}`}>
+                <div
+                  className={`max-w-[90%] rounded-sm px-3.5 py-2.5 text-sm leading-relaxed ${
+                    message.role === 'assistant'
+                      ? 'border border-rule bg-surface text-ink-2'
+                      : 'ml-auto bg-ink text-paper'
+                  }`}
+                >
+                  {messageBody(message.content)}
+                </div>
+                {message.sources && message.sources.length > 0 && (
+                  <div className="mt-2 flex max-w-[90%] flex-wrap gap-1.5">
+                    {message.sources.map((source) => (
+                      <a
+                        key={source.id}
+                        href={source.url}
+                        className="mono inline-flex items-center border border-rule px-2 py-1 text-[0.65rem] uppercase tracking-wide text-ink-muted transition-colors hover:border-ink hover:text-ink"
+                      >
+                        {source.title}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {sending && (
+              <div className="max-w-[90%] rounded-sm border border-rule bg-surface px-3.5 py-2.5 text-sm text-ink-muted">
+                Checking the catalog...
+              </div>
+            )}
+
+            <div ref={endRef} />
+          </div>
         </div>
 
-        <div className="px-4 pt-2 pb-3 border-t border-rule">
-          <div className="flex flex-wrap gap-1.5 mb-2">
-            {QUICK_REPLIES.map((q) => (
+        <div className="border-t border-rule px-4 pb-4 pt-3">
+          <div className="mb-3 flex flex-wrap gap-1.5">
+            {QUICK_REPLIES.map((reply) => (
               <button
-                key={q}
-                onClick={() => send(q)}
-                className="mono text-[0.65rem] tracking-wide uppercase px-2.5 py-1 border border-rule text-ink-muted hover:text-ink hover:border-ink transition-colors"
+                key={reply}
+                type="button"
+                onClick={() => send(reply)}
+                disabled={sending}
+                className="mono border border-rule px-2.5 py-1 text-[0.65rem] uppercase tracking-wide text-ink-muted transition-colors hover:border-ink hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {q}
+                {reply}
               </button>
             ))}
           </div>
+
           <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              send(input);
+            onSubmit={(event) => {
+              event.preventDefault();
+              void send(input);
             }}
             className="flex gap-2"
           >
             <input
               type="text"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message…"
-              className="flex-1 px-3 py-2 text-sm bg-surface border border-rule rounded-sm focus:outline-none focus:border-ink transition-colors"
+              onChange={(event) => setInput(event.target.value)}
+              placeholder="Ask about products, specs, or quotes"
+              className="flex-1 border border-rule bg-surface px-3 py-2 text-sm text-ink transition-colors focus:border-ink focus:outline-none"
             />
             <button
               type="submit"
-              className="bg-ink text-paper px-3 py-2 text-sm rounded-sm hover:bg-accent transition-colors"
-              aria-label="Send message"
+              disabled={sending}
+              className="bg-ink px-3 py-2 text-sm text-paper transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
             >
-              →
+              Send
             </button>
           </form>
-          <p className="mono text-[0.6rem] tracking-widest uppercase text-ink-muted mt-2">
-            Beta · Replies are not live yet
-          </p>
+
+          <div className="mt-2 flex items-center justify-between gap-3">
+            <p className="mono text-[0.6rem] uppercase tracking-widest text-ink-muted">
+              Gemini server-side only
+            </p>
+            <div className="flex gap-3 text-xs">
+              <a href="/enquiry" className="text-ink-muted transition-colors hover:text-ink">
+                Quote
+              </a>
+              <a href="/contact" className="text-ink-muted transition-colors hover:text-ink">
+                Contact
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Floating button */}
       <button
-        onClick={() => setOpen((v) => !v)}
+        type="button"
+        onClick={() => setOpen((current) => !current)}
         aria-label={open ? 'Close chat' : 'Open chat'}
-        className="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-ink text-paper shadow-lg hover:bg-accent transition-colors flex items-center justify-center"
+        className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 border border-ink bg-ink px-4 py-3 text-sm text-paper shadow-lg transition-colors hover:bg-accent"
       >
-        {open ? (
-          <span className="text-2xl leading-none">×</span>
-        ) : (
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-          </svg>
-        )}
+        <span className="mono text-[0.65rem] uppercase tracking-widest text-paper/70">Ask</span>
+        <span>{open ? 'Close' : 'Assistant'}</span>
       </button>
     </>
   );

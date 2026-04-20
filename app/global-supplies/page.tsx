@@ -1,15 +1,6 @@
 import Link from 'next/link';
+import { globalSupplyServices } from '@/lib/company-content';
 import PageHeader from '@/components/PageHeader';
-
-const services = [
-  { title: 'International shipping', body: 'Reliable shipping to destinations worldwide with documented tracking.' },
-  { title: 'Secure packaging', body: 'Professional, lab-rated packaging ensuring instruments arrive calibrated and intact.' },
-  { title: 'Custom requirements', body: 'Frequency ranges, cell volumes and voltage variants tailored to your setup.' },
-  { title: 'Technical documentation', body: 'User manuals, calibration certificates and application notes included.' },
-  { title: 'Installation support', body: 'Remote installation guidance and operational training for international customers.' },
-  { title: 'Competitive pricing', body: 'Institutional pricing for bulk orders and multi-site procurement.' },
-];
-
 
 export default function GlobalSuppliesPage() {
   return (
@@ -30,7 +21,7 @@ export default function GlobalSuppliesPage() {
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-rule border border-rule">
-            {services.map((s, i) => (
+            {globalSupplyServices.map((s, i) => (
               <div key={i} className="bg-surface p-6 md:p-8">
                 <p className="mono text-[0.7rem] tracking-widest uppercase text-accent mb-4">
                   {String(i + 1).padStart(2, '0')}
