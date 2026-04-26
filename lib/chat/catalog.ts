@@ -1,7 +1,7 @@
 import { companyKnowledgeSections, globalSupplyServices, profilePillars } from '@/lib/company-content';
 import { companyInfo, productCategories } from '@/lib/data';
-import { extractModels } from '@/lib/product-utils';
 import { products } from '@/lib/products-data';
+import { extractModelsFromMarkdown, getProductMarkdown } from '@/lib/products-content';
 
 export type KnowledgeKind = 'company' | 'category' | 'product';
 
@@ -72,6 +72,23 @@ function stripHtml(input: string | undefined) {
     .trim();
 }
 
+function stripMarkdown(input: string | undefined) {
+  if (!input) return '';
+  return input
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/^\s*[-*]\s+/gm, '')
+    .replace(/\$\$[^$]*\$\$/g, ' ')
+    .replace(/\$[^$]*\$/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .replace(/[ \t]{2,}/g, ' ')
+    .trim();
+}
+
 function normalize(input: string) {
   return input.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 }
@@ -119,8 +136,9 @@ const categoryRecords: KnowledgeRecord[] = productCategories.map((category) => {
 
 const productRecords: KnowledgeRecord[] = products.map((product) => {
   const category = categoryById.get(product.categoryId);
-  const extracted = extractModels(product.fullDescription);
-  const details = stripHtml(extracted.html || product.fullDescription);
+  const md = getProductMarkdown(product.slug);
+  const extracted = extractModelsFromMarkdown(md);
+  const details = stripMarkdown(extracted.markdown);
   const modelsText = extracted.models.length > 0 ? `Models: ${extracted.models.join(', ')}.` : '';
   const text = [
     `${product.name}.`,

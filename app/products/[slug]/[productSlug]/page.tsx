@@ -3,11 +3,12 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { productCategories } from '@/lib/data';
 import { products, getProductBySlug } from '@/lib/products-data';
-import { extractModels } from '@/lib/product-utils';
+import { getProductMarkdown, extractModelsFromMarkdown } from '@/lib/products-content';
 import PageHeader from '@/components/PageHeader';
 import Sidebar from '@/components/Sidebar';
 import RecentlyViewed from '@/components/RecentlyViewed';
 import TrackRecent from '@/components/TrackRecent';
+import MarkdownContent from '@/components/MarkdownContent';
 
 export async function generateStaticParams() {
   return products.map((product) => {
@@ -30,7 +31,8 @@ export default async function ProductDetailPage({
 
   if (!category || !product) notFound();
 
-  const { models, html } = extractModels(product.fullDescription);
+  const rawMarkdown = getProductMarkdown(product.slug);
+  const { models, markdown } = extractModelsFromMarkdown(rawMarkdown);
   const related = products
     .filter((p) => p.categoryId === category.id && p.id !== product.id)
     .slice(0, 3);
@@ -128,13 +130,10 @@ export default async function ProductDetailPage({
                 </div>
               </div>
 
-              {html && (
+              {markdown && (
                 <div className="mt-16 pt-10 border-t border-rule">
                   <p className="eyebrow mb-6">Details</p>
-                  <div
-                    className="prose prose-sm md:prose-base max-w-3xl text-ink-2 leading-relaxed [&_strong]:text-ink [&_strong]:font-semibold [&_strong]:tracking-tight [&_strong]:block [&_strong]:mt-6 [&_strong]:mb-2 [&_strong:first-child]:mt-0 [&_br]:my-0"
-                    dangerouslySetInnerHTML={{ __html: html }}
-                  />
+                  <MarkdownContent source={markdown} />
                 </div>
               )}
 
