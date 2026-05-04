@@ -1,27 +1,20 @@
-Non-Destructive Testing of Material is an important part of Engineering Education as it gives information without deformation in the shape and size of the material. One of the NDT techniques, Piezoelectric Technique is widely used for the measurement of composition dependent properties such as ultrasonic velocity, compressibility, elastic constant, Young’s modulus and Bulk modulus. Its suitability for metals, plastics, polymers and crystals etc. make it versatile tool for Engineering Physics, Material Science and Polymer Science. This NDT apparatus is being used in several I.I.T.s/Universities/Engineering Colleges for laboratory experiments and Research work.
+Non-destructive testing of materials is an important part of engineering education, as it gives information without deformation of the specimen. The piezoelectric technique is widely used for measurement of composition-dependent properties such as ultrasonic velocity, compressibility, elastic constant, Young's modulus and bulk modulus. Its suitability for metals, plastics, polymers and crystals makes it a versatile tool for engineering physics, material science and polymer science. This NDT apparatus is in use at several IITs, universities and engineering colleges for laboratory experiments and research work.
 
 ## Theory
 
-In this technique the specimen is cemented to a quartz rod of identical cross section and resonant frequency of the composite system (fc) is determined using the apparatus. The resonant frequency of the quartz crystal (fq) is also determined. From the knowledge of fq, fc and the masses of the quartz and the specimen, the resonant frequency of the specimen is evaluated using the relation
+The specimen is cemented to a quartz rod of identical cross-section and the resonant frequency of the composite system $f_c$ is determined using the apparatus. The resonant frequency of the quartz crystal $f_q$ is also determined. From $f_q$, $f_c$ and the masses of the quartz $m_q$ and the specimen $m_c$, the resonant frequency of the specimen $f_s$ is evaluated:
 
-![](/products/figures/ultrasonic-interferometer-for-solids/ulta-solid1.gif)
+$$ f_s = f_c + \frac{m_q}{m_c}(f_c - f_q) $$
 
-Using the value of, the length of the specimen and the density of the specimen, the velocity of the ultrasonic waves in the specimen **(v)** and compressibility 
+Using $f_s$, the length $L$ and the density $\rho$ of the specimen, the velocity of the ultrasonic waves $v$ and compressibility $\beta_{ad}$ are:
 
-![](/products/figures/ultrasonic-interferometer-for-solids/ultra-solid-4.gif)
+$$ v = 2 \cdot f_s \cdot L \qquad \beta_{ad} = \frac{1}{\rho \cdot v^2} $$
 
-can be calculated using relations
+Young's modulus $\gamma$ of the specimen is calculated as:
 
-![](/products/figures/ultrasonic-interferometer-for-solids/ulta-solid2.gif)
+$$ \gamma = 4 \cdot f_s \cdot L^2 \cdot \rho $$
 
-where
+## Instrument
 
-![](/products/figures/ultrasonic-interferometer-for-solids/ultra-solid-5.gif)
-
-is density of specimen.
-
-Young's Modulus of specimen is calculated using relation
-
-![](/products/figures/ultrasonic-interferometer-for-solids/ultra-solid-6.gif)
-- **Instrument**: It consists of Piezoelectric Oscillator, power supply, quartz rod, holder, quartz rod with sample, connecting cables and R.F. meter.
-- **Accessory**: Any general purpose C.R.O. (not supplied with the instrument)
+- **Instrument**: Piezoelectric oscillator, power supply, quartz rod, holder, quartz rod with sample, connecting cables and R.F. meter.
+- **Accessory**: Any general-purpose C.R.O. (not supplied with the instrument).

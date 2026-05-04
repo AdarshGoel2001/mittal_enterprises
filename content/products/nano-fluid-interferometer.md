@@ -1,49 +1,36 @@
-**Nano Fluid Interferometer Request for Brochure Working Principle**
+## Working Principle
 
-In this instrument, Ultrasound waves of known frequency are produced by a Piezo-Electric transducer and its wavelength is measured with digital micrometer with high accuracy within ±0.001mm.
+In this instrument, ultrasound waves of known frequency are produced by a piezo-electric transducer and their wavelength is measured with a digital micrometer to an accuracy of $\pm 0.001\,\text{mm}$.
 
-From the knowledge of frequency (f) and wave length(λ); the compressibility of nanofluid is determined by the following formula :
+From the knowledge of frequency $f$ and wavelength $\lambda$, sound velocity in the nanofluid follows directly:
 
-Sound Velocity in nanofluid
+$$ v = \lambda \cdot f $$
 
-![](/products/figures/nano-fluid-interferometer/nanof1.gif)
+Adiabatic compressibility is then obtained from sound velocity and density $\rho$:
 
-Adiabatic compressibility
+$$ \beta_{ad} = (\rho \cdot v^2)^{-1} $$
 
-![](/products/figures/nano-fluid-interferometer/nanof2.gif)
+Thermal conductivity is determined using the Bridgman relation:
 
-Where ρ is density of nanofluid.
+$$ k = 3.0 \left(\frac{N}{V}\right)^{2/3} K \, v_s $$
 
-![](/products/figures/nano-fluid-interferometer/nanof3.gif)
+where $N$ (Avogadro's number) $= 6.02 \times 10^{23}$, $V$ (molar volume) $= m/\rho$, and $K$ (Boltzmann's constant) $= 1.3807 \times 10^{-23}\,\text{J/K}$.
 
-Thermal conductivity is determined by the following formula:-
+![Sound velocity in Ag-PVA, Cu-PVA and Cu+PVA nanofluids as a function of concentration](/products/figures/nano-fluid-interferometer/nanof5.gif)
 
- 
-
- 
-
- 
-
-where N (Avogadro's number) = 6.02×1023 and
-
-V (molar volume)
-
-![](/products/figures/nano-fluid-interferometer/nanof4.gif)
-
- K= (Boltzmann's constant) = 1.3807×10-23 J/K
-
-![](/products/figures/nano-fluid-interferometer/nanof5.gif)
+![Temperature-dependent sound velocity at different concentrations (Au-PVA)](/products/figures/nano-fluid-interferometer/nanof6.gif)
 
 ## Description
 
-The Nanofluid Interferometer consists of the following parts:
+The Nanofluid Interferometer consists of:
 
-![](/products/figures/nano-fluid-interferometer/nanof6.gif)
-- Wave Generator
-- Nanofluid Cells
-- Temperature Controller Unit. (RT to 70°C)
-- Nanofluids – Chemicals to make Ag nanofluid in
+- Wave generator
+- Nanofluid cells
+- Temperature controller unit (RT to 70 °C)
+- Nanofluids — chemicals to make Ag nanofluid in various concentrations
 
-various concentrations.
+## Models
 
-**ModelsModel NF-10(2MHz )Model NF-10X (1,2,3,5,7&10MHz)Model NF-12X (1,2,3,4,5,6,7,8,9,10& 12 MHz)**
+- **Model NF-10** — 2 MHz
+- **Model NF-10X** — 1, 2, 3, 5, 7 & 10 MHz
+- **Model NF-12X** — 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 & 12 MHz

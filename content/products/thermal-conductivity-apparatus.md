@@ -1,48 +1,47 @@
-**Thermal Conductivity Apparatus   Theory**
+## Theory
 
-The Apparatus follows widely accepted theory of heat conduction in liquids based on Debye’s concept in which the hydroacoustic vibrations (phonons) of a continuous medium(base fluid) are responsible for the heat transfer in liquids. Based on this heat transfer mechanism, Bridgman has obtained a formula, characterized by the direct proportionality between thermal conductivity and sound velocity in pure liquids.
+The apparatus follows the widely accepted theory of heat conduction in liquids based on Debye's concept, in which the hydroacoustic vibrations (phonons) of a continuous medium (base fluid) are responsible for heat transfer. Based on this mechanism, Bridgman obtained a formula characterized by the direct proportionality between thermal conductivity and sound velocity in pure liquids:
 
-![](/products/figures/thermal-conductivity-apparatus/thermal.gif)
+$$ k = 3.0 \left(\frac{N}{V}\right)^{2/3} K_B \, v $$
 
-where νs = ultrasound velocity,
+where $v_s$ is the ultrasound velocity, $N$ (Avogadro's number) $= 6.02 \times 10^{23}$, $V$ (molar volume) $= m/\rho$, and $K_B$ (Boltzmann's constant) $= 1.3807 \times 10^{-23}\,\text{J/K}$.
 
-N (Avogadro's number) = 6.02×1023 and V (molar volume) =
+For polyatomic liquids the relation was modified as:
 
-![](/products/figures/thermal-conductivity-apparatus/thermal1.gif)
+$$ k = 2.8 \left(\frac{N}{V}\right)^{2/3} k_B \, v $$
 
- KB= (Boltzmann's constant) = 1.3807×10-23 J/K
+For nanofluids it was further modified by J. Hemalatha as:
 
-For Polyatomic Liquids it was modified as:
+$$ k_{bm} = 2.8 \left(\frac{\rho_{nf}\, N_A}{M_{nf}}\right)^{2/3} k_B \, v $$
 
-![](/products/figures/thermal-conductivity-apparatus/thermal2.gif)
+where $k_{bm}$ is the thermal conductivity from the modified Bridgman equation, $\rho_{nf}$ is the density of the nanofluid, and $M_{nf}$ is the molar mass of the nanofluid given by:
 
-For Nanofluids it was further modified by J.Hemalatha as under:
+$$ M_{nf} = x_{bf}\, M_{bf} + x_p\, M_p $$
 
-![](/products/figures/thermal-conductivity-apparatus/thermal3.gif)
+$x_{bf}$ and $x_p$ are the molar fractions of the base fluid and nanoparticle respectively, while $M_{bf}$ and $M_p$ are their respective molar masses.
 
-where, kbm is the thermal conductivity value obtained through the modified Bridgman equation, **ρ**nf is the density of nanofluid, and
-
-![](/products/figures/thermal-conductivity-apparatus/thermal4.gif)
-
- is the molar mass
-
-of nanofluid. xbf and xp are the molar fractions of the base fluid
-
-and nanoparticle respectivelywhereas Mbf and Mp are the respective molar masses of the base fluid and nanoparticle.
-
-![](/products/figures/thermal-conductivity-apparatus/thermal5.gif)
+![Thermal conductivity vs. concentration and temperature (courtesy V. Sesha Sai Kumar)](/products/figures/thermal-conductivity-apparatus/thermal5.gif)
 
 ## Working Principle
 
-![](/products/figures/thermal-conductivity-apparatus/thermal7.gif)
+Ultrasound waves of known frequency are produced and their wavelength is measured. Sound velocity in the liquid is then calculated:
 
-Ultrasound waves of known frequency are produced and its wavelength is measured. Then sound velocity in Liquid
+$$ v = \lambda \cdot f $$
 
-![](/products/figures/thermal-conductivity-apparatus/thermal6.gif)
+After obtaining the sound velocity, the thermal conductivity is calculated using the Bridgman formula above.
 
-After calculating velocity of sound in Liquid, one can calculate
-the thermal conductivity by the formula given by P W Bridgman.
+## Salient Features
+
+- Works up to 70 °C
+- Provided with temperature variation unit
+- Errors less than 5%
+- User friendly
 
 ## Description
 
-Thermal Conductivity Apparatus consists of following parts: Electronic Unit,Conductivity Cell-2MHz,Stability Cell 4MHz to increase settling time of the suspension,Temperature Controller Unit-To maintain temp.of liquids / nanofluids at desired temp from RT to 70°C.
+The Thermal Conductivity Apparatus consists of:
+
+- Electronic unit
+- Conductivity cell — 2 MHz
+- Stability cell — 4 MHz (to increase settling time of the suspension)
+- Temperature controller unit — RT to 70 °C

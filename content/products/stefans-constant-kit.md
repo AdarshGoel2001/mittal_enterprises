@@ -1,37 +1,30 @@
-**Stefan's Constant Kit   APPARATUS**:
+## Apparatus
 
-The KIT contains two black copper radiation plates with heater element in between, Thermocouple, built in power supply, a.c. Voltmeter, a.c. Ammeter and their controls. The KIT is self-contained and needs no additional equipment.
+The kit contains two black copper radiation plates with a heater element between them, a thermocouple, built-in power supply, AC voltmeter, AC ammeter and their controls. The kit is self-contained and needs no additional equipment.
 
 ## Theory
 
-The electricity fed to the heater element is radiated by radiating disc whose steady state temperature gives the total power radiated. If E is the total amount of heat radiated per unit area of the body per unit time and T is the absolute temperature of the body, then according to Stefan's law:
+The electricity fed to the heater element is radiated by the radiating disc, whose steady-state temperature gives the total power radiated. If $E$ is the total amount of heat radiated per unit area of the body per unit time and $T$ is the absolute temperature of the body, then according to Stefan's law:
 
-![](/products/figures/stefans-constant-kit/stefan-1.gif)
+$$ E = \sigma T^4 \quad \ldots (1) $$
 
-Where
+where $\sigma$ is Stefan's constant. If the body is placed in a surrounding at temperature $T_0$, it also receives heat radiation $\sigma T_0^4$. The net heat radiated by the body per unit area per unit time is therefore:
 
-![](/products/figures/stefans-constant-kit/stefan-7.jpg)
+$$ E_1 = \sigma\,(T^4 - T_0^4) \quad \ldots (2) $$
 
- is the Stefan's constant. If the body is put in a surrounding of temperature then it is also receiving an amount of heat radiation given by
+If $A$ is the total radiating area, the net heat radiated per unit time is:
 
-![](/products/figures/stefans-constant-kit/stefan-2.gif)
+$$ E_2 = \sigma A\,(T^4 - T_0^4) \quad \ldots (3) $$
 
- The net amount of heat radiates given out by the body per unit area per unit time is therefore.
+Neglecting heat transfer by conduction and convection in the surrounding air, the heat energy radiated by the copper discs per unit time equals the power supplied to the heater. If $V$ is the potential difference across the heater and $I$ the current through it:
 
-![](/products/figures/stefans-constant-kit/stefan-3.gif)
+$$ E_2 = V I = \sigma A\,(T^4 - T_0^4) $$
 
-         
+$$ \sigma = \frac{V \cdot I}{A\,(T^4 - T_0^4)} \quad \text{watt}\,\text{m}^{-2}\,\text{K}^{-4} $$
 
-If A is the total area of the body given out the heat radiation then the net heat radiated per unit time is given by
-
-![](/products/figures/stefans-constant-kit/stefan-5.gif)
-
-In the present case if we neglect the heat transfer on account of conduction and convention of the air in contact, heat energy radiated by copper discs per unit time is equal to the power supplied to heater element. Therefore if V is the potential difference across the heater and I is the current passing through it, then,
-
-![](/products/figures/stefans-constant-kit/stefan-6.gif)
-
-From which the Stefan's constant is determined V, I & T are measured from Voltmeter, Ammeter and Temperature Indicator provided in the KIT.
+$V$, $I$ and $T$ are read directly from the voltmeter, ammeter and temperature indicator on the kit.
 
 ## Salient Features
-- There is practically no loss of heat energy from heating element by conduction, convection or radiation Therefore, entire heat energy of the heating element is transferred to the discs.
-- As the efficiency of the heating element is nearly equal to one, almost entire electrical energy supplied to the heater will be converted in heat energy
+
+- Practically no loss of heat energy from the heating element by conduction, convection or radiation, so the entire heat energy of the heating element is transferred to the discs.
+- The efficiency of the heating element is nearly unity, so almost all electrical energy supplied is converted to heat energy.

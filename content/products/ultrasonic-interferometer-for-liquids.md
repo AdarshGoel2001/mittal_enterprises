@@ -1,42 +1,44 @@
-Using this instrument several Ph.D. Thesis are awarded and innumerable **Research papers** are published in National & International Journals. Velocity measurement combining with other physical quantities provides information of more than 30 **Parameters**. For ready reference few **Equations ** are listed here. Few **Experiments** are also suggested for laboratory purpose.
+Using this instrument, several Ph.D. theses have been awarded and innumerable research papers have been published in national and international journals. Velocity measurement combined with other physical quantities provides information on more than 30 parameters.
 
 ## Working Principle
 
-The principle used in the measurement of velocity (ν) is based on the accurate determination of the wavelength (λ) in the medium. Ultrasonic waves of known frequency (f) are produced by a quartz crystal fixed at the bottom of the cell. These waves are reflected by a movable metallic plate kept parallel to the quartz crystal. If the separation between these two plates is exactly a whole multiple of the sound wavelength, standing waves are formed in the medium. This acoustic resonance gives rise to an electrical reaction on the generator driving the quartz crystal and the anode current of the generator becomes a maximum.
+The principle used in the measurement of velocity $\nu$ is based on the accurate determination of the wavelength $\lambda$ in the medium. Ultrasonic waves of known frequency $f$ are produced by a quartz crystal fixed at the bottom of the cell. These waves are reflected by a movable metallic plate kept parallel to the quartz crystal. If the separation between these two plates is exactly a whole multiple of the sound wavelength, standing waves are formed in the medium. This acoustic resonance gives rise to an electrical reaction on the generator driving the quartz crystal and the anode current of the generator becomes a maximum.
 
-![](/products/figures/ultrasonic-interferometer-for-liquids/map4.jpg)
+![Anode-current peaks at half-wavelength intervals](/products/figures/ultrasonic-interferometer-for-liquids/map4.jpg)
 
-If the distance is now increased or decreased, and the variation is exactly one-half wavelength ( λ /2), or multiple of it, anode current becomes maximum. From the knowledge of wavelength ( λ ) the velocity (v) can be obtained by the relation: Velocity = Wavelength x Frequency
+If the distance is increased or decreased and the variation is exactly one-half wavelength ($\lambda/2$) or a multiple of it, anode current becomes maximum. From the knowledge of wavelength $\lambda$, the velocity $v$ is given by:
 
-v = λ x f
+$$ v = \lambda \cdot f $$
 
-The Ultrasonic Interferometer consists of the following parts:
-- HIGH FREQUENCY GENERATOR: Single and Multi-frequency
-- MEASURING CELL: Max. displacement of the reflector : 20 mm Required Quantity of liquid: 10 c.c. Least Count of micrometer: 0.01mm/0.001 mm
-- SHIELDED CABLE: Impedance : 50 O
+The Ultrasonic Interferometer consists of:
 
-**Optional**: If the variation in the velocity with temperature is to be studied, water at various desired constant temperatures is made to circulate through the double walled jacket of the cell with external circulating water bath.
+- **High Frequency Generator** — single and multi-frequency
+- **Measuring Cell** — max. reflector displacement 20 mm; required liquid 10 c.c.; micrometer least count 0.01 / 0.001 mm
+- **Shielded Cable** — impedance 50 Ω
 
-![](/products/figures/ultrasonic-interferometer-for-liquids/sample-calculation1.jpg)
+**Optional**: if the variation of velocity with temperature is to be studied, water at the desired constant temperature is circulated through the double-walled jacket of the cell using an external circulating water bath.
 
-A number of parameters related to ultrasonic velocity are:
+![Sample calculation: water at 2 MHz, λ/2 = 0.375 mm, v = 1480 m/s, β_ad = 4.58 × 10⁻¹⁰ N⁻¹m²](/products/figures/ultrasonic-interferometer-for-liquids/sample-calculation1.jpg)
+
+A number of parameters can be derived from ultrasonic velocity:
+
 - Compressibility
-- Effective Debye Temperature
-- Excess Enthalpy
-- Hydrogen Bonding
-- Intermolecular Free Length
-- Solvation Number/ Hydration Number
-- Vander Wall's Constant
-- Rao's Constant
-- Wada Constant
-- Molecular Interaction
-- Proton Relaxation Rate
-- Relative Association
-- Relaxation Time and Relaxation Strength
-- Acoustic Impedance
-- Stacking Constant
-- Space Filling Factor
-- Cohesive Energy Barrier
-- Latent Heat Of Vaporization
-- Specific Heat Ratio
-- Miscibility and Compatibility of Blends and many more
+- Effective Debye temperature
+- Excess enthalpy
+- Hydrogen bonding
+- Intermolecular free length
+- Solvation / hydration number
+- Van der Waals' constant
+- Rao's constant
+- Wada constant
+- Molecular interaction
+- Proton relaxation rate
+- Relative association
+- Relaxation time and relaxation strength
+- Acoustic impedance
+- Stacking constant
+- Space filling factor
+- Cohesive energy barrier
+- Latent heat of vaporization
+- Specific heat ratio
+- Miscibility and compatibility of blends, and many more

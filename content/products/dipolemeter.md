@@ -1,105 +1,34 @@
-**Dipolemeter   Objective**: Determination of dielectric constant of non aqueous liquid at different concentration and hence determination of Dipole Moment (e.g. of Nitrobenzene etc.)
+## Objective
 
-**Theory:** Dipole Meter is an adaptable instrument that is used for measuring the dielectric constant of non-polar liquids. In the equipments a particular circuit has been developed for audio oscillator that produces stabilized wave. In this experiment dielectric cell is standardized using reference liquid having known dielectric constant by immersing the dielectric cell assembly in to reference Liquid. Then experimental liquid whose dielectric constant has to be determined is taken and assembly is immersed into liquid, resulting in change in oscillation frequency. From resulting shift, capacitance of cell in unknown liquid is calculated (CX). Dielectric Constant of unknown liquid is calculated using relation:
+Determination of the dielectric constant of non-aqueous liquids at different concentrations and hence determination of dipole moment (e.g. Nitrobenzene).
 
-**
+## Theory
 
-![](/products/figures/dipolemeter/dipole-1.gif)
+The Dipolemeter is an instrument used for measuring the dielectric constant of non-polar liquids. A specially developed circuit drives an audio oscillator that produces a stabilized wave. The dielectric cell is first standardized by immersing the cell assembly in a reference liquid of known dielectric constant. The experimental liquid is then introduced and the resulting shift in oscillation frequency gives the capacitance of the cell with the unknown liquid $C_X$. The dielectric constant of the unknown liquid is then:
 
-**
+$$ \varepsilon = 1 + \frac{C_0 - C_X}{C_0 - C_{ST}}\,(\varepsilon_{ST} - 1) $$
 
-where **
+where $C_0$ is the capacitance of air, $C_{ST}$ is the capacitance of the standard liquid, $C_X$ is the capacitance of the test liquid and $\varepsilon_{ST}$ is the dielectric constant of the standard liquid.
 
-![](/products/figures/dipolemeter/dipole-5.gif)
+For a solution of a polar molecule (molecular weight $M_1$) in a non-polar solvent (molecular weight $M_2$) at different concentrations, the molar polarization $P_{12}$ of the mixture is:
 
-**Capacitance of Air,**
+$$ P_{12} = \left(\frac{k - 1}{k + 2}\right)\frac{M_1 f_1 + M_2 f_2}{d_{12}} = P_1 f_1 + P_2 f_2 $$
 
-![](/products/figures/dipolemeter/dipole-6.gif)
+where $k$ is the dielectric constant of the solution with mole fraction $f_1$ of the polar molecule and mole fraction $f_2$ of the non-polar solvent, and $d_{12}$ is the density of the mixture.
 
-**Capacitance of  standard liquid, **
+A graph of $P_{12}$ vs $f_2$ is then plotted:
 
-![](/products/figures/dipolemeter/dipole-7.gif)
+![P₁₂ vs f₂ — extrapolation to f₂ = 0 yields P₂](/products/figures/dipolemeter/dipole-31.gif)
 
-**Capacitance of  test liquid and **
+The dipole moment $\mu$ is calculated from:
 
-![](/products/figures/dipolemeter/dipole-8.gif)
+$$ \mu = 0.0127 \times 10^{-18}\,\sqrt{(P_2 - P_0)\,T} $$
 
-**dielectric constant of standard liquid
+where $T$ is the absolute temperature, $P_2$ is the molar polarization extrapolated to infinite dilution and $P_0$ is the molar polarization of the non-polar liquid.
 
-Solution of polar molecule having molecular wt. **
+## Apparatus
 
-![](/products/figures/dipolemeter/dipole-9.gif)
-
-**with non-polar solvent having molecular wt.**
-
-![](/products/figures/dipolemeter/dipole-10.gif)
-
-** in different concentrations, is considered. Molar Polarization
-
-![](/products/figures/dipolemeter/dipole-11.gif)
-
-of the mixture is obtained by relation
-
-![](/products/figures/dipolemeter/dipole-2.gif)
-
-               
-
-where k is dielectric constant of the solution having molefraction  **
-
-![](/products/figures/dipolemeter/dipole-12.gif)
-
-**of polar molecule and mole fraction  **
-
-![](/products/figures/dipolemeter/dipole-13.gif)
-
-**of  non polar solvent and  **
-
-![](/products/figures/dipolemeter/dipole-14.gif)
-
-**is the density of the mixture.
-
-A graph between  **
-
-![](/products/figures/dipolemeter/dipole-17.gif)
-
-**and **
-
-![](/products/figures/dipolemeter/dipole-19.gif)
-
-**is obtained  
-
-**
-
-![](/products/figures/dipolemeter/dipole-31.gif)
-
-**          
-
-The dipole moment **
-
-![](/products/figures/dipolemeter/dipole-0.gif)
-
-** is calculated using relation
-
-**
-
-![](/products/figures/dipolemeter/dipole-01.gif)
-
-**
-
-           
-
-Where T is absolute temperature,**
-
-![](/products/figures/dipolemeter/dipole-120.gif)
-
-**is molar polarization of  non-polar liquid **
-
-![](/products/figures/dipolemeter/dipole-170.gif)
-
-**and is molar polarization of non polar liquid.
-
-**The apparatus consists of :**
-- Main Unit having Frequency Counter, Audio Oscillator and suitable Electronic Circuity Dielectric Cell Unit consists of
-- 1.Dielectric Cell (SS) assembly with Teflon top & BNC connector
-- 2.Beaker (100 ml)
-- 3.Attachment for circulation of water from external water bath.
+- Main unit with frequency counter, audio oscillator and electronic circuitry
+- Dielectric cell (SS) assembly with Teflon top and BNC connector
+- 100 ml beaker
+- Attachment for circulation of water from an external water bath

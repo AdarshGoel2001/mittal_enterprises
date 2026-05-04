@@ -1,33 +1,27 @@
-Dielectric Constant Kit is a versatile instrument for measuring the dielectric constant of non-aquous liquids. The apparatus is based on state of the art technology using physical concepts.
+The Dielectric Constant Kit is a versatile instrument for measuring the dielectric constant of non-aqueous liquids. The apparatus uses physical-concept-based circuitry.
 
-Block diagram of the apparatus is as shown in fig. 1.
+![Block diagram — main unit and dielectric cell](/products/figures/dielectric-constant-kit-liquid/Dielectric123.jpg)
 
-![](/products/figures/dielectric-constant-kit-liquid/Dielectric123.jpg)
+The main unit has two terminals to which the dielectric cell is connected.
 
-Main Unit has two terminals to which the di-electric cell has to be connected .
+**Main unit:**
 
-Main Unit Consists of
+- 4-digit frequency counter
+- Oscillator — 500 kHz
+- Electronic circuitry
 
-i) Frequency Counter (4digit)
+**Dielectric cell unit:**
 
-ii) Oscillator : 500 KHz
-
-iii) Electronic Circuity Dielectric Cell Unit consists of
-
-i) Dielectric Cell (special grade SS) assembly
-
-ii) Beaker ( 100 ml)
-
-iii) Connecting Cable
+- Dielectric cell (special grade SS) assembly
+- 100 ml beaker
+- Connecting cable
 
 ## Working Principle
 
-A special circuit has been developed for oscillator producing stabilized 500 KHz wave. In this experiment dielectric cell is standardized using reference liquid having known dielectric constant by immersing the dielectric cell assembly in to reference Liquid. Then experimental liquid whose dielectric constant has to be determined is taken and assembly is immersed into liquid, resulting in change in oscillation frequency. From resulting shift, capacitance of cell in unknown liquid is calculated (CX) . Dielectric Constant of unknown liquid is calculated using relation:
+A specially developed circuit drives the oscillator to produce a stabilized 500 kHz wave. The dielectric cell is first standardized by immersing the assembly in a reference liquid of known dielectric constant. The experimental liquid is then introduced; the resulting shift in oscillation frequency gives the capacitance of the cell with the unknown liquid $C_X$.
 
-![](/products/figures/dielectric-constant-kit-liquid/DIELECTRIC-liq.jpg)
+The dielectric constant of the unknown liquid is then:
 
-where C0 = Capacitance of Air, CST  = Capacitance of standard liquid, CX = Capacitance of test liquid and
+$$ \varepsilon = 1 + \frac{C_0 - C_X}{C_0 - C_{ST}}\,(\varepsilon_{ST} - 1) $$
 
-![](/products/figures/dielectric-constant-kit-liquid/est.jpg)
-
- dielectric constant of standard liquid.
+where $C_0$ is the capacitance of air, $C_{ST}$ is the capacitance of the standard liquid, $C_X$ is the capacitance of the test liquid, and $\varepsilon_{ST}$ is the dielectric constant of the standard liquid.

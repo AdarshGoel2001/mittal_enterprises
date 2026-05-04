@@ -1,48 +1,33 @@
-Numerical aperture is a basic descriptive characteristic of a specific fiber. It is represents the size or degree of openness of the input acceptance cone. Mathematically it is defined as the sine half angle of the acceptance cone.
+Numerical aperture is a basic descriptive characteristic of a specific fibre. It represents the size or degree of openness of the input acceptance cone, defined as the sine of the half-angle of the acceptance cone.
 
-Using Snell’s law, the maximum angle within which light will be accepted into and guided through fiber is
+## Theory
 
-![](/products/figures/fiber-optic-apparatus/fiver.jpg)
+Using Snell's law, the maximum angle within which light will be accepted into and guided through the fibre is:
 
-where
+$$ \mathrm{NA} = \sin(\theta_a) = (n_1^2 - n_2^2)^{1/2} $$
 
-![](/products/figures/fiber-optic-apparatus/fiver1.jpg)
+where NA is the numerical aperture and $n_1$, $n_2$ are the refractive indices of the core and the cladding. In a fibre, a ray launched at angle $\theta_a$ at the input end should come out at the same angle from the output end. The far field at the output therefore appears as a cone of semi-angle $\theta_a$ emanating from the fibre end.
 
- is the numerical aperture and n1 and n2 are the refractive indices of the core and the cladding. In fiber, ideally a ray launched at angle
+## Measurement
 
-![](/products/figures/fiber-optic-apparatus/fiver-r1.jpg)
+The objective of the fibre optic setup is to measure the numerical aperture of an optical fibre. With this setup, NA is measured in two ways.
 
- at the input end should come out at the same angle
+In the first procedure, the diameter $D$ of the circle formed on a screen placed at distance $L$ from the fibre is measured, and NA is calculated using:
 
-![](/products/figures/fiber-optic-apparatus/fiver-r1.jpg)
+$$ \mathrm{NA} = \sin\theta = \sin\!\left[\tan^{-1}\!\left(\frac{D}{2L}\right)\right] $$
 
- from output end. Therefore, the far field at the output end will also appear as a cone of semi angle
+![Experimental setup 1 — screen-based measurement](/products/figures/fiber-optic-apparatus/fiver-0.jpg)
 
-![](/products/figures/fiber-optic-apparatus/fiver1.jpg)
+![Experimental setup 2 — photodetector-based measurement](/products/figures/fiber-optic-apparatus/fiver-01.jpg)
 
- emanating from the fiber end.
+In the second procedure the screen is replaced by a photodetector and intensity is measured and plotted at different angles. Using the intensity plot, NA is calculated.
 
-The objective of Fiber optic setup is to measure the numerical aperture (NA) of optical fiber. With present setup, NA is measured in two ways. In first procedure the dia (D) of circle formed on the screen placed at some distance (L) from the fiber is measured (as shown below) and NA is calculated using the formula
+To measure attenuation in an optical fibre, the output voltage is measured at the end of a 1 m fibre and again at the end of a 5 m fibre. Attenuation is then calculated as:
 
-![](/products/figures/fiber-optic-apparatus/fiver-rr2.jpg)
+$$ V_1/V_2 = \exp\!\big(-\alpha (L_1 + L_2)\big) $$
 
-![](/products/figures/fiber-optic-apparatus/fiver-0.jpg)
-
-Experimental Setup 1
-
-![](/products/figures/fiber-optic-apparatus/fiver-01.jpg)
-
-Experimental Setup 2
-
-In second procedure, screen is replaced by the photo detector and intensity is measured and plotted at different angles (as shown above). Using the intensity plot, NA is calculated.
-To measure attenauation in optical fiber, output (voltage) is measured at the output of 1 meter optical fiber Then output is measured at the output of 5 meter optical fiber.
-
-Attenuation can be calculated using formula
-
-![](/products/figures/fiber-optic-apparatus/fiver3.jpg)
-
-Where α is loss in nepers/m, L1= Length of shorter cable (1m), L2= Length of longer cable (5m)
+where $\alpha$ is the loss in nepers/m, $L_1$ is the length of the shorter cable (1 m) and $L_2$ is the length of the longer cable (5 m).
 
 ## Instrument
 
-The Apparatus consists of Laser Diode, Objective (10X), Fiber (1 mtr long & 5 mtr long), Dectector, Multimeter, Chucks and bases to hold the assemblies.
+The apparatus consists of: laser diode, 10× objective, optical fibre (1 m and 5 m), detector, multimeter, chucks and bases to hold the assemblies.

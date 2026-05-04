@@ -1,45 +1,32 @@
-Present set up of Planck’s Constant Kit utilizes Latest Technology to provide accurate results within 90% accuracy, whereas other methods provide accuracy much lower than that. **It is self contained kit and requires no other accessory.** The Kit facilitates determination of Planck’s Constant
+The present setup of the Planck's Constant Kit uses the latest technology to provide accurate results within 90 % accuracy, whereas other methods provide much lower accuracy. **It is a self-contained kit and requires no other accessory.**
 
-![](/products/figures/plancks-constant-kit/plan-ce.jpg)
+The kit determines Planck's constant $h$ by measuring the voltage drop across light-emitting diodes (LEDs) of different colours at a constant current. LEDs are a special kind of diode which produce light when electrons undergo a transition between energy bands at the junction of n- and p-type semiconducting materials. The energy difference is called the band gap and is a property of the diode material.
 
- by measuring the voltage drop across light-emitting diodes (LEDs) of different colours at a constant current. LEDs are a special kind of diodes which produce light when electrons undergo a transition between different energy bands at the junction of n- and p-type semiconducting materials. The energy difference is called the band gap and is a property of the material from which the diode is fabricated.
+## Principle
 
-The voltage applied across an LED provides energy to lift electrons across the energy gap. When electrons relax back to their original energy level, they emit light of Energy having frequency
+The voltage applied across an LED provides energy to lift electrons across the energy gap. When the electrons relax back to their original level they emit light of energy:
 
-![](/products/figures/plancks-constant-kit/plan-ce1.jpg)
+$$ E = h\nu \quad \ldots (1) $$
 
- given by:
+But also:
 
-![](/products/figures/plancks-constant-kit/PLANCK.jpg)
+$$ E = eV \quad \ldots (2) $$
 
-where, V is the voltage drop across the LED at a particular current . In this experiment, current is chosen such that bulk resistance of the LED is neglected. A graph of
+where $V$ is the voltage drop across the LED at a particular current. The current is chosen such that the bulk resistance of the LED can be neglected. A graph of $V$ vs $\lambda^{-1}$ is plotted and its gradient gives the value of $h$:
 
-![](/products/figures/plancks-constant-kit/plan-v.jpg)
+$$ V = \frac{c\,h}{e} \cdot \lambda^{-1} \quad \ldots (3) $$
 
- is plotted and its gradient gives the value of h.
+where $c$ is the velocity of light and $\lambda$ is the wavelength of the light emitted by the LED. All the LEDs may be maintained at 0 °C to minimize internal noise and consequent errors.
 
-![](/products/figures/plancks-constant-kit/plan-v1.jpg)
+![Typical V vs 1/λ plot used to extract Planck's constant](/products/figures/plancks-constant-kit/plan-v3.jpg)
 
-where c = velocity of light and
-
-![](/products/figures/plancks-constant-kit/plan-v2.jpg)
-
- wavelength of the light emitted by the LED . All the LEDs may be maintained at 0 0C to minimize internal noise and consequent errors.
-
-![](/products/figures/plancks-constant-kit/plan-v3.jpg)
+## Instrument
 
 The kit consists of:
 
- i) Specially designed variable power supply (0 – 5 V) whose output can be varied in steps of 1 mV.
+- Specially designed variable power supply (0 – 5 V) whose output can be varied in steps of 1 mV
+- Digital microammeter
+- Digital voltmeter (0 – 9 V)
+- Calibrated LEDs (4 nos.)
 
-ii) Digital Microammeter,
-
-iii) Digital Voltmeter (0 – 9V),
-
-iv) Calibrated LEDs : 4 nos
-
-The voltage across the LED under investigation is measured using a built in digital voltmeter. Typical result and value of
-
-![](/products/figures/plancks-constant-kit/plan-ce.jpg)
-
- obtained are shown in the accompanying graph
+The voltage across the LED under investigation is measured using the built-in digital voltmeter. A typical result and value of $h$ obtained are shown in the accompanying graph.
