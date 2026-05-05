@@ -1,7 +1,15 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { companyInfo } from '@/lib/data';
 import { profilePillars } from '@/lib/company-content';
 import PageHeader from '@/components/PageHeader';
+
+export const metadata: Metadata = {
+  title: 'Company Profile — Mittal Enterprises, Lab Instrument Manufacturer Since 1976',
+  description:
+    'Mittal Enterprises is the only Indian manufacturer of Nanofluid Interferometers. ISO 9001:2008, FIEO Registered. Serving universities and research labs since 1976.',
+  alternates: { canonical: '/profile' },
+};
 
 export default function ProfilePage() {
   return (

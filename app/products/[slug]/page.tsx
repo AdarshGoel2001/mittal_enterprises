@@ -1,13 +1,42 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { productCategories } from '@/lib/data';
 import { getProductsByCategory } from '@/lib/products-data';
+import { SITE_URL } from '@/app/layout';
 import PageHeader from '@/components/PageHeader';
 import Sidebar from '@/components/Sidebar';
 
 export async function generateStaticParams() {
   return productCategories.map((category) => ({ slug: category.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const category = productCategories.find((c) => c.slug === slug);
+  if (!category) return {};
+  const products = getProductsByCategory(category.id);
+  const description =
+    `Browse ${products.length} ${category.name.toLowerCase()} from Mittal Enterprises. ${category.description}`.slice(
+      0,
+      160,
+    );
+  return {
+    title: `${category.name} — ${products.length} Instruments`,
+    description,
+    alternates: { canonical: `/products/${category.slug}` },
+    openGraph: {
+      title: category.name,
+      description,
+      url: `/products/${category.slug}`,
+      type: 'website',
+    },
+  };
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -17,8 +46,42 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
 
   const products = getProductsByCategory(category.id);
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Products', item: `${SITE_URL}/products` },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: category.name,
+        item: `${SITE_URL}/products/${category.slug}`,
+      },
+    ],
+  };
+  const itemListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: category.name,
+    numberOfItems: products.length,
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE_URL}/products/${category.slug}/${p.slug}`,
+      name: p.name,
+    })),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+      />
       <PageHeader
         eyebrow="Product category"
         title={category.name}

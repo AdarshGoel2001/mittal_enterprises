@@ -118,7 +118,7 @@ export default function Home() {
             <div className="md:col-span-4">
               <p className="eyebrow mb-4">Why labs choose us</p>
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-ink leading-tight">
-                Forty-plus years of manufacturing for researchers.
+                40+ years of manufacturing for researchers.
               </h2>
               <p className="mt-6 text-ink-muted leading-relaxed">
                 {companyInfo.about.short}

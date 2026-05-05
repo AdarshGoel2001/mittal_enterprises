@@ -1,8 +1,15 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import PageHeader from '@/components/PageHeader';
 import ProductsBrowser from '@/components/ProductsBrowser';
 import { productCategories } from '@/lib/data';
 import { products } from '@/lib/products-data';
+
+export const metadata: Metadata = {
+  title: `All Laboratory Instruments — ${products.length} Products Across ${productCategories.length} Categories`,
+  description: `Browse ${products.length} ultrasonic, nanofluid, physics, chemistry and material science instruments from Mittal Enterprises. Search by name or item code. Made in India since 1976.`,
+  alternates: { canonical: '/products' },
+};
 
 export default function ProductsIndexPage() {
   return (

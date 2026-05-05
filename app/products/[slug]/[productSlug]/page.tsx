@@ -1,9 +1,12 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { productCategories } from '@/lib/data';
 import { products, getProductBySlug } from '@/lib/products-data';
 import { getProductMarkdown, extractModelsFromMarkdown } from '@/lib/products-content';
+import { productSeoOverrides } from '@/lib/seo-overrides';
+import { SITE_URL } from '@/app/layout';
 import PageHeader from '@/components/PageHeader';
 import Sidebar from '@/components/Sidebar';
 import RecentlyViewed from '@/components/RecentlyViewed';
@@ -18,6 +21,37 @@ export async function generateStaticParams() {
       productSlug: product.slug,
     };
   });
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; productSlug: string }>;
+}): Promise<Metadata> {
+  const { slug, productSlug } = await params;
+  const product = getProductBySlug(productSlug);
+  const category = productCategories.find((c) => c.slug === slug);
+  if (!product || !category) return {};
+
+  const override = productSeoOverrides[product.slug];
+  const title = override?.title ?? `${product.name} — ${product.itemCode}`;
+  const description = (override?.description ?? product.description ?? '').slice(0, 160);
+  const path = `/products/${category.slug}/${product.slug}`;
+  const imageUrl = `${SITE_URL}/images/products/${product.image}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      title,
+      description,
+      url: path,
+      type: 'website',
+      images: [{ url: imageUrl, alt: product.name }],
+    },
+    twitter: { card: 'summary_large_image', title, description, images: [imageUrl] },
+  };
 }
 
 export default async function ProductDetailPage({
@@ -39,8 +73,45 @@ export default async function ProductDetailPage({
 
   const enquiryHref = `/enquiry?product=${encodeURIComponent(product.name)}&code=${encodeURIComponent(product.itemCode)}&category=${encodeURIComponent(category.slug)}`;
 
+  const canonicalUrl = `${SITE_URL}/products/${category.slug}/${product.slug}`;
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    sku: product.itemCode,
+    image: `${SITE_URL}/images/products/${product.image}`,
+    description: product.description,
+    category: category.name,
+    brand: { '@type': 'Brand', name: 'Mittal Enterprises' },
+    manufacturer: { '@type': 'Organization', name: 'Mittal Enterprises', url: SITE_URL },
+    url: canonicalUrl,
+    ...(models.length > 0 && { model: models }),
+  };
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Products', item: `${SITE_URL}/products` },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: category.name,
+        item: `${SITE_URL}/products/${category.slug}`,
+      },
+      { '@type': 'ListItem', position: 3, name: product.name, item: canonicalUrl },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <TrackRecent productId={product.id} />
       <PageHeader
         eyebrow={`${category.name} · ${product.itemCode}`}

@@ -1,6 +1,14 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { globalSupplyServices } from '@/lib/company-content';
 import PageHeader from '@/components/PageHeader';
+
+export const metadata: Metadata = {
+  title: 'Global Supplies — Export of Lab Instruments Worldwide',
+  description:
+    'Mittal Enterprises ships ultrasonic interferometers and laboratory scientific instruments to universities and research centres worldwide. FIEO Registered exporter from India.',
+  alternates: { canonical: '/global-supplies' },
+};
 
 export default function GlobalSuppliesPage() {
   return (
