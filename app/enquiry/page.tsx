@@ -16,11 +16,34 @@ function EnquiryForm() {
     productName: codeFromUrl ? `${productFromUrl} (${codeFromUrl})` : productFromUrl,
     quantity: '', message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Enquiry submitted:', formData);
-    alert('Thank you for your enquiry. We will get back to you soon!');
+    setStatus('submitting');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus('error');
+        setErrorMsg(data.error || 'Something went wrong. Please try again.');
+        return;
+      }
+      setStatus('success');
+      setFormData({
+        name: '', email: '', phone: '', company: '',
+        category: '', productName: '', quantity: '', message: '',
+      });
+    } catch {
+      setStatus('error');
+      setErrorMsg('Network error. Please check your connection and try again.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -76,9 +99,21 @@ function EnquiryForm() {
           <label htmlFor="message" className={label}>Requirements *</label>
           <textarea id="message" name="message" required rows={5} value={formData.message} onChange={handleChange} className={input} placeholder="Frequency range, experiment, application, delivery timeline…" />
         </div>
-        <button type="submit" className="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3.5 rounded-sm hover:bg-accent transition-colors">
-          Submit enquiry <span aria-hidden>→</span>
+        <button
+          type="submit"
+          disabled={status === 'submitting'}
+          className="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3.5 rounded-sm hover:bg-accent transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {status === 'submitting' ? 'Submitting…' : <>Submit enquiry <span aria-hidden>→</span></>}
         </button>
+        {status === 'success' && (
+          <p className="text-sm text-ink mt-2" role="status">
+            Thanks — your enquiry is in. We&apos;ll respond within one business day with documentation and a quote.
+          </p>
+        )}
+        {status === 'error' && (
+          <p className="text-sm text-red-600 mt-2" role="alert">{errorMsg}</p>
+        )}
       </form>
     </div>
   );

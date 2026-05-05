@@ -8,11 +8,31 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '', email: '', phone: '', subject: '', message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message. We will get back to you soon!');
+    setStatus('submitting');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus('error');
+        setErrorMsg(data.error || 'Something went wrong. Please try again.');
+        return;
+      }
+      setStatus('success');
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    } catch {
+      setStatus('error');
+      setErrorMsg('Network error. Please check your connection and try again.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -90,9 +110,21 @@ export default function ContactPage() {
                   <label htmlFor="message" className={label}>Message *</label>
                   <textarea id="message" name="message" required rows={5} value={formData.message} onChange={handleChange} className={input} />
                 </div>
-                <button type="submit" className="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3.5 rounded-sm hover:bg-accent transition-colors">
-                  Send message <span aria-hidden>→</span>
+                <button
+                  type="submit"
+                  disabled={status === 'submitting'}
+                  className="inline-flex items-center gap-2 bg-ink text-paper px-6 py-3.5 rounded-sm hover:bg-accent transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {status === 'submitting' ? 'Sending…' : <>Send message <span aria-hidden>→</span></>}
                 </button>
+                {status === 'success' && (
+                  <p className="text-sm text-ink mt-2" role="status">
+                    Thanks — your message is on its way. We&apos;ll respond within one business day.
+                  </p>
+                )}
+                {status === 'error' && (
+                  <p className="text-sm text-red-600 mt-2" role="alert">{errorMsg}</p>
+                )}
               </form>
             </div>
           </div>

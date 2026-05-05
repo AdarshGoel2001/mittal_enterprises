@@ -4,7 +4,9 @@
 // the page for; the title/description rewrite the SERP listing to match
 // that intent so the existing impressions convert.
 //
-// Keys are product slugs from lib/products-data.ts.
+// Title strings must NOT include "| Mittal Enterprises" — the root layout's
+// title template appends the brand automatically. Keys are product slugs
+// from lib/products-data.ts.
 
 export interface ProductSeoOverride {
   title?: string;
@@ -13,22 +15,22 @@ export interface ProductSeoOverride {
 
 export const productSeoOverrides: Record<string, ProductSeoOverride> = {
   'stefans-constant-kit': {
-    title: "Stefan's Constant Experiment Kit — Verify σ in the Lab | Mittal Enterprises",
+    title: "Stefan's Constant Experiment Kit — Verify σ in the Lab",
     description:
       "Stefan's constant experiment apparatus for university physics labs. Determine σ by heating a tungsten filament and measuring radiated power vs. T⁴. Made in India.",
   },
   'photodiode-characteristics-apparatus': {
-    title: 'Photodiode Characteristics Apparatus — I-V & V-I Curve Setup | Mittal Enterprises',
+    title: 'Photodiode Characteristics Apparatus — I-V & V-I Curve Setup',
     description:
       'Photodiode characteristics experiment kit for plotting I-V and V-I curves under varying illumination. Built for undergraduate and post-graduate physics labs.',
   },
   'forbidden-energy-gap-kit': {
-    title: 'Forbidden Energy Gap Kit — Silicon & Germanium Band-Gap Experiment | Mittal Enterprises',
+    title: 'Forbidden Energy Gap Kit — Silicon & Germanium Band-Gap Experiment',
     description:
       'Determine the forbidden energy gap of silicon and germanium semiconductors by measuring reverse-saturation current vs. temperature. Includes formula and procedure.',
   },
   'universal-b-h-curve-tracer-ubhct-001': {
-    title: 'B-H Curve Tracer with Circuit Diagram — Hysteresis Loop Apparatus | Mittal Enterprises',
+    title: 'B-H Curve Tracer with Circuit Diagram — Hysteresis Loop Apparatus',
     description:
       'Universal B-H curve tracer for ferromagnetic hysteresis loop experiments. Includes circuit diagram, CRO output and ring/rod sample holders. UBHCT-001.',
   },
@@ -38,7 +40,7 @@ export const productSeoOverrides: Record<string, ProductSeoOverride> = {
       'B-H curve tracer for plotting hysteresis loops on a CRO. Universal model UBHCT-004 with built-in circuit diagram for advanced ferromagnetic studies.',
   },
   'ultrasonic-interferometer-for-liquids': {
-    title: 'Ultrasonic Interferometer for Liquids — F-81 Series, 1–10 MHz | Mittal Enterprises',
+    title: 'Ultrasonic Interferometer for Liquids — F-81 Series, 1–10 MHz',
     description:
       'Velocity-by-wavelength ultrasonic interferometer for liquids. Quartz-crystal cell with 0.001 mm digital micrometer; used in 30+ research parameters.',
   },
