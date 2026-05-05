@@ -74,6 +74,12 @@ export default async function ProductDetailPage({
   const enquiryHref = `/enquiry?product=${encodeURIComponent(product.name)}&code=${encodeURIComponent(product.itemCode)}&category=${encodeURIComponent(category.slug)}`;
 
   const canonicalUrl = `${SITE_URL}/products/${category.slug}/${product.slug}`;
+  // Intentionally omits `offers`, `review`, and `aggregateRating`. Google's
+  // Rich Results Test will flag this Product as ineligible for the price/
+  // stars SERP snippet — that is expected. This is a quote-based B2B catalog
+  // with no public pricing or collected reviews; per CLAUDE.md the no-data-
+  // fabrication rule overrides rich-snippet eligibility. Schema is still
+  // read for entity recognition (Knowledge Graph, etc.).
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
