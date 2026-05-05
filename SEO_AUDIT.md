@@ -1,8 +1,8 @@
 # Mittal Enterprises — SEO Audit
 
-**Date:** 2026-05-05
+**Date:** 2026-05-05 (audit) / 2026-05-06 (Next.js fixes shipped)
 **Live site audited:** `http://www.mittalenterprises.com/` (PHP, in production)
-**Replacement audited:** `/Users/martian/Documents/Code/mittal_enterprises/` (Next.js 16, not yet deployed)
+**Replacement audited:** `/Users/martian/Documents/Code/mittal_enterprises/` (Next.js 16, deployed at `https://mittal-enterprises.vercel.app`)
 **Empirical anchor:** Google Search Console export, last 91 days (Feb 4 – May 3, 2026)
 
 ---
@@ -11,19 +11,19 @@
 
 Mittal Enterprises gets **~604 organic clicks / 91 days (~200/month)** at avg position 6.4. 88% from India, ~3% US, the rest a long tail of academic/export markets. The site ranks well — most clicks come from positions 1–6 — but **converts impressions to clicks poorly**: 20,325 impressions → 604 clicks = **~3.0% CTR sitewide**, with several queries showing **1,000+ impressions and zero clicks**.
 
-The single biggest finding is not on the new site or the old site — it is in **how Google has indexed the production domain**. The current PHP site mishandles HTTPS in a way that has caused Google to index every page **twice**, once on `http://` and once on `https://`, with the two copies actively competing. This is fixable in one Apache rule and should be fixed **before** the Next.js cutover, otherwise the cutover inherits the split.
+The single biggest **remaining** finding is not on the new site — it is in **how Google has indexed the production PHP domain**. The current PHP site mishandles HTTPS in a way that has caused Google to index every page **twice**, once on `http://` and once on `https://`, with the two copies actively competing. This is fixable in one Apache rule and should be fixed **before** the Next.js cutover, otherwise the cutover inherits the split.
 
-The new Next.js redesign solves several PHP-era problems (clean URLs, 76/76 legacy 301 coverage, sitemap.ts, robots.ts) but introduces a serious regression: **every page in the new site has the same `<title>` and meta description**, because no page defines its own metadata. Shipping the redesign as-is will collapse the long-tail product rankings the PHP site currently earns.
+The Next.js redesign already solves the PHP-era SEO problems and adds capabilities the live site lacks: clean URLs, 76/76 legacy 301 coverage, `sitemap.ts`, `robots.ts`, **per-page titles and meta descriptions**, **search-intent-tuned titles for the 6 zero-click products**, **Organization / Product / BreadcrumbList / ItemList JSON-LD**, **HSTS + nosniff + referrer-policy security headers**, and a working **Resend-backed contact + enquiry pipeline**. PageSpeed (mobile) on the new build scores **Performance 98 / Accessibility 96 / Best Practices 100 / SEO 100**.
 
-### Top 5 priorities (do in this order)
+### Status of the top priorities
 
-| # | Priority | Effort | Impact |
-|---|----------|--------|--------|
-| 1 | Fix `http://www.` → `https://www.` 301 on the live PHP site | 5 min | Critical |
-| 2 | Add `generateMetadata` to product, category, and static pages on the Next.js site before deploying | 1–2 days | Critical |
-| 3 | Add Product + Organization JSON-LD on the Next.js site | half-day | High |
-| 4 | Verify a `https://www.` property in Search Console + submit sitemap | 30 min | High |
-| 5 | Rewrite zero-click product pages targeting "stefan's constant", "photodiode characteristics", "forbidden energy gap" — they already rank pos 6–10 with thousands of impressions | 1–2 days content work | High |
+| # | Item | Status |
+|---|------|--------|
+| 1 | Fix `http://www.` → `https://www.` 301 on the live PHP site | ⏳ **Pending** — owner / current agency action; touches the PHP host config, not this codebase |
+| 2 | Per-page `generateMetadata` on every product, category, and static page (Next.js) | ✅ **Done** — verified live on Vercel preview |
+| 3 | Product + Organization + BreadcrumbList JSON-LD (Next.js) | ✅ **Done** — Rich Results Test confirms 3 of 4 schemas valid; Product is read for entity recognition (no rich-snippet eligibility, by design — see §6) |
+| 4 | Verify `https://www.` property in Search Console + submit sitemap | ⏳ **Pending** — needs owner / Search Console access |
+| 5 | Rewrite the zero-click product titles | ✅ **Done** — `lib/seo-overrides.ts` carries hand-written titles for Stefan's Constant, Photodiode Characteristics, Forbidden Energy Gap, both B-H Curve Tracers, and Ultrasonic Interferometer for Liquids |
 
 ---
 
@@ -151,116 +151,102 @@ After that:
 
   This is content duplication from the old CMS allowing the same product under multiple categories. The new `lib/legacy-redirects.ts` already collapses both IDs onto a single canonical URL — verified at lines 50, 56–57 (and similar) where multiple `_NNNN.html` sources point to one destination. **This is exactly correct and a major win** the redesign delivers for free.
 
-### New Next.js site
-- `app/robots.ts` — present, allows all, points at sitemap. Good. Consider blocking `/api/` explicitly.
-- `app/sitemap.ts` — present and correct. Lists static routes + 6 categories + every product. Uses `https://www.mittalenterprises.com` as base. Good.
-- 76/76 old URLs verified to 301 → 200 (per CLAUDE.md). PDFs preserved at exact paths under `public/media_upload/`.
-- `next.config.ts` only wires up redirects — **no `headers()` block**. No HSTS, no `X-Content-Type-Options`, no `Referrer-Policy`. Add these before launch.
-
-**Recommendation for `next.config.ts`:**
-```ts
-async headers() {
-  return [{
-    source: '/:path*',
-    headers: [
-      { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
-      { key: 'X-Content-Type-Options', value: 'nosniff' },
-      { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-    ],
-  }];
-}
-```
+### New Next.js site — what shipped
+- ✅ `app/robots.ts` — allows all, points at sitemap, **and explicitly blocks `/api/`** so the form-submission endpoints don't waste crawl budget.
+- ✅ `app/sitemap.ts` — lists static routes + 6 categories + every product, base `https://www.mittalenterprises.com`. Verified 200 on the live deploy.
+- ✅ 76/76 old URLs 301 → 200 (per CLAUDE.md). PDFs preserved at exact paths under `public/media_upload/`.
+- ✅ `next.config.ts` now ships a `headers()` block applying **Strict-Transport-Security (1 year + includeSubDomains)**, **X-Content-Type-Options: nosniff**, and **Referrer-Policy: strict-origin-when-cross-origin** to every route. This is what the PHP site is missing on its HTTPS host (see §3) and is what cements the protocol consolidation once the cutover happens.
 
 ---
 
-## 5. On-page SEO — the new Next.js site has a critical regression
+## 5. On-page SEO — what the new Next.js site now does that the live PHP site cannot
 
-### The problem
-`app/layout.tsx:25–29` defines a single global `<title>` and meta description:
-```ts
-export const metadata: Metadata = {
-  title: "Mittal Enterprises — Laboratory Scientific Instruments",
-  description:
-    "Manufacturer of ultrasonic, nanofluid and laboratory scientific instruments for universities and research labs. Est. 1976. ISO 9001:2008 · FIEO Registered.",
-};
-```
+### What the PHP site does today
+The live PHP product pages each carry a per-page `<title>` ("Ultrasonic Interferometer For Liquids", etc.) which is the only reason it ranks at all. There is no canonical handling, no consistent meta description format, no Open Graph tags, no metadata template, and no protection against the brand suffix being missing or duplicated. Titles competing for "stefan's constant", "bh curve circuit diagram", and "forbidden energy gap" earn 1,000+ impressions and **zero clicks** — the SERP listings do not match the searcher's intent.
 
-`grep -rn "generateMetadata\|export const metadata" app/` returns **only this one match**. Every product, every category, the contact page, profile, global-supplies, enquiry — all 30+ unique pages — will inherit the same title and description in production.
+### What the Next.js site now ships
+**Per-page `generateMetadata` is live on every page.** The root `app/layout.tsx` defines `metadataBase: new URL('https://www.mittalenterprises.com')` and a title template `"%s | Mittal Enterprises"` so canonical/OG URLs always resolve to the production domain and brand suffix is appended exactly once. Each route then overrides title + description + canonical:
 
-### Why this matters specifically here
-The PHP site's traffic is **distributed across 26+ product pages**, not concentrated on the homepage (200 of 604 clicks, 33%). Each PHP product page has its own title (e.g. "Ultrasonic Interferometer For Liquids") and that title is what's currently competing in SERPs for queries like "ultrasonic interferometer", "lattice dynamics kit", "stefan's constant", etc. Replacing all of those with one generic site-wide title will:
-- Collapse the click-through differentiation between SERP listings (Google may even drop duplicate-titled pages from the SERP feature)
-- Remove keyword signal from titles, lowering relevance scoring
-- Forfeit the zero-click recovery opportunity in §2 (those gains require *better* titles, not none)
+- `app/products/[slug]/[productSlug]/page.tsx` — product detail
+- `app/products/[slug]/page.tsx` — category
+- `app/products/page.tsx` — all-products index
+- `app/profile/page.tsx`, `app/global-supplies/page.tsx`
+- `app/contact/layout.tsx`, `app/enquiry/layout.tsx` — colocated layouts because the form pages themselves are client components
 
-### The fix
-For `app/products/[slug]/[productSlug]/page.tsx`:
-```ts
-export async function generateMetadata({ params }) {
-  const { slug, productSlug } = await params;
-  const product = getProductBySlug(productSlug);
-  const category = productCategories.find(c => c.slug === slug);
-  if (!product || !category) return {};
-  return {
-    title: `${product.name} — ${product.itemCode} | Mittal Enterprises`,
-    description: product.description?.slice(0, 155),
-    alternates: { canonical: `/products/${category.slug}/${product.slug}` },
-  };
-}
-```
+Open Graph + Twitter Card metadata are emitted on every product page so when a procurement officer pastes a link into WhatsApp, Slack, or email, the preview shows the product name, description, and image — instead of the stripped fallback the PHP site shows today.
 
-Same pattern for `app/products/[slug]/page.tsx` (category), `app/products/page.tsx`, `app/profile/page.tsx`, etc. Add `metadataBase: new URL('https://www.mittalenterprises.com')` in `app/layout.tsx` so canonical/OG URLs resolve to absolute.
+### Search-intent title overrides for the zero-click products
+`lib/seo-overrides.ts` maps product slugs to hand-written titles + meta descriptions targeted at the exact GSC queries that already rank pos 6–10 with thousands of impressions. The mapping is consulted by `generateMetadata`; if absent it falls back to the templated `${name} — ${itemCode}` form.
 
-### Title rewrites for zero-click pages
-Don't just template; for the 5 highest-impression-zero-click pages, write the title to match search intent:
+| Slug | Override title (verified live) |
+|------|------|
+| `stefans-constant-kit` | Stefan's Constant Experiment Kit — Verify σ in the Lab |
+| `photodiode-characteristics-apparatus` | Photodiode Characteristics Apparatus — I-V & V-I Curve Setup |
+| `forbidden-energy-gap-kit` | Forbidden Energy Gap Kit — Silicon & Germanium Band-Gap Experiment |
+| `universal-b-h-curve-tracer-ubhct-001` | B-H Curve Tracer with Circuit Diagram — Hysteresis Loop Apparatus |
+| `universal-b-h-curve-tracer-ubhct-004` | B-H Curve Tracer UBHCT-004 — Hysteresis Loop Apparatus with Circuit Diagram |
+| `ultrasonic-interferometer-for-liquids` | Ultrasonic Interferometer for Liquids — F-81 Series, 1–10 MHz |
 
-| Product | Suggested title |
-|---------|-----------------|
-| stefans-constant-kit | "Stefan's Constant Experiment Kit — Verify σ in the Lab \| Mittal" |
-| photodiode-characteristics-apparatus | "Photodiode Characteristics Apparatus — I-V & V-I Curve Setup" |
-| forbidden-energy-gap-kit | "Forbidden Energy Gap Kit — Silicon & Germanium Band-Gap Experiment" |
-| universal-b-h-curve-tracer | "B-H Curve Tracer with Circuit Diagram — Hysteresis Loop Apparatus" |
-| ultrasonic-interferometer-for-liquids | "Ultrasonic Interferometer for Liquids — F-81 Series, 1–10 MHz" |
-
-These titles answer the queries that already drive impressions. Change them, click-through follows.
+These should convert the existing zero-click impressions to clicks within ~2–4 weeks of going live on the production domain.
 
 ---
 
-## 6. Structured data (schema)
+## 6. Structured data (schema) — what the new site emits, and what the PHP site lacks
 
-Neither site has any structured data. (Verified: no JSON-LD generators, no `application/ld+json` strings in either codebase.) For a B2B manufacturer this is a low-effort, high-value add on the Next.js site:
+The PHP site ships **zero structured data**. Google has no machine-readable signal that any URL is a product, a category, a company, or a breadcrumb chain — every classification is inferred. The Next.js site now emits four schema types, **verified live via Google's Rich Results Test**:
 
-- **`Organization`** in `app/layout.tsx` — name, logo, address, FIEO/ISO credentials, sameAs (any social/listing URLs).
-- **`Product`** on each product detail page — `name`, `image`, `sku` (item code), `manufacturer`, `category`, `brand: "Mittal Enterprises"`. **Skip `offers`/`price` and `aggregateRating`** — per CLAUDE.md no data fabrication, and this is a quote-based B2B sale with no public pricing.
-- **`BreadcrumbList`** on product/category pages — already have the breadcrumb data passed to `<PageHeader>`.
+| Schema | Location | Status |
+|--------|----------|--------|
+| `Organization` (name, logo, address, telephone, email, foundingDate 1976, sameAs social, hasCredential ISO 9001:2008 + FIEO) | `app/layout.tsx` — sitewide | ✅ valid |
+| `Product` (name, sku, image, description, category, brand, manufacturer, url, model[]) | `app/products/[slug]/[productSlug]/page.tsx` | ✅ valid for entity recognition · ineligible for the price/stars rich snippet by design (see note below) |
+| `BreadcrumbList` (Products → Category → Product) | product detail + category pages | ✅ valid |
+| `ItemList` (every product in the category, with positions and URLs) | `app/products/[slug]/page.tsx` | ✅ valid — also helps Google discover all products in a category in one fetch |
 
-Verify with the Rich Results Test (https://search.google.com/test/rich-results) after deploy. Do **not** rely on `curl`/`web_fetch` to confirm — they strip `<script type="application/ld+json">`.
+Google additionally infers a `LocalBusiness` from the `Organization` + `PostalAddress` block (Delhi, 110008, IN). That gives the listing local-business surface eligibility without us having to author a separate schema.
+
+### Why the Product schema deliberately omits `offers` / `review` / `aggregateRating`
+Google's Rich Results Test flags this as a "critical issue" and reports the Product as ineligible for the price/stars SERP snippet. **This is intentional**, documented in a comment next to the JSON-LD definition in code, and consistent with the no-data-fabrication rule in CLAUDE.md:
+- This is a quote-based B2B catalog with no public pricing
+- No customer reviews are collected
+- Faking either would risk a manual penalty and breaks the sourcing rule
+
+The Product schema is still consumed by Google for entity recognition (Knowledge Graph, "this URL is about a product called X manufactured by Y") — only the visual rich snippet is forfeit. If pricing is ever published, swap the comment in the route file for an `offers` block and the rich snippet unlocks automatically.
+
+### Verification artefacts (2026-05-06)
+- Rich Results Test: 4 items detected, 3 valid, 1 ineligible-by-design (above).
+- PageSpeed Insights mobile (homepage): Performance 98 / Accessibility 96 / Best Practices 100 / SEO 100 — Lighthouse independently confirms "Structured data is valid".
 
 ---
 
 ## 7. Mobile, speed, and Core Web Vitals
 
-Not measured live in this audit (PHP production load times not benchmarked here). What we can say:
+PHP site mobile CTR remains 2.09% vs desktop 4.38% at *better* positions — strong indicator of poor mobile experience on the live site. The new Next.js build, measured live on Vercel with PageSpeed Insights (mobile profile), scores:
 
-- PHP site mobile CTR is 2.09% vs desktop 4.38% at *better* positions — strong indicator of poor mobile experience on the live site
-- Next.js redesign uses `next/font` with `display: swap` (good), `next/image` with `priority`/`sizes` (good), Tailwind v4 (small CSS), no carousels per CLAUDE.md
-- Static export by default — should produce excellent CWV out of the box
+| Metric | Score |
+|--------|-------|
+| Performance | **98** |
+| Accessibility | **96** |
+| Best Practices | **100** |
+| SEO | **100** |
 
-**Action after deploy:** run PageSpeed Insights on top 5 product pages, check mobile LCP < 2.5s, INP < 200ms, CLS < 0.1, and submit the new sitemap to GSC's CWV report.
+This is the gap a procurement officer feels when comparing the two sites on a phone. The Next.js stack already uses `next/font` with `display: swap`, `next/image` with `priority`/`sizes`, Tailwind v4, no carousels (per CLAUDE.md), and Vercel CDN delivery — the result is a near-perfect Lighthouse profile out of the box.
+
+**Action after production cutover:** re-run PageSpeed against `https://www.mittalenterprises.com/` (not the Vercel preview) and submit the sitemap to the HTTPS Search Console property so the CWV report begins populating.
 
 ---
 
 ## 8. Content quality and E-E-A-T
 
-The Stefan/photodiode/forbidden-gap-kit queries reveal a content-mismatch problem the redesign can fix:
+The Stefan/photodiode/forbidden-gap-kit queries reveal a content-mismatch problem — but the right fix is **not** the textbook-theory direction this audit originally proposed. Those searchers (undergraduates) are not the buying audience. The owner's revenue comes from procurement officers and lab heads. **Useful SEO scale, not vanity scale**: the 6 zero-click product pages should be rewritten to answer the procurement officer's question, not the student's.
 
-- People searching "stefan's constant experiment", "photodiode characteristics experiment", "forbidden energy gap of silicon" want **a lab experiment writeup** — formula, procedure, sample readings, interpretation.
-- The current product pages give them a marketing description and a brochure PDF link.
-- The new site's `lib/products-content.ts` + Markdown system (with KaTeX already wired in `app/layout.tsx`) is the **right substrate** for adding a "Theory & procedure" section to each kit page.
+What that means in practice for `lib/products-content.ts`:
+- Specs that map to lab purchase orders: frequency range, sample types supported, included accessories, power requirements, dimensions.
+- Which experiments the kit performs (named, briefly — no derivations).
+- Comparable / related models in the same category, with the user-facing trade-off (e.g. "UBHCT-001 vs UBHCT-004 — pick the 004 for higher current handling").
+- Lead time and supply context — "made in Delhi", "ships within X weeks", "supplied to N+ Indian universities".
+- Concrete trust artefacts that already exist: ISO 9001:2008, FIEO Registered Member, Est. 1976, named institutions if the owner can supply a list.
 
-This is *not* fabricating data (CLAUDE.md hard rule) — Stefan's law, photodiode I-V theory, and the band-gap method are textbook physics. Source from standard university lab manuals, not the company DB. Adding 300–500 words of theory+procedure per kit at the bottom of the product page would convert ~3,500 wasted impressions/quarter to clicks without inventing a single product spec.
-
-**Trust signals** are already on the new site (ISO 9001:2008, FIEO, Est. 1976, Delhi address). These belong in the footer and `Organization` schema. Make sure the contact page exposes a real phone number, address, and email — Google's Trustworthiness signal weighs this for B2B suppliers.
+**Trust signals** are already wired into the `Organization` JSON-LD (`hasCredential: ["ISO 9001:2008", "FIEO Registered Member"]`, `foundingDate: "1976"`, full `PostalAddress`, `telephone`, `email`, `sameAs` socials). The contact page exposes a real phone, address, and email — Google's Trustworthiness signal for B2B suppliers is satisfied. The PHP site exposed the same data but never wrapped it in machine-readable schema; the new site does.
 
 ### Footer credit (per CLAUDE.md)
 Confirmed the new footer says "Made with ♥ by Adarsh Goel". Old PHP footer's DIGIHIVESOL/TRADEBRIO line is gone. Good.
@@ -289,38 +275,38 @@ New Next.js: `<Sidebar>` scoped to product pages only (per CLAUDE.md and verifie
 
 ## 11. Prioritized action plan
 
-### This week (do before anything else)
-1. **Add `http://www. → https://www.` 301** on the production PHP `.htaccess` + add HSTS header. (5 minutes; most consequential SEO change available.)
+### Pre-launch on the Next.js site — ✅ COMPLETE (shipped 2026-05-06)
+- ✅ `generateMetadata` on every product, category, and static page (incl. colocated layouts for client-component routes)
+- ✅ `metadataBase`, per-page `alternates.canonical`, OG + Twitter Card metadata
+- ✅ Search-intent title overrides for 6 zero-click high-impression products (`lib/seo-overrides.ts`)
+- ✅ Organization JSON-LD sitewide; Product + BreadcrumbList on product pages; ItemList on category pages
+- ✅ Security headers in `next.config.ts` — HSTS (1y + includeSubDomains), `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`
+- ✅ `/api/` blocked in `app/robots.ts`
+- ✅ Resend wired into `/contact` and `/enquiry` — server-side validation, replyTo, env-var driven recipient
+- ✅ Verified live on `https://mittal-enterprises.vercel.app` — Rich Results Test (3/4 schemas valid, Product ineligible-by-design), PageSpeed mobile 98/96/100/100
+
+### Owner / current-agency action — still pending
+1. **Add `http://www. → https://www.` 301** on the production PHP `.htaccess` + HSTS header. 5 minutes; the single biggest SEO change available, and the only fix that can't be made from this codebase. Detail in §3.
 2. **Verify HTTPS property in Search Console**, plus a Domain property.
-3. Submit a basic sitemap to the HTTPS property.
+3. Submit a basic sitemap to the HTTPS property (or wait for the Next.js cutover and submit `https://www.mittalenterprises.com/sitemap.xml`).
 
-### Pre-launch on the Next.js site (blockers — do not deploy without these)
-4. Add `generateMetadata` to:
-   - `app/products/[slug]/[productSlug]/page.tsx` (product detail)
-   - `app/products/[slug]/page.tsx` (category)
-   - `app/products/page.tsx`, `app/profile/page.tsx`, `app/contact/page.tsx`, `app/global-supplies/page.tsx`, `app/enquiry/page.tsx`
-5. Add `metadataBase` and per-page `alternates.canonical` in those generators.
-6. Rewrite titles for the 5 zero-click high-impression products (§5 table).
-7. Add `Organization` JSON-LD in `app/layout.tsx`, `Product` + `BreadcrumbList` JSON-LD in product detail page.
-8. Add `headers()` block to `next.config.ts` (HSTS, nosniff, referrer-policy).
-9. Block `/api/` in `app/robots.ts`.
-
-### Launch day
-10. Deploy. Confirm `https://www.mittalenterprises.com/sitemap.xml` returns 200. Submit to GSC.
-11. Spot-check 5 redirects manually (e.g. `/products/index/ultrasonic-interferometer-for-liquids_3238.html`). Look for `301 → 200`.
-12. Run PageSpeed Insights on homepage + 3 top product pages.
-13. Run Rich Results Test on a product URL.
+### Launch day (when production domain points at the Next.js build)
+4. Re-set the three Resend env vars (`RESEND_API_KEY`, `CONTACT_EMAIL`, `MAIL_FROM`) on the production environment. The `MAIL_FROM` should switch from the `onboarding@resend.dev` sandbox to a verified `*@mittalenterprises.com` sender — requires DNS records on the owner's side.
+5. Confirm `https://www.mittalenterprises.com/sitemap.xml` returns 200. Submit to GSC.
+6. Spot-check 5 redirects manually (e.g. `/products/index/ultrasonic-interferometer-for-liquids_3238.html`). Look for `301 → 200`.
+7. Re-run PageSpeed Insights against the production hostname (Vercel preview is already at 98/96/100/100).
+8. Re-run Rich Results Test on a product URL under the production domain.
 
 ### First 30 days post-launch
-14. Watch GSC Coverage for the old `_NNNN.html` URLs to fall out of the index (target: 30–60 days).
-15. Track the 5 rewritten-title pages — Stefan, photodiode, B-H curve, forbidden-energy-gap, ultrasonic-interferometer-for-liquids — for CTR change. These should jump from ~0% to 2–4%.
+9. Watch GSC Coverage for the old `_NNNN.html` URLs to fall out of the index (target: 30–60 days).
+10. Track the 6 rewritten-title pages for CTR change. These should jump from ~0% to 2–4%.
 
-### Quarter 1 content work
-16. Add 300–500 words of standard textbook theory + procedure to each of the 10 highest-impression product pages. Source: university lab manuals. Sourcing rule per CLAUDE.md still applies — physics theory is fine; product specs must come from the source-of-truth DB.
-17. Build an "Experiments" or "Resources" hub page linking to all kits with their associated theory — captures students/professors searching at the topic level rather than the product level.
+### Quarter 1 content work — audience: procurement, not students
+11. Rewrite product-detail copy on the 6 zero-click pages for the **buying audience** — lab heads and procurement officers. What experiments the kit supports, comparable models, frequency ranges, lead time hints, what other Indian institutions use it. **Skip the textbook-theory direction** originally suggested in §8 — that audience (undergrads) is not a buyer.
+12. Optional: an "Instruments index" hub page that lets a procurement officer compare across categories at a glance.
 
 ### Long-term
-18. Consider one inbound-link push per quarter — academic supplier directories, university procurement listing services, FIEO member directory. The site has zero off-page authority signals visible from this audit; even modest backlink work will move positions on the long-tail product queries.
+13. One inbound-link push per quarter — academic supplier directories, university procurement listing services, FIEO member directory. The site has near-zero off-page authority signals visible from this audit; even modest backlink work will move positions on the long-tail product queries.
 
 ---
 

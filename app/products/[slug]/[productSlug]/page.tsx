@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { productCategories } from '@/lib/data';
 import { products, getProductBySlug } from '@/lib/products-data';
 import { getProductMarkdown, extractModelsFromMarkdown } from '@/lib/products-content';
+import { getProductBrochure } from '@/lib/product-brochures';
 import { productSeoOverrides } from '@/lib/seo-overrides';
 import { SITE_URL } from '@/app/layout';
 import PageHeader from '@/components/PageHeader';
@@ -72,6 +73,7 @@ export default async function ProductDetailPage({
     .slice(0, 3);
 
   const enquiryHref = `/enquiry?product=${encodeURIComponent(product.name)}&code=${encodeURIComponent(product.itemCode)}&category=${encodeURIComponent(category.slug)}`;
+  const brochureHref = getProductBrochure(product.slug);
 
   const canonicalUrl = `${SITE_URL}/products/${category.slug}/${product.slug}`;
   // Intentionally omits `offers`, `review`, and `aggregateRating`. Google's
@@ -92,6 +94,14 @@ export default async function ProductDetailPage({
     manufacturer: { '@type': 'Organization', name: 'Mittal Enterprises', url: SITE_URL },
     url: canonicalUrl,
     ...(models.length > 0 && { model: models }),
+    ...(brochureHref && {
+      subjectOf: {
+        '@type': 'CreativeWork',
+        name: `${product.name} — brochure (PDF)`,
+        url: `${SITE_URL}${brochureHref}`,
+        encodingFormat: 'application/pdf',
+      },
+    }),
   };
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
@@ -197,6 +207,15 @@ export default async function ProductDetailPage({
                     >
                       Request quote <span aria-hidden>→</span>
                     </Link>
+                    {brochureHref && (
+                      <a
+                        href={brochureHref}
+                        download
+                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-sm border border-ink text-ink hover:bg-ink hover:text-paper transition-colors"
+                      >
+                        Download brochure <span aria-hidden>↓</span>
+                      </a>
+                    )}
                     <Link
                       href="/contact"
                       className="inline-flex items-center gap-2 px-6 py-3.5 rounded-sm border border-ink text-ink hover:bg-ink hover:text-paper transition-colors"

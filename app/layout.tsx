@@ -28,11 +28,12 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Mittal Enterprises — Laboratory Scientific Instruments",
+    default:
+      "Ultrasonic Interferometers & Nanofluid Lab Instruments — Mittal Enterprises",
     template: "%s | Mittal Enterprises",
   },
   description:
-    "Manufacturer of ultrasonic, nanofluid and laboratory scientific instruments for universities and research labs. Est. 1976. ISO 9001:2008 · FIEO Registered.",
+    "India's only manufacturer of Nanofluid Interferometers. Ultrasonic interferometers and physics, chemistry and material science lab instruments for universities and research labs since 1976. ISO 9001:2008 · FIEO Registered.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
