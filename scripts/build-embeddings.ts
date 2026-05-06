@@ -2,37 +2,52 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { buildChunks } from '../lib/chat/chunks';
 
-const MODEL = 'text-embedding-004';
-const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:batchEmbedContents`;
-const BATCH_SIZE = 100;
+const MODEL = 'gemini-embedding-001';
+const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:embedContent`;
+const OUTPUT_DIM = 768;
+const CONCURRENCY = 5;
 const OUTPUT = resolve(process.cwd(), 'lib/chat/embeddings.json');
 
-interface BatchEmbedResponse {
-  embeddings?: Array<{ values?: number[] }>;
+interface EmbedResponse {
+  embedding?: { values?: number[] };
   error?: { message?: string };
 }
 
-async function embedBatch(apiKey: string, texts: string[]): Promise<number[][]> {
-  const body = {
-    requests: texts.map((text) => ({
-      model: `models/${MODEL}`,
-      content: { parts: [{ text }] },
-      taskType: 'RETRIEVAL_DOCUMENT',
-    })),
-  };
+async function embedOne(apiKey: string, text: string): Promise<number[]> {
   const response = await fetch(`${ENDPOINT}?key=${apiKey}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+    body: JSON.stringify({
+      model: `models/${MODEL}`,
+      content: { parts: [{ text }] },
+      taskType: 'RETRIEVAL_DOCUMENT',
+      outputDimensionality: OUTPUT_DIM,
+    }),
   });
-  const payload = (await response.json()) as BatchEmbedResponse;
-  if (!response.ok || !payload.embeddings) {
+  const payload = (await response.json()) as EmbedResponse;
+  if (!response.ok || !payload.embedding?.values) {
     throw new Error(`Gemini embed failed: ${payload.error?.message || response.statusText}`);
   }
-  return payload.embeddings.map((e, i) => {
-    if (!e.values) throw new Error(`Missing vector for batch index ${i}`);
-    return e.values;
-  });
+  return payload.embedding.values;
+}
+
+async function embedAll(apiKey: string, texts: string[]): Promise<number[][]> {
+  const out: number[][] = new Array(texts.length);
+  let next = 0;
+  let done = 0;
+  async function worker() {
+    while (true) {
+      const i = next++;
+      if (i >= texts.length) return;
+      out[i] = await embedOne(apiKey, texts[i]);
+      done++;
+      if (done % 10 === 0 || done === texts.length) {
+        console.log(`  embedded ${done}/${texts.length}`);
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+  return out;
 }
 
 async function main() {
@@ -43,15 +58,9 @@ async function main() {
   }
 
   const chunks = buildChunks();
-  console.log(`Built ${chunks.length} chunks. Embedding...`);
+  console.log(`Built ${chunks.length} chunks. Embedding with ${MODEL} (dim=${OUTPUT_DIM})...`);
 
-  const vectors: number[][] = [];
-  for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
-    const batch = chunks.slice(i, i + BATCH_SIZE);
-    const embedded = await embedBatch(apiKey, batch.map((c) => c.text));
-    vectors.push(...embedded);
-    console.log(`  embedded ${Math.min(i + BATCH_SIZE, chunks.length)}/${chunks.length}`);
-  }
+  const vectors = await embedAll(apiKey, chunks.map((c) => c.text));
 
   const dim = vectors[0]?.length ?? 0;
   if (!vectors.every((v) => v.length === dim)) {
