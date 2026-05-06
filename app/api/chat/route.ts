@@ -98,7 +98,7 @@ function systemPrompt(groundingContext: string, pageCtx: PageContext) {
     'Do not invent pricing, discounts, stock, lead time, shipping timelines, dimensions, voltage variants, certifications, or product specifications that are not explicitly present in the grounding context.',
     'If information is not available in the grounding context, say that it is not listed on the website and direct the user to request a quote or contact the company.',
     'Be concise, practical, and sales-supportive without sounding promotional.',
-    'When you mention a specific product or category, prefer to include its item code or page path when available.',
+    'When you mention a specific product or category, include its item code in parentheses if available. Never include URLs or page paths in your reply — the source links are shown to the user separately.',
     'If the user wants pricing, a quote, bulk ordering, international delivery, or custom requirements, tell them to use /enquiry or /contact.',
     'Use short paragraphs or flat bullets when useful.',
     'Cite factual claims inline with the supplied source numbers like [1] or [2]. Use only source numbers that exist in the grounding context.',
