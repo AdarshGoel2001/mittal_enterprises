@@ -1,6 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
+import { products } from '@/lib/products-data';
+import { productCategories } from '@/lib/data';
 
 type Source = {
   id: string;
@@ -9,10 +12,19 @@ type Source = {
   url: string;
 };
 
+type Suggestion = {
+  kind: 'enquiry' | 'contact';
+  productSlug?: string;
+  categorySlug?: string;
+  label: string;
+  href: string;
+};
+
 type Message = {
   role: 'assistant' | 'user';
   content: string;
   sources?: Source[];
+  suggestion?: Suggestion;
 };
 
 const INITIAL_MESSAGES: Message[] = [
@@ -23,17 +35,131 @@ const INITIAL_MESSAGES: Message[] = [
   },
 ];
 
-const QUICK_REPLIES = [
+const DEFAULT_QUICK_REPLIES = [
   'Show ultrasonic interferometer options',
   'Which products are in nano science instruments?',
   'How do I request a bulk quote?',
   'What international shipping support do you offer?',
 ];
 
-function messageBody(content: string) {
+export function quickRepliesFor(pathname: string): string[] {
+  if (!pathname) return DEFAULT_QUICK_REPLIES;
+
+  // /products/[slug]/[productSlug]
+  const productMatch = pathname.match(/^\/products\/([^/]+)\/([^/]+)\/?$/);
+  if (productMatch) {
+    const productSlug = productMatch[2];
+    const product = products.find((p) => p.slug === productSlug);
+    const name = product?.name || 'this product';
+    return [
+      `What models are available for the ${name}?`,
+      `What is the item code for the ${name}?`,
+      `Request a quote for the ${name}`,
+      `What specs are listed for the ${name}?`,
+    ];
+  }
+
+  // /products/[slug]
+  const categoryMatch = pathname.match(/^\/products\/([^/]+)\/?$/);
+  if (categoryMatch) {
+    const categorySlug = categoryMatch[1];
+    const category = productCategories.find((c) => c.slug === categorySlug);
+    const name = category?.name || 'this category';
+    return [
+      `Which products are in ${name}?`,
+      `Show me item codes in ${name}`,
+      `Request a quote for ${name}`,
+      'What international shipping support do you offer?',
+    ];
+  }
+
+  if (pathname.startsWith('/global-supplies')) {
+    return [
+      'What international shipping support do you offer?',
+      'Which countries do you export to?',
+      'How do I request an export quote?',
+      'What documentation do you provide for exports?',
+    ];
+  }
+
+  if (pathname.startsWith('/profile')) {
+    return [
+      'When was Mittal Enterprises established?',
+      'What certifications does the company hold?',
+      'What product categories do you manufacture?',
+      'How do I contact the company?',
+    ];
+  }
+
+  if (pathname.startsWith('/research')) {
+    return [
+      'Which instruments are used in nanofluid research?',
+      'What parameters can the ultrasonic interferometer measure?',
+      'Which products support thermal conductivity studies?',
+      'Request a quote for a research lab',
+    ];
+  }
+
+  if (pathname.startsWith('/contact')) {
+    return [
+      'What is the company address?',
+      'What are the contact phone numbers?',
+      'How do I request a quote instead?',
+      'What international shipping support do you offer?',
+    ];
+  }
+
+  if (pathname.startsWith('/enquiry')) {
+    return [
+      'What information should I include in an enquiry?',
+      'How do I request a bulk quote?',
+      'Do you ship internationally?',
+      'Which categories do you manufacture?',
+    ];
+  }
+
+  return DEFAULT_QUICK_REPLIES;
+}
+
+function renderLineWithCitations(line: string, sources: Source[] | undefined) {
+  const regex = /\[(\d+)\]/g;
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let key = 0;
+
+  while ((match = regex.exec(line)) !== null) {
+    if (match.index > lastIndex) {
+      nodes.push(line.slice(lastIndex, match.index));
+    }
+    const n = parseInt(match[1], 10);
+    const source = sources && sources[n - 1];
+    if (source) {
+      nodes.push(
+        <a
+          key={`cite-${key++}`}
+          href={source.url}
+          className="mono text-[0.7em] text-ink-muted no-underline hover:text-ink hover:underline"
+          title={source.title}
+        >
+          [{n}]
+        </a>
+      );
+    } else {
+      nodes.push(match[0]);
+    }
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < line.length) {
+    nodes.push(line.slice(lastIndex));
+  }
+  return nodes;
+}
+
+function messageBody(content: string, sources?: Source[]) {
   return content.split('\n').map((line, index) => (
     <p key={index} className={index > 0 ? 'mt-2' : ''}>
-      {line}
+      {renderLineWithCitations(line, sources)}
     </p>
   ));
 }
@@ -44,6 +170,9 @@ export default function ChatBubble() {
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
   const endRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname() || '/';
+
+  const quickReplies = useMemo(() => quickRepliesFor(pathname).slice(0, 4), [pathname]);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -77,6 +206,7 @@ export default function ChatBubble() {
         message?: string;
         error?: string;
         sources?: Source[];
+        suggestion?: Suggestion;
       };
 
       if (!response.ok) {
@@ -89,6 +219,7 @@ export default function ChatBubble() {
           role: 'assistant',
           content: payload.message || 'I could not generate an answer.',
           sources: payload.sources,
+          suggestion: payload.suggestion,
         },
       ]);
     } catch (error) {
@@ -143,7 +274,7 @@ export default function ChatBubble() {
                       : 'ml-auto bg-ink text-paper'
                   }`}
                 >
-                  {messageBody(message.content)}
+                  {messageBody(message.content, message.sources)}
                 </div>
                 {message.sources && message.sources.length > 0 && (
                   <div className="mt-2 flex max-w-[90%] flex-wrap gap-1.5">
@@ -156,6 +287,16 @@ export default function ChatBubble() {
                         {source.title}
                       </a>
                     ))}
+                  </div>
+                )}
+                {message.suggestion && message.suggestion.href && message.suggestion.label && (
+                  <div className="mt-2 max-w-[90%]">
+                    <a
+                      href={message.suggestion.href}
+                      className="mono inline-flex w-full items-center justify-center bg-ink px-3 py-2 text-[0.7rem] uppercase tracking-widest text-paper transition-colors hover:bg-accent"
+                    >
+                      {message.suggestion.label}
+                    </a>
                   </div>
                 )}
               </div>
@@ -173,7 +314,7 @@ export default function ChatBubble() {
 
         <div className="border-t border-rule px-4 pb-4 pt-3">
           <div className="mb-3 flex flex-wrap gap-1.5">
-            {QUICK_REPLIES.map((reply) => (
+            {quickReplies.map((reply) => (
               <button
                 key={reply}
                 type="button"
