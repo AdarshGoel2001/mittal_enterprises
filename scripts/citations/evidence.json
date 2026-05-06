@@ -1,0 +1,2188 @@
+{
+  "10.1002_masy.202200009": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5564
+  },
+  "10.1002_masy.202300047": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5564
+  },
+  "10.1007_s10953-013-0003-0": {
+    "verified": true,
+    "snippet": "A multi frequency ultrasonic interferometer (M-82 Model, Mittal Enterprise, New Delhi, India), operated at 2 MHz, was used to measure the ultrasonic velocities in the binary liquid mixtures at the constant temperature 303.15 K controlled by a digital constant temperature water bath.",
+    "modelCodes": [
+      "M-82"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 616954,
+    "pageNumber": 4
+  },
+  "10.1007_s10973-013-3312-z": {
+    "verified": true,
+    "snippet": "A multi-frequency ultrasonic interferometer (M-82 Model, Mittal Enterprise, New Delhi, India) operated at 2 MHz was used to measure the ultrasonic velocities in binary liquid mixtures at constant temperature of (303.15 and 308.15) K controlled by a digital constant temperature water bath.",
+    "modelCodes": [
+      "M-82"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 353177,
+    "pageNumber": 2
+  },
+  "10.1007_s10973-026-15405-7": {
+    "verified": true,
+    "snippet": "The sponsors included the Ministry of Education, Govt. of India, Rigaku corporation, ACS International India, Teaching Learning Centre, IITM, Netzsch, Green Chemistry Letters and Reviewers, Waters TA instruments, Mittal enterprises, Linseis and State Bank of India.",
+    "modelCodes": [],
+    "productHints": [],
+    "pdfBytes": 1002353,
+    "pageNumber": 3
+  },
+  "10.1007_s13197-014-1276-z": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 327422
+  },
+  "10.1007_s13197-015-2038-2": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 319575
+  },
+  "10.1007_s13197-015-2050-6": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 295874
+  },
+  "10.1007_s13204-023-02944-w": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 338883
+  },
+  "10.1007_s42452-019-0688-9": {
+    "verified": true,
+    "snippet": "The sound velocity measurements were carried out at 298.15 ± 0.05 K for all mixtures using an ultrasonic interferometer (Mittal Enterprises, New Delhi, India, F-05) operating at 2 MHz frequency.",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1441631,
+    "pageNumber": 2
+  },
+  "10.1007_s42452-023-05597-0": {
+    "verified": true,
+    "snippet": "The salts were weighed using a Kern electronic balance, which has an accuracy of ± ­10−4 g, to prepare the non-aqueous solutions. 2.1 \u0007Ultrasonic velocity measurement Ultrasonic velocity was measured using digital ultrasonic interferometer of fixed frequency 2 MHz with on accuracy of ± 0.2 m ­s-1 (Model F-81 Mittal enterprises, New Delhi).",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 921486,
+    "pageNumber": 2
+  },
+  "10.1021_acs.chemrev.5b00733": {
+    "verified": true,
+    "snippet": "The second most frequently used measuring method (13.5%) is the interferometric method, which is also not surprising because such apparatuses are commercially available as well (Ultrasonic Interferometers from Mittal Enterprises).",
+    "modelCodes": [],
+    "productHints": [],
+    "pdfBytes": 2189109,
+    "pageNumber": 9
+  },
+  "10.1038_s41598-025-87705-1": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity of the as-synthesized nanomaterial dispersion solutions was measured using a nanofluid interferometer [Model NF-10 (2 MHz), Mittal Enterprises, Delhi].",
+    "modelCodes": [
+      "NF-10"
+    ],
+    "productHints": [
+      "nano-fluid-interferometer"
+    ],
+    "pdfBytes": 2607803,
+    "pageNumber": 3
+  },
+  "10.1088_1402-4896_ad8822": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 243780
+  },
+  "10.1088_1742-6596_1172_1_012044": {
+    "verified": true,
+    "snippet": "Series 1172 (2019) 012044 doi:10.1088/1742-6596/1172/1/012044 Ultrasonic pulse echo interferometer (3MHz Mittal Enterprises India) is used for ultrasonic velocity measurements.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 641772,
+    "pageNumber": 3
+  },
+  "10.1108_agjsr-05-2022-0068": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 6059
+  },
+  "10.1139_v88-210": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5434
+  },
+  "10.1155_2009_505981": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5800
+  },
+  "10.1155_2010_264929": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2010_760253": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2011_192139": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2011_353187": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2011_545313": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2011_701547": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2011_856284": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2011_869594": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2012_147940": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2012_237068": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2012_324098": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2012_571521": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2012_681241": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2013_285796": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5801
+  },
+  "10.1155_2013_413878": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5801
+  },
+  "10.1155_2013_942430": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5822
+  },
+  "10.1155_2014_124012": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5801
+  },
+  "10.1155_2014_487403": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5801
+  },
+  "10.1155_2016_8470689": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5804
+  },
+  "10.1155_2016_9582582": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5804
+  },
+  "10.1155_2022_4274436": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5816
+  },
+  "10.1155_2022_5333930": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5825
+  },
+  "10.11648_j.ajac.20251306.12": {
+    "verified": true,
+    "snippet": "Sound Velocity The ultrasonic velocity were measured using a multifrequency ultrasonic interferometer (Model F80D, Mittal Enterprise, New Delhi, India) working at 3 M.Hz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 904589,
+    "pageNumber": 3
+  },
+  "10.11648_j.ajhc.20241001.12": {
+    "verified": true,
+    "snippet": "Sound velocity: Ultrasonic velocity of the sample were measured at 298.15 K and atmospheric pressure using F-80D multifrequency ultrasonic interferometer (M/s Mittal Enterprises, New Delhi) at a constant frequency of 3 MHz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 634651,
+    "pageNumber": 3
+  },
+  "10.11648_j.ajpc.20251403.11": {
+    "verified": true,
+    "snippet": "Sound velocity determined by the Multi-frequency interferometer (Model F-80D, Mittal Enterprise, New Delhi, India) at 3 MHz and 298.15K, A fixed frequency generator working at 3 MHz. its resonant frequency, the crystal undergoes rapid mechanical oscillations, generating 3.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 992369,
+    "pageNumber": 3
+  },
+  "10.11648_j.wjac.20261101.11": {
+    "verified": true,
+    "snippet": "Sound Velocity The speed of sound (u) in the solutions was measured at a frequency of 3 MHz using the interferometric method (Model F-80D, Mittal Enterprise, New Delhi, India) at 298.15 K.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1251763,
+    "pageNumber": 3
+  },
+  "10.1186_s13065-025-01463-9": {
+    "verified": true,
+    "snippet": "The wavelength of sound (λ/ms−1) for the experimental solution was measured in a single frequency variable path ultrasonic interferometer (Model: F-05 by Mittal Enterprises, New Delhi, India).",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 2655460,
+    "pageNumber": 4
+  },
+  "10.1186_s13065-025-01490-6": {
+    "verified": true,
+    "snippet": "The wavelength ( /ms)) of sound waves in the experimental liquid medium was measured using a single frequency variable path ultrasonic interferometer (Model: F-05) from Mittal Enterprises, New Delhi, India.",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1851246,
+    "pageNumber": 3
+  },
+  "10.1186_s40543-016-0095-4": {
+    "verified": true,
+    "snippet": "Ultrasonic interferometer Ultrasonic interferometer from Mittal Enterprises, Model M-81 with an accuracy of ±0.03 % and a frequency of 1 MHz, was used for the measurement of ultrasonic velocities of different solutions.",
+    "modelCodes": [
+      "M-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1928509,
+    "pageNumber": 5
+  },
+  "10.1186_s40543-016-0101-x": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity in the mixtures as well as in the component liquids were measured at 303.15 K (calibrated up to ±0.01 m/s) by a single-crystal variable-path multifrequency ultrasonic interferometer operating at different frequencies 1–4 MHz (Mittal Enterprises, New Delhi, Model-M-81S).",
+    "modelCodes": [
+      "M-81S"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1397029,
+    "pageNumber": 2
+  },
+  "10.12693_aphyspola.111.847": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 279648
+  },
+  "10.12693_aphyspola.116.1011": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 276792
+  },
+  "10.12693_aphyspola.130.447": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 282504
+  },
+  "10.13005_msri_070118": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity9-11 in Bio-diesel was measured using ultrasonic Interferometer (Model F-81, Mittal Enterprises N.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 57578,
+    "pageNumber": 4
+  },
+  "10.13005_ojc_300116": {
+    "verified": true,
+    "snippet": "An Ultrasonic interferometer having the fixed frequency of 2MHz (Mittal Enterprises, New DelhiModel: F-81) with an overall accuracy of ±0.1ms-1has been used for velocity measurement.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 365623,
+    "pageNumber": 3
+  },
+  "10.13005_ojc_330362": {
+    "verified": true,
+    "snippet": "The speed of sound waves were obtained by using ultrasonic interferometer (Model F-81, Mittal Enterprises, New Delhi) at a fixed frequency of 2Mhz with an accuracy of + 2ms–1 and a constant temperature 27 °C + 0.05 °C.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 401494,
+    "pageNumber": 2
+  },
+  "10.13005_ojc_350405": {
+    "verified": true,
+    "snippet": "Measurement Ultrasonic study was carried by ultrasonic interferometer (MX-3, Mittal Enterprises) in the temperature range from 25oC to 40oC (± 0.5oC) at a frequency of 1 MHz.",
+    "modelCodes": [
+      "MX-3"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 259397,
+    "pageNumber": 2
+  },
+  "10.13005_ojc_390213": {
+    "verified": true,
+    "snippet": "Experimental techniques Ultrasonic velocities(U) and densities (r) of pure liquids and all liquid mixtures in the present study were measured by employing a pulse-echo interferometer (MODEL M-81) supplied by the Mittal Enterprises, New Delhi and a 10−5 m 3 doublearm pycnometer respectively at (303.15, 308.15, 313.15 and 318.15)K as described by Nikam et al.,14.",
+    "modelCodes": [
+      "M-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 873902,
+    "pageNumber": 2
+  },
+  "10.13005_ojc_390520": {
+    "verified": true,
+    "snippet": "Here ultrasonic parameters was measured using a single-crystal Interferometer (Mittal Enterprises) operating at 1MHz with an accuracy of ±1.0m/s.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 424896,
+    "pageNumber": 3
+  },
+  "10.13040_ijpsr.0975-8232.11(12).6143-48": {
+    "verified": true,
+    "snippet": "MATERIALS AND METHODS: Experimental Details: Ultrasonic velocity was measured using a digital ultrasonic interferometer of fixed frequency 2MHz (Model F-81 Mittal enterprises, New Delhi) with an accuracy of ± 0.2 m/s.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1040049,
+    "pageNumber": 2
+  },
+  "10.13040_ijpsr.0975-8232.8(8).3477-83": {
+    "verified": true,
+    "snippet": "Experimental details: Ultrasonic velocity measurement: Ultrasonic velocity was measured using digital ultrasonic interferometer of fixed frequency 2 MHz with on accuracy of ± 0.2 m/s (Model F-81 Mittal enterprises, New Delhi).",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 545739,
+    "pageNumber": 2
+  },
+  "10.14233_ajchem.2018.20946": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 113664
+  },
+  "10.14233_ajchem.2018.21072": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 110952
+  },
+  "10.14233_ajchem.2018.21385": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 105995
+  },
+  "10.14233_ajchem.2019.21771": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 106346
+  },
+  "10.14233_ajchem.2025.33992": {
+    "verified": true,
+    "snippet": "Physical parameters Ultrasonic sound velocity measurement: Using a single crystal ultrasonic interferometer with a 2 MHz frequency (Model-83S), provided by Mittal enterprises, New Delhi, India that has an accuracy of 0.4 m s-1 at 25 ºC, ultrasonic velocity (U) was recorded at 323.15 K [19], using eqn. 1: U=n×λ (1) Density measurement: By using a magnet…",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1379095,
+    "pageNumber": 3
+  },
+  "10.14257_ijast.2014.69.07": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities in liquid mixtures have been measured using an ultrasonic interferometer (Model F81) supplied by Mittal Enterprises, New Delhi working at 2 MHz frequency with an accuracy of ±0.1 m.sec-1.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 756835,
+    "pageNumber": 2
+  },
+  "10.14257_ijast.2017.99.03": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity (U) in the mixture has been measured by using variable path single crystal interferometer (Model F-81S, Mittal Enterprises, India) at a fixed frequency of 2 MHz with an accuracy of 0.03%.",
+    "modelCodes": [
+      "F-81S"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 961179,
+    "pageNumber": 2
+  },
+  "10.14419_ijac.v2i1.1624": {
+    "verified": true,
+    "snippet": "… of the binary mixture ρ2 is the density of the binary mixture Ultrasonic velocity: The sound velocity of the liquid mixture have been measured using an ultrasonic interferometer (Mittal Enterprises, New Delhi) working at a fixed frequency of 2MHZ.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 331265,
+    "pageNumber": 1
+  },
+  "10.14419_ijac.v2i1.1663": {
+    "verified": true,
+    "snippet": "Therefore the applications of these compounds attract us to study their behaviour in acetone. frequency (Mittal enterprises, New Delhi).",
+    "modelCodes": [],
+    "productHints": [],
+    "pdfBytes": 463108,
+    "pageNumber": 1
+  },
+  "10.14419_ijac.v2i2.2947": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity was measured by using single crystal Ultrasonic interferometer (Mittal Enterprise, Model F-81) operating at a frequency of 5 MHz Water from a thermostatically regulated bath (Toshniwal, India) equipped with Jumo D.B.P. temperature sensor was circulated with a s…",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 351204,
+    "pageNumber": 1
+  },
+  "10.14419_ijac.v4i2.6333": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity measurement Ultrasonic velocity measurements were carried out at 1 MHz using interferometer (Mittal Enterprises) which is a direct and simple device for measuring of sound velocity in liquids.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 429639,
+    "pageNumber": 2
+  },
+  "10.14419_ijac.v8i1.30541": {
+    "verified": true,
+    "snippet": "The ultrasonic speeds in solutions were measured using a single crystal variable path multifrequency ultrasonic interferometer [M-81S, Mittal Enterprises, India] operated at a fixed frequency of 2 MHz.",
+    "modelCodes": [
+      "M-81S"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 439752,
+    "pageNumber": 2
+  },
+  "10.14419_ijac.v9i2.31715": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities were measured using a multi-frequency ultrasonic interferometer, M-80D, (Mittal Enterprise, New Delhi) working at 3 M.Hz.",
+    "modelCodes": [
+      "M-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 333875,
+    "pageNumber": 2
+  },
+  "10.14738_aivp.1306.19780": {
+    "verified": true,
+    "snippet": "Sound Velocity: Ultrasonic velocities were measured using a multi-frequency ultrasonic interferometer (Model F80D, Mittal Enterprise, New Delhi, India) operating at a fixed frequency of 3 MHz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1001161,
+    "pageNumber": 4
+  },
+  "10.1515_zna-2010-8-918": {
+    "verified": true,
+    "snippet": "The ultrasonic speeds in liquid samples were measured by using a single crystal variable path interferometer (Mittal Enterprise, New Delhi, Model – M-82) at 2 MHz.",
+    "modelCodes": [
+      "M-82"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 138127,
+    "pageNumber": 2
+  },
+  "10.15255_cabeq.2015.2185": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity (U) of PO with and without TBHQ were measured using an ultrasonic interferometer (Mittal Enterprises; New Delhi, ­India), at 2 MHz frequency with a tolerance of ± 0.005 %.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 2007812,
+    "pageNumber": 2
+  },
+  "10.15623_ijret.2014.0302056": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities in mixed solvent and amino acids solutions were measured by using a single-crystal variable-path multi-frequency ultrasonic interferometer (Model: M-84, Mittal Enterprises, Delhi, India) with stainless steel sample cell operating at 2 MHz with an accuracy of ± 0.01 has been used for velocity measurements.",
+    "modelCodes": [
+      "M-84"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 579642,
+    "pageNumber": 2
+  },
+  "10.15623_ijret.2015.0401018": {
+    "verified": true,
+    "snippet": "For velocity measurements, Ultrasonic interferometer having a frequency of 3 MHz (Mittal Enterprises, New Delhi, Model: F-18) with an overall accuracy of 0.1% has been used.",
+    "modelCodes": [
+      "F-18"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 554436,
+    "pageNumber": 1
+  },
+  "10.15640_jcb.v10n1a1": {
+    "verified": true,
+    "snippet": "…l with corresponding literature values of respectively. 2.2.1 Sound velocity The ultrasonic velocities were measured using a multifrequency ultrasonic interferometer (Model F-80D, Mittal Enterprise, New Delhi, India) working at 3 M.Hz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 735884,
+    "pageNumber": 2
+  },
+  "10.17344_acsi.2016.2242": {
+    "verified": true,
+    "snippet": "The speeds of sound in the solutions were measured using a single-crystal variable-path multi-frequency ultrasonic interferometer (M-82, Mittal Enterprises) having stainless steel sample cell (with digital micrometer) operating at fixed frequency of 4 MHz.",
+    "modelCodes": [
+      "M-82"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 357913,
+    "pageNumber": 2
+  },
+  "10.17485_ijst_2009_v2i1.6": {
+    "verified": false,
+    "reason": "no-brand-mention",
+    "pdfBytes": 502585
+  },
+  "10.17485_ijst_v15i6.1960": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity was measure by using ultrasonic interferometer having frequency 3 MHz (Mittal Enterprises, Model No.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 330900,
+    "pageNumber": 2
+  },
+  "10.18052_www.scipress.com_ilcpa.10.1": {
+    "verified": true,
+    "snippet": "Using ultrasonic interferometer (Mittal enterprises, India; Model: F-80X) ultrasonic velocities were measured.",
+    "modelCodes": [
+      "F-80X"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 562749,
+    "pageNumber": 2
+  },
+  "10.18052_www.scipress.com_ilcpa.15.151": {
+    "verified": true,
+    "snippet": "By using single crystal ultrasonic pulse echo interferometer (Mittal enterprises, India; Model: F-80X) the ultrasonic velocities were measured.",
+    "modelCodes": [
+      "F-80X"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 654788,
+    "pageNumber": 2
+  },
+  "10.18052_www.scipress.com_ilcpa.42.72": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity measurement was made by variable path single crystal Interferometer (Mittal Enterprises, Model F–81) at 2 MHz with accuracy of ±0.03%.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 790195,
+    "pageNumber": 2
+  },
+  "10.18520_cs_v121_i8_1032-1038": {
+    "verified": true,
+    "snippet": "(3) Measurement of thermal conductivity The thermal conductivity of Al2O3 NF was measured using a thermal conductivity meter (Mittal Enterprises, India).",
+    "modelCodes": [],
+    "productHints": [
+      "thermal-conductivity-apparatus"
+    ],
+    "pdfBytes": 4697576,
+    "pageNumber": 3
+  },
+  "10.20431_2349-0403.1201005": {
+    "verified": true,
+    "snippet": "Sound velocity: The speed of sound (u) was measured at a frequency 3 MHz in these solutions using the interferometric method with a (Model F-80D, Mittal Enterprise, New Delhi, India) at 298.15K.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1403553,
+    "pageNumber": 3
+  },
+  "10.21013_jas.v4.n1.p15": {
+    "verified": true,
+    "snippet": "In the present investigation, a variable path ultrasonic interferometer from Mittal enterprises, New Delhi, Model MX-3 was used to measure the ultrasonic velocity in liquid mixtures and solutions, having the working frequency of 1 MHz with accuracy of ±0.03%. 3.",
+    "modelCodes": [
+      "MX-3"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 713910,
+    "pageNumber": 3
+  },
+  "10.21203_rs.3.rs-1744827_v1": {
+    "verified": true,
+    "snippet": "…l with corresponding literature values of respectively. 2.2.2 Sound velocity The ultrasonic velocities were measured using a multifrequency ultrasonic interferometer (Model F-80D, Mittal Enterprise, New Delhi, India) working at 3 M.Hz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 873155,
+    "pageNumber": 3
+  },
+  "10.21203_rs.3.rs-3829417_v1": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity of sound (u) in a different solution of mixed surfactants had been calculated by the high precision multi-frequency ultrasonic interferometer connected with a constant temperature water bath supplied by Mittal Enterprises, New Delhi.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 296192,
+    "pageNumber": 6
+  },
+  "10.21203_rs.3.rs-4829244_v1": {
+    "verified": true,
+    "snippet": "…l be highly useful in designing hydraulic engines. 2 Materials and Methods 2.1 Experimental Technique The experimental apparatus consisted of a single crystal interferometer, from Mittal Enterprises, New Delhi, operating at a frequency of 2MHz, with an accuracy of ± 1.0 m/s, the inlet outlet pipes fitted with the system help in taking readings with temperature variation.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 629844,
+    "pageNumber": 3
+  },
+  "10.21275_art20163706": {
+    "verified": true,
+    "snippet": "…Tb3+ 2.844 103.1 1.76 4.12 0.131 Dy3+ 2.715 103.8 1.69 4.19 0.129 Glass The ultrasonic velocities in the samples were measured with a piezoelectric composite oscillator apparatus (Mittal Enterprises, New Delhi) by resonance method.",
+    "modelCodes": [],
+    "productHints": [],
+    "pdfBytes": 703471,
+    "pageNumber": 2
+  },
+  "10.21275_art20164683": {
+    "verified": true,
+    "snippet": "The ultrasonic measurments was carried out by using a variable path Ultrasonic Interferometer (Mittal Enterprises, Model M - 80) operating at the frequency 5 MHz.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 791259,
+    "pageNumber": 1
+  },
+  "10.21275_sr231130180333": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity measurements were made using a crystal controlled variable path ultrasonic interferometer (Mittal Enterprise, Model F-05) of 2MHz with accuracy of (±) 0.03 % Table 1: Acoustic parameters of Chloro fluro substited chalconeimine % Dioxane 100 90 80 70 Ultrasonic Mole fraction Velocity (u )…",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 251295,
+    "pageNumber": 1
+  },
+  "10.21275_sr23623112955": {
+    "verified": true,
+    "snippet": "Ultrasonic velocities (u) were measured for the polymeric solution at temperatures of (313.15 ± 0.1) K and (323.15 ± 0.1) K using a single crystal ultrasonic interferometer with a frequency of 2 MHz (Model-83S) supplied by Mittal enterprises, New Delhi, which has an accuracy of 0.4 m/s at 25°C.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 775465,
+    "pageNumber": 1
+  },
+  "10.21275_sr25411122357": {
+    "verified": true,
+    "snippet": "(1) Refractive index The refractive indices of the liquids and of the mixtures were determined using Abbe’s refractometer (Model R-8, M/S Mittal Enterprises, New Delhi) which has the least number of moving parts; thus the chances of error arising due to strain are also minimal.",
+    "modelCodes": [
+      "R-8"
+    ],
+    "productHints": [
+      "abbe-refractometers"
+    ],
+    "pdfBytes": 383414,
+    "pageNumber": 2
+  },
+  "10.21275_sr25704122824": {
+    "verified": true,
+    "snippet": "Sound velocity determined by the Multi-frequency interferometer (Model F-80D, Mittal Enterprise, New Delhi, India) at 3 MHz and 298.15 K, A fixed frequency generator working at 3 MHz. its resonant η (mPa s) Observed Literature 0.5885 0.587817 0.587317 3.3978 3.541113 3.54241…",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 440273,
+    "pageNumber": 2
+  },
+  "10.21275_v5i3.nov161952": {
+    "verified": true,
+    "snippet": "Variable bath interferometer having a frequency of 2MHz (Mittal Enterprises, New Delhi) with overall accuracy of 0.1% was used for velocity measurements.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 560115,
+    "pageNumber": 1
+  },
+  "10.21275_v5i4.nov162688": {
+    "verified": true,
+    "snippet": "Ultrasonic velocities of the solutions were measured using a fixed frequency continuous wave ultrasonic interferometer (Model F80, Mittal Enterprises, New Delhi) to an accuracy of ± 0.1 at a frequency of 2 MHz at 308K, 313K, 318K and 323K.",
+    "modelCodes": [
+      "F-80"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 445333,
+    "pageNumber": 1
+  },
+  "10.21276_apjhs.2021.8.4.22": {
+    "verified": true,
+    "snippet": "Exposure of Ultrasound A variable path ultrasonic interferometer (Figure 1: Mittal Enterprises, Model M-81) of frequency 3 MHz has been utilized for irradiation.",
+    "modelCodes": [
+      "M-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 624409,
+    "pageNumber": 2
+  },
+  "10.21315_jps2018.29.3.6": {
+    "verified": true,
+    "snippet": "Found Calculated 72 8.46 8.35 759.72 100 9.31 9.10 697.17 The ultrasonic velocity was determined with the help of a single crystal ultrasonic interferometer model M-82 (Mittal Enterprises, New Delhi) working at a fixed frequency of 2 MHz.",
+    "modelCodes": [
+      "M-82"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 362111,
+    "pageNumber": 3
+  },
+  "10.21474_ijar01_508": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 60942
+  },
+  "10.21474_ijar01_5479": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 60942
+  },
+  "10.2147_nsa.s13453": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 29720
+  },
+  "10.21608_ejchem.2010.1210": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5991
+  },
+  "10.2174_1874067701406010001": {
+    "verified": true,
+    "snippet": "Single crystal interferometer (Mittal Enterprises, Model MX-3) with accuracy ±0.03% and frequency 1 MHz was used in the present work.",
+    "modelCodes": [
+      "MX-3"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 812249,
+    "pageNumber": 2
+  },
+  "10.22270_ajprd.v9i2.944": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity (u) measurements in the liquid mixtures were done using commercial ultrasonic interferometer (Model- No.84S) Mittal Enterprises, New Delhi.",
+    "modelCodes": [
+      "84S"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1562246,
+    "pageNumber": 2
+  },
+  "10.23880_ppej-16000321": {
+    "verified": true,
+    "snippet": "Mittal Enterprises, Ultrasonic Interferometer for Liquids. 29.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 427436,
+    "pageNumber": 6
+  },
+  "10.24297_jac.v4i2.2702": {
+    "verified": true,
+    "snippet": "Single crystal ultrasonic pulse echo interferometer (Mittal enterprises, India; Model: F-80X) was used for measuring ultrasonic velocities.",
+    "modelCodes": [
+      "F-80X"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 785842,
+    "pageNumber": 2
+  },
+  "10.24874_pes.si.24.03.004": {
+    "verified": true,
+    "snippet": "Using a singlecrystal ultrasonic interferometer (Mittal Enterprises, India) running at a frequency of 2 MHz, the sound speeds at various temperatures were measured.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 944918,
+    "pageNumber": 2
+  },
+  "10.26438_ijsrpas_v7i3.125136": {
+    "verified": true,
+    "snippet": "EXPERIMENTAL TECHNIQUES The ultrasonic velocity measurements in the Cetylpyridinium chloride (CPC) with Cellulose derivatives (MC, EC and HPMC) solutions were made in the ultrasonic interferometer of fixed frequency 2MHz (Model F 81 Mittal enterprises, New Delhi, India) and at different temperatures (303, 313 and 323 K).",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 963200,
+    "pageNumber": 2
+  },
+  "10.29356_jmcs.v58i2.165": {
+    "verified": true,
+    "snippet": "The ultrasonic speed (u) was measured by multi frequency ultrasonic interferometer (Model M-81) from Mittal Enterprises, India.",
+    "modelCodes": [
+      "M-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 520306,
+    "pageNumber": 2
+  },
+  "10.29369_ijrbat.2014.02.i.0110": {
+    "verified": true,
+    "snippet": "The present value for the liquids agrees with the literature value within a deviation of +0.01 poise. 1340 Ultrasonic velocity measurements were made by variable path single crystal interferometer (Mittal Enterprises, Model F–81) at 2MHz with the accuracy of +0.03 %.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 652384,
+    "pageNumber": 3
+  },
+  "10.29369_ijrbat.2014.02.i.0146": {
+    "verified": true,
+    "snippet": "Experimental Section: Ultrasonic velocity and density of double distilled water, aqueous glucose solutions of varying concentrations and aqueous solutions of glucose and bio-chemic salts were determined by ultrasonic interferometer (Mittal Enterprises) and digital dnsitometer (Anton Parr Lab).",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 324456,
+    "pageNumber": 2
+  },
+  "10.29369_ijrbat.2014.02.i.0156": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities in pure liquids and their mixtures have been measured by ultrasonic interferometer supplied by Mittal Enterprises, New Delhi at a central frequency of 5 MHz with accuracy 0.01 m/s.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 574598,
+    "pageNumber": 3
+  },
+  "10.29369_ijrbat.2016.04.iii.0003": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity measurements were made by using an ultrasonic interferometer (Mittal Enterprises, New Delhi) at a frequency of 2MHz with a tolerance of ± 0.005% .",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 128366,
+    "pageNumber": 1
+  },
+  "10.29369_ijrbat.2021.02.1.00028": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity has been measured by been made to produce and analyze data interferometry through and interferometer (Mittal Enterprises, Model F- theoretical equations by keeping in view the 81)[6-9] 25 ml, borosil glass specific gravity empirical, semi-empirical technique using ultrasonic 163 pharmaceutical, have Redlich-Kister Page mixtures by I J R B A T, Issue (IX), Vol.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 841978,
+    "pageNumber": 1
+  },
+  "10.29369_ijrbat.2023.02.1.0038": {
+    "verified": false,
+    "reason": "no-brand-mention",
+    "pdfBytes": 782510
+  },
+  "10.30574_wjarr.2024.21.2.0427": {
+    "verified": true,
+    "snippet": "Sound velocity The ultrasonic velocity were measured using a multi-frequency ultrasonic interferometer (Model F-80D, Mittal Enterprise, New Delhi, India) working at 3 M.Hz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1185457,
+    "pageNumber": 3
+  },
+  "10.30731_ijcps.2.1.2013.1-6": {
+    "verified": true,
+    "snippet": "Ultrasonic interferrometer from Mittal Enterprises, Model MX-3 with accuracy of ± 0.03% and frequency 1 MHz was used for the measurement of ultrasonic velocities of different solutions.",
+    "modelCodes": [
+      "MX-3"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 193925,
+    "pageNumber": 2
+  },
+  "10.30799_jnst.352.25100101": {
+    "verified": true,
+    "snippet": "The ultrasonic interferometer, supplied by Mittal Enterprises, New Delhi, with a 2 MHz single-frequency generator, was used.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1191488,
+    "pageNumber": 2
+  },
+  "10.30970_jps.21.4601": {
+    "verified": true,
+    "snippet": "SHARMA The ultrasonic velocity was determined with the help of a single crystal ultrasonic interferometer model M-82 (Mittal Enterprises, New Delhi) working at a fixed frequency of 2 MHz.",
+    "modelCodes": [
+      "M-82"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 232058,
+    "pageNumber": 2
+  },
+  "10.31031_rdms.12.1": {
+    "verified": true,
+    "snippet": "The ultrasonic speeds in solutions were measured using a single crystal variable path multifrequency ultrasonic interferometer [M-81S, Mittal Enterprises, India] operated at a fixed frequency of 2MHz.",
+    "modelCodes": [
+      "M-81S"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 475819,
+    "pageNumber": 2
+  },
+  "10.31031_rdms.2019.12.000776": {
+    "verified": true,
+    "snippet": "The ultrasonic speeds in solutions were measured using a single crystal variable path multifrequency ultrasonic interferometer [M-81S, Mittal Enterprises, India] operated at a fixed frequency of 2MHz.",
+    "modelCodes": [
+      "M-81S"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 475819,
+    "pageNumber": 2
+  },
+  "10.31032_ijbpas_2021_10.12.2048": {
+    "verified": true,
+    "snippet": "In the field of agriculture it is Multi-frequency Ultrasonic interferometer utilized widely in chemical additives for from Mittal enterprises, Model M-83 with getting better the production yield of food. accuracy of ± 0.03% and frequency 1 MHz Ultrasonic waves have been useful in the and 3 MHz was used for the measureme…",
+    "modelCodes": [
+      "M-83"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1143960,
+    "pageNumber": 2
+  },
+  "10.31142_ijtsrd2352": {
+    "verified": true,
+    "snippet": "M8 15 supplied by Mittal enterprises, New Delhi, was used for determination of ultrasonic velocity.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1002124,
+    "pageNumber": 2
+  },
+  "10.31142_ijtsrd7023": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity of solution has been measured using with an ultrasonic interferometer (Mittal Enterprises, New Delhi, Model F-81) working at a fixed frequency of 2MHz.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1804018,
+    "pageNumber": 2
+  },
+  "10.31782_ijcrr.2018.5358": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity was measured using digital ultrasonic interferometer of fixed frequency 2MHz (Model F-81 Mittal enterprises, New Delhi) with an accuracy of ± 0.2 m/s.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 3096811,
+    "pageNumber": 2
+  },
+  "10.31782_ijcrr.2018.5963": {
+    "verified": true,
+    "snippet": "MATERIALS AND METHODS Experimental Details Ultrasonic velocity was measured using digital ultrasonic interferometer of fixed frequency 2MHz (Model F-81 Mittal enterprises, New Delhi) with an accuracy of ± 0.2 m/s.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 2564405,
+    "pageNumber": 1
+  },
+  "10.31782_ijcrr.2023.15203": {
+    "verified": true,
+    "snippet": "MATERIALS AND METHODS Experimental Details Ultrasonic velocity measurement: Ultrasonic velocity was measured using digital ultrasonic interferometer of fixed frequency 2 MHz with on accuracy of ± 0.2 m/s (Model F-81 Mittal enterprises, New Delhi).",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1393745,
+    "pageNumber": 2
+  },
+  "10.32606_ijsr.v10.i1.00007": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity of pure components and their mixtures GUPTA AND SRIVASTAVA: ACOUSTICAL INVESTIGATIONS OF AMINO ACID IN AQUEOUS SACCHARIDE SOLUTION… were measured by fixed frequency interferometer of 2 MHz (Mittal Enterprises, Model-05).",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 168252,
+    "pageNumber": 2
+  },
+  "10.32606_ijsr.v14.i1.00004": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity of pure components and their mixtures were measured by fixed frequency interferometer of 2 MHz (Model F-05, Mittal Enterprises).",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 700573,
+    "pageNumber": 2
+  },
+  "10.33263_briac101.061067": {
+    "verified": true,
+    "snippet": "Sound velocity measurements on the aqueous solutions of IBP were made as described earlier [11] by using Ultrasonic Interferometer (Mittal Enterprises, New Delhi, India) at 298.15 K only (frequency of 2 MHz).",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1444327,
+    "pageNumber": 2
+  },
+  "10.33263_briac102.323331": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity (U) of ternary mixture was measured using a single crystal variable path ultrasonic interferometer (F-81, Mittal Enterprises, New Delhi) operating at frequency, f = 2 MHz with an accuracy of ± 0.5 ms-1.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1655463,
+    "pageNumber": 2
+  },
+  "10.33263_briac105.63776388": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity in the solutions as well as in the solvents was measured with an ultrasonic interferometer (Mittal Enterprise, New Delhi), operating at a frequency of 2 MHz.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 521625,
+    "pageNumber": 2
+  },
+  "10.33263_briac111.80758086": {
+    "verified": true,
+    "snippet": "An ultrasonic interferometer (Model F-81, Mittal Enterprise, New Delhi) was used for acoustic studies.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 583512,
+    "pageNumber": 3
+  },
+  "10.33263_briac132.105": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity measurement was done using an Ultrasonic Interferometer (Mittal Enterprises, New Delhi, India) at a frequency of 2 MHz at 298.15 K only.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 597056,
+    "pageNumber": 3
+  },
+  "10.33263_lianbs101.19501958": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities of solutions were measured using a single frequency continuous wave ultrasonic interferometer (Model F81, Mittal Enterprises) with an accuracy of ±0.05% of 2MHz at 303K maintained with a constant temperature bath.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 411131,
+    "pageNumber": 2
+  },
+  "10.33263_materials22.083096": {
+    "verified": true,
+    "snippet": "Binary mixture solutions were prepared on the using the syringe to avoid the formation of bubbles. basis of mole fraction bydissolving benzene in Dipole meter ((Mittal Enterprises, New Delhi) has appropriate amount of hexane/heptane.",
+    "modelCodes": [],
+    "productHints": [
+      "dipolemeter"
+    ],
+    "pdfBytes": 775838,
+    "pageNumber": 3
+  },
+  "10.3329_jsr.v14i3.57587": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity measurements were made using an ultrasonic interferometer (Model M-84, supplied by M/S Mittal Enterprises, New Delhi) at 2 MHz with an accuracy of ±0.1 m·s−1.",
+    "modelCodes": [
+      "M-84"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 878365,
+    "pageNumber": 2
+  },
+  "10.3329_jsr.v17i1.73280": {
+    "verified": true,
+    "snippet": "Method The speed of sound was measured using a 2 MHz ultrasonic interferometer crafted by \"Mittal Enterprises Ltd.”, New Delhi.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 586631,
+    "pageNumber": 3
+  },
+  "10.33425_2689-1050.1026": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities were measured using a multifrequency ultrasonic interferometer (Mittal Enterprise, New Delhi) working at 3 M.Hz.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 514756,
+    "pageNumber": 2
+  },
+  "10.33545_26646552.2023.v5.i1a.42": {
+    "verified": true,
+    "snippet": "The ultrasonic speeds in liquid samples were measured by using a single crystal variable path interferometer (Mittal Enterprise, New Delhi, Model – M82) at 2 MHz.",
+    "modelCodes": [
+      "M-82"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 350611,
+    "pageNumber": 2
+  },
+  "10.33545_26646765.2022.v4.i2a.48": {
+    "verified": true,
+    "snippet": "A crystal controlled variable path ultrasonic interferometer supplied by M/s Mittal enterprises (model-05F), New Delhi (India), operating at a frequency of 2 MHz was used in the ultrasonic measurements.",
+    "modelCodes": [
+      "05F"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 481914,
+    "pageNumber": 2
+  },
+  "10.33545_26647575.2026.v8.i1c.269": {
+    "verified": true,
+    "snippet": "Velocity = wavelength x frequency The ultrasonic velocity in the liquid mixtures have been measured using an Ultrasonic interferometer (Mittal Enterprises, New Delhi) working at 2 MHz frequency with accuracy ± 0.1 ms-1.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 489383,
+    "pageNumber": 2
+  },
+  "10.33564_ijeast.2019.v04i05.043": {
+    "verified": true,
+    "snippet": "Ultrasonic Interferometer for liquids F-81 (Mittal Enterprises) used for the estimation of ultrasonic sound velocity.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 722241,
+    "pageNumber": 1
+  },
+  "10.34049_bcc.54.c.0095": {
+    "verified": true,
+    "snippet": "EXPERIMENTAL To measure ultrasonic speeds, the ultrasonic pulse echo interferometer (Mittal Enterprises, India) was utilized; The measurements were made at a frequency of 3 MHz.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 726650,
+    "pageNumber": 1
+  },
+  "10.34049_bcc.55.a.0024": {
+    "verified": true,
+    "snippet": "An electrically operated constant temperature-circulating water bath (Mittal Enterprises, New Delhi) was used to keep the temperature constant during the experimental observations.",
+    "modelCodes": [],
+    "productHints": [],
+    "pdfBytes": 920476,
+    "pageNumber": 2
+  },
+  "10.35940_ijeat.a1071.1291s319": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 101559
+  },
+  "10.35940_ijitee.j1018.08810s19": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity measurements were made using an ultrasonic interferometer (Model F-81, supplied by M/S Mittal Enterprises, New Delhi) with the accuracy of ±0.1ms−1.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 632295,
+    "pageNumber": 1
+  },
+  "10.35940_ijitee.l1064.10812s19": {
+    "verified": true,
+    "snippet": "The dielectric constants were recorded with dipole meter (Mittal Enterprises, New Delhi).",
+    "modelCodes": [],
+    "productHints": [
+      "dipolemeter"
+    ],
+    "pdfBytes": 1326694,
+    "pageNumber": 2
+  },
+  "10.35940_ijmh.i0919.054920": {
+    "verified": true,
+    "snippet": "The refractive index, density, and ultrasonic velocity of the GG, MC, GG/MC blend solutions (0.5%, w/v) with and without maghemite nanoparticles (0.02 wt%) were measured at 30°C and 40ºC using specific gravity bottle, Abbe’s refractometer, and ultrasonic interferometer (Model F-81, Mittal Enterprises, India), respectively.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 698220,
+    "pageNumber": 2
+  },
+  "10.35940_ijrte.b1263.0782s319": {
+    "verified": true,
+    "snippet": "Molar Volume = Determination of Ultrasonic Velocity (U): An ultrasonic interferometer of model no M-84, supplied by M/S Mittal enterprises, New Delhi, was used to measure the ultrasonic velocity at 30 with an accuracy of 0.1m.s-1 and at operating frequency of 4MHz.",
+    "modelCodes": [
+      "M-84"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 2851283,
+    "pageNumber": 2
+  },
+  "10.36348_merjms.2025.v05i01.004": {
+    "verified": true,
+    "snippet": "Sound Velocity: The speed of sound (u) was measured at a frequency 3 MHz in these solutions using the interferometric method with a (Model F-80D, Mittal Enterprise, New Delhi, India) at 298.15K.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 412475,
+    "pageNumber": 3
+  },
+  "10.36468_pharmaceutical-sciences.16.6.519-523": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 26807
+  },
+  "10.36948_ijfmr.2026.v08i01.66968": {
+    "verified": true,
+    "snippet": "METHODS Ultrasonic velocity measurements The ultrasonic velocity for various concentrations and temperatures of surfactant C 12DMEAB combined with n-alcohol solutions was determined using an Ultrasonic Interferometer (Mittal Enterprises Model81, Delhi, India).",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 595330,
+    "pageNumber": 3
+  },
+  "10.37398_jsr.2021.650727": {
+    "verified": true,
+    "snippet": "An ultrasonic interferometer having the frequency of 2 MHz (Mittal Enterprises, New Delhi, Model: F-81) with an overall accuracy of ± 0.1% has been used for velocity measurement.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 487221,
+    "pageNumber": 1
+  },
+  "10.3989_gya.0663201": {
+    "verified": true,
+    "snippet": "Ultrasonic Measurement A of velocity measurement was taken for all 42 samples by taking 20 ml of the sample in the liquid column of Ultrasonic interferometer (F-80, Mittal Enterprises, Delhi, India) (Rubalya et al., 2013).",
+    "modelCodes": [
+      "F-80"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1230831,
+    "pageNumber": 3
+  },
+  "10.4152_pea.201304241": {
+    "verified": true,
+    "snippet": "Ultrasonic measurements were carried out with a multifrequency ultrasonic interferometer (M-83, Mittal Enterprises, New Delhi) at 25, 30, 35, and 40 °C at 1 MHz frequency.",
+    "modelCodes": [
+      "M-83"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 161038,
+    "pageNumber": 2
+  },
+  "10.4152_pea.2022400102": {
+    "verified": true,
+    "snippet": "Acoustical measurements SAC solutions ultrasonic velocity measurements were recorded on a “F 80\" model ultrasonic interferometer for liquids (Mittal Enterprises, New Delhi), at 301 K, using a crystal with a frequency of 2 MHz, with an accuracy of ± 0.03%. 20 C.",
+    "modelCodes": [
+      "F-80"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 379054,
+    "pageNumber": 2
+  },
+  "10.4236_gsc.2013.34016": {
+    "verified": true,
+    "snippet": "The speed of sound was measured with uncertainty of 0.3% using a multi frequency ultrasonic interferometer (Mittal Enterprises, New Delhi, India), operating at 1 MHz, which was calibrated with water.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 422389,
+    "pageNumber": 2
+  },
+  "10.4236_ojpc.2014.41001": {
+    "verified": true,
+    "snippet": "Refractive indices of pure liquids and liquid mixtures were measured using white light by an Abbe refract meter (Model R-8 M/S Mittal Enterprised, New Delhi) Refract meter was calibrated with kept constant at 303.15 K ± 0.03 K by circulating water of the thermostat with the help of pump through both the prism boxes of the refract meter.",
+    "modelCodes": [
+      "R-8"
+    ],
+    "productHints": [
+      "abbe-refractometers"
+    ],
+    "pdfBytes": 152384,
+    "pageNumber": 2
+  },
+  "10.4236_ojpc.2021.113010": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities were measured using a multifrequency ultrasonic interferometer (Model F-80D, Mittal Enterprise, New Delhi) working at 3 MHz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 856550,
+    "pageNumber": 3
+  },
+  "10.46647_ijetms.2023.v07i05.060": {
+    "verified": true,
+    "snippet": "Ultrasonic interferometer from Mittal Enterprises New Delhi model MX-3, with an accuracy of 10.03 percent.",
+    "modelCodes": [
+      "MX-3"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 821919,
+    "pageNumber": 2
+  },
+  "10.47363_jcia_2025(4)151": {
+    "verified": true,
+    "snippet": "Sound velocity determined by the multi-frequency interferometer (Model F-80D, Mittal Enterprise, New Delhi, India) at 3 MHz and 298.15 K, A fixed frequency generator working at 3 MHz. its resonant frequency, the crystal undergoes rapid mechanical oscillations, generating ultrasonic waves.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 683009,
+    "pageNumber": 2
+  },
+  "10.47392_irjaem.2024.0144": {
+    "verified": true,
+    "snippet": "A crystal-controlled interferometer (model M-81S) supplied by Mittal Enterprises, New Delhi, operating frequencies ranging from 1 to 4 MHz has been used to measure the ultrasonic velocity.",
+    "modelCodes": [
+      "M-81S"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 890977,
+    "pageNumber": 3
+  },
+  "10.48175_ijarsct-28638": {
+    "verified": true,
+    "snippet": "…nswerepreparation by double distilled water.Ultrasonic sound velocities of various solutions weremeasured in Multi frequency interferometer operating at 2MHz frequency supplied by Mittal Enterprises,India; Model F-83 with accuracy of ±0.03% was used.Densities of various solutions were determined using10 mlspecific gravity bottlewith accuracy of ± 0.1 kg/m3.",
+    "modelCodes": [
+      "F-83"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 291062,
+    "pageNumber": 2
+  },
+  "10.48175_ijarsct-30031": {
+    "verified": true,
+    "snippet": "Temperature Range: 298K, 308K, 318K, and 328K (equivalent to 250C, 350 C, 450C and 550C) at 4 MHz in frequency an ultrasonic interferometer was used to detect ultrasonic velocity (Model M-84, supplied by M/S Mittal Enterprises, New Delhi) considering the precision of ±0.1 m s-1.",
+    "modelCodes": [
+      "M-84"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 367247,
+    "pageNumber": 2
+  },
+  "10.48175_ijarsct-6231": {
+    "verified": true,
+    "snippet": "The velocity of ultrasonic waves in the liquid mixture have been measured using an ultrasonic interferometer(model MX-3, Mittal enterprises, New Delhi) working at a fixed frequencies of 2, 4 & 6 MHz in this instrument, using this instrument the wavelength (λ) of the ultrasonic wave in liquid and liquid mixtures can determined.",
+    "modelCodes": [
+      "MX-3"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 320321,
+    "pageNumber": 3
+  },
+  "10.51415_10321_876": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 2489436
+  },
+  "10.52763_pjsir.phys.sci.55.2.2012.59.67": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities were measured using single crystal ultrasonic pulse echo interferometer (Mittal enterprises, India; Model: F-80X).",
+    "modelCodes": [
+      "F-80X"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 93852,
+    "pageNumber": 1
+  },
+  "10.53555_ajbr.v27i3s.3196": {
+    "verified": true,
+    "snippet": "…water ρ2 = the density of the experimental liquid Velocity measurement The velocity of ultrasonic waves I the liquid mixture have been measured using an ultrasonic interferometer (Mittal Enterprises, New Delhi) working at a fixed frequency of 2MHz with a tolerance of +0.005%.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 383123,
+    "pageNumber": 2
+  },
+  "10.53555_ajbr.v27i3s.3202": {
+    "verified": true,
+    "snippet": "Experimental In the present work, ultrasonic velocities were measured by a single crystal, variable path interferometer of Mittal Enterprises (Mittal type, Model F-81) at a frequency of 2 MHz and temperature of 298K.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 450796,
+    "pageNumber": 2
+  },
+  "10.53555_ajbr.v27i3s.3235": {
+    "verified": true,
+    "snippet": "The velocity was measured using an ultrasonic interferometer operated at 3 MHz, at Mittal Enterprises, New Delhi, with an overall precision of + -3 ms-1.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 454323,
+    "pageNumber": 2
+  },
+  "10.5402_2012_943429": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 5801
+  },
+  "10.54647_chemistry150387": {
+    "verified": true,
+    "snippet": "Sound velocity: The speed of sound (u) was measured at a frequency 3 MHz in these solutions using the interferometric method with a (Model F-80D, Mittal Enterprise, New Delhi, India) at 298.15K.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1443107,
+    "pageNumber": 5
+  },
+  "10.54647_chemistry150406": {
+    "verified": true,
+    "snippet": "Sound velocity: The ultrasonic velocity were measured using a multi-frequency ultrasonic interferometer (Model F80D, Mittal Enterprise, New Delhi, India) working at 3 M.Hz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1527065,
+    "pageNumber": 6
+  },
+  "10.55041_ijsrem16387": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 64898
+  },
+  "10.55218_jasr.202112124": {
+    "verified": true,
+    "snippet": "Experimental details The ultrasonic velocity measurements of phenol with acetaldehyde solutions was rendered in the 2 MHz (Model F-81 Mittal enterprises, New Delhi) fixed frequency ultrasonic interferometer at 303k tempera- Journal of Advanced Scientific Research, 2021; 12 (1): Feb.-2021 Asghar et al., J Adv Sci Res, 2021; 12 (1): 190-194 ture.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 723817,
+    "pageNumber": 1
+  },
+  "10.55218_jasr.202213908": {
+    "verified": true,
+    "snippet": "The velocities of ultrasonic waves in the nanofluid have been measured using an ultrasonic interferometer working at a fixed frequency of 2MHz supplied by Mittal Enterprises New Delhi.",
+    "modelCodes": [],
+    "productHints": [
+      "nano-fluid-interferometer"
+    ],
+    "pdfBytes": 695045,
+    "pageNumber": 5
+  },
+  "10.55218_jasr.s1202112438": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities were measured using a multifrequency ultrasonic interferometer (Mittal Enterprise, New Delhi) working at 3 M.Hz.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 399393,
+    "pageNumber": 2
+  },
+  "10.55318_bgjp.2023.50.2.159": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity was determined using digital ultrasonic interferometer of fixed frequency 2 MHz (Model F-81 Mittal enterprises, New Delhi).",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1014349,
+    "pageNumber": 2
+  },
+  "10.5539_ijc.v2n2p164": {
+    "verified": true,
+    "snippet": "Different acoustic parameters like adiabatic compressibility, acoustic impedance and relaxation time were calculated at different concentration 0.8%, 0.6%, 0.5%, 0.4%, and 0.3% (w/v) at different temperatures 300C, 350C, 400C, 450C, 500C, 550C, 600C, 650C at 1MHz frequency by using variable path ultrasonic interferometer (Mittal Enterprises) has reproducibility of ±0.4m/s at 250C.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 263589,
+    "pageNumber": 2
+  },
+  "10.5539_mas.v2n5p91": {
+    "verified": true,
+    "snippet": "( Mittal Enterprises New Delhi).",
+    "modelCodes": [],
+    "productHints": [],
+    "pdfBytes": 280315,
+    "pageNumber": 2
+  },
+  "10.5539_mas.v4n6p84": {
+    "verified": true,
+    "snippet": "The densities of pure liquids and mixtures were measured using a precalibrated bicapillary pyknometer, the accuracy of data being within ± 0.06%, sound velocity was measured by single crystal ultrasonic interferometer (Mittal Enterprises, New Delhi) at 2 MHz frequency and data were accurate upto ± 0.07%.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 267611,
+    "pageNumber": 2
+  },
+  "10.5541_ijot.991645": {
+    "verified": true,
+    "snippet": "…l with corresponding literature values of respectively. 2.2.2 Sound velocity The ultrasonic velocities were measured using a multifrequency ultrasonic interferometer (Model F-80D, Mittal Enterprise, New Delhi, India) working at 3 M.Hz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 911000,
+    "pageNumber": 2
+  },
+  "10.55524_ijirem.2022.9.1.64": {
+    "verified": false,
+    "reason": "no-brand-mention",
+    "pdfBytes": 368713
+  },
+  "10.56042_ijc.v62i9.5361": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity measurements were taken using an ultrasonic 963 interferometer (Model F-81, supplied by M/S Mittal Enterprises, New Delhi) with an accuracy of ± 0.1 ms−1.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 716321,
+    "pageNumber": 2
+  },
+  "10.56042_ijc.v64i11.14047": {
+    "verified": true,
+    "snippet": "CHEM., NOVEMBER 2025 frequency supplied by Mittal Enterprises, New Delhi, India was used in the measurement of ultrasonic velocity of liquid mixtures with the accuracy of ± 0.01 ms–1.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 696256,
+    "pageNumber": 2
+  },
+  "10.56042_ijc.v64i5.12581": {
+    "verified": true,
+    "snippet": "Using the M-81 multi-frequency ultrasonic interferometer (2 MHz) (Mittal Enterprise, New Delhi), measurements of ultrasonic sound velocity, viscosity, and density in pure solvents (DMSO and DMF) and solutions of both compounds (0.001-0.010 molkg–1) in DMSO and DMF were made at three different temperatures, namely (298.15, 308.15, and 318.15 K).",
+    "modelCodes": [
+      "M-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 3254215,
+    "pageNumber": 2
+  },
+  "10.56042_jipr.v28i5.3188": {
+    "verified": true,
+    "snippet": "…re.6 In India too there are various companies and start-ups that offer nanotechnology products such as: Adnano Technologies in Carbon nanomaterials; Dabur Pharma in Drug delivery; Mittal Enterprises in nanofluids; Nano sniff Technologies in microcantilever and microheater sensor technologies and Neo-Ecosystems in Nanocoatings.7 Need and Relevance of the Study India looks forw…",
+    "modelCodes": [],
+    "productHints": [],
+    "pdfBytes": 716349,
+    "pageNumber": 2
+  },
+  "10.56431_p-03dskb": {
+    "verified": true,
+    "snippet": "At 2 MHz, ultrasonic velocity measurements [3] were made by the use of Ultrasonic Interferometer (M- 83 Mittal Enterprises, India).",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 770624,
+    "pageNumber": 2
+  },
+  "10.56431_p-197rtd": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities were measured by using single crystal ultrasonic pulse echo interferometer( Mittal enterprises, India; Model: F-80X).",
+    "modelCodes": [
+      "F-80X"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 494157,
+    "pageNumber": 2
+  },
+  "10.56431_p-393juq": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities in the liquid mixtures were measured using a single crystal variable path interferometer operating at a frequency of 2MHz (MITTAL ENTERPRISES, New Delhi, Model: F-81) with an overall accuracy of ± 0.1%.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 849891,
+    "pageNumber": 2
+  },
+  "10.56431_p-42k70r": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity in the mixture was measured using a variable path fixed frequency ultrasonic interferometer working at 2 MHz frequency (Mittal enterprises, New Delhi).",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1168251,
+    "pageNumber": 2
+  },
+  "10.56431_p-54m5x9": {
+    "verified": true,
+    "snippet": "The densities, viscosities and ultrasonic velocities of pure solvents and solutions of chalcones of different concentrations were measured at 303.15 K by using pyknometer, an Ubbelohde suspended level viscometer and single frequency ultrasonic interferometer (Mittal Enterprises, Model No F81) operating at 2 MHz, with the uncertainties of 0.0001 g/cm3, + 0.06 % and 0.01% respectively.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 707993,
+    "pageNumber": 2
+  },
+  "10.56431_p-6gfzfx": {
+    "verified": false,
+    "reason": "pdftotext-empty",
+    "pdfBytes": 81587
+  },
+  "10.56431_p-8h3t12": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities of pure component and their mixtures were measured by ultrasonic interferometer (Mittal enterprises, model F-18s) at 2 MHz with frequency tolerance ± 0.03 %.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 676988,
+    "pageNumber": 2
+  },
+  "10.56431_p-b4wi2g": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity The sound velocity of the liquid mixture have been measured using an ultrasonic interferometer (Mittal Enterprises, New Delhi) working at a fixed frequency of 2 MHZ.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 664929,
+    "pageNumber": 3
+  },
+  "10.56431_p-b7s91r": {
+    "verified": true,
+    "snippet": "The ultrasonic velocities were measured by using single crystal ultrasonic pulse echo interferometer (Mittal enterprises, India; Model: F-80X).",
+    "modelCodes": [
+      "F-80X"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 678946,
+    "pageNumber": 2
+  },
+  "10.56431_p-e2u618": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity (U) in liquid and liquid mixtures have been measured using an ultrasonic interferometer (Mittal Enterprises, Model F-81) working at 2 MHz frequency with an accuracy of ±0.1 ms-1.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 750902,
+    "pageNumber": 2
+  },
+  "10.56431_p-i88789": {
+    "verified": true,
+    "snippet": "F-05 with least count of micrometer 0.001mm of Mittal Enterprises [4] was used for calculating velocities of sound waves and all the tests were conducted as per ASTM standard [5] procedures.",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 569537,
+    "pageNumber": 1
+  },
+  "10.56431_p-mov517": {
+    "verified": true,
+    "snippet": "MEASUREMENTS The density (ρ), viscosity (η) and ultrasonic speed (U) measurements of CF and SDSB1 to SDSB-5 solutions were measured at 308.150.1 K by using specific gravity bottle, Ubbelohde suspended level viscometer and Mittal Enterprise Interferometer (New Delhi) Model No F-81, operating at 2 MHz, respectively.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 661336,
+    "pageNumber": 2
+  },
+  "10.56431_p-o814iq": {
+    "verified": true,
+    "snippet": "F-05 (S.No.1314421) with least count of micrometer 0.001mm of Mittal Enterprises was used for calculating velocities of sound waves and all the tests were conducted as per ASTM standard procedures. 3.",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 562862,
+    "pageNumber": 2
+  },
+  "10.56431_p-p04d39": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity were measured using interferometer (Model-81, supplied by Mittal Enterprises, New-Delhi) operating at a frequency of 1 MHz, which is a direct and simple device for measuring ultrasonic velocity in liquids.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 641015,
+    "pageNumber": 2
+  },
+  "10.56431_p-swssq4": {
+    "verified": true,
+    "snippet": "Viscosity (η) and ultrasonic speed (U) of Schiff bases solutions (SDSB-1 to 3) were measured with an Ubbelohde suspended level viscometer and Mittal Enterprise Interferometer (New Delhi) Model No F-81, operating at 2 MHz at 303.15, 308.15 and 313.15K 0.1K respectively.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 852971,
+    "pageNumber": 2
+  },
+  "10.56431_p-ulql5p": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity in the mixture was measured using a variable path fixed frequency ultrasonic interferometer working at 2 MHz frequency (Mittal enterprises, New Delhi).",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1396693,
+    "pageNumber": 2
+  },
+  "10.56431_p-vq45p3": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity (U) have been measured using an ultrasonic interferometer (Mittal Enterprises, Model F-81) working at 2 MHz frequency with an accuracy of ± 0.1 ms-1.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 926243,
+    "pageNumber": 1
+  },
+  "10.56431_p-x35iz4": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity of pure and liquid mixtures was measured using multi-frequency ultrasonic interferometer (Model: F-81S, Mittal Enterprises, New Delhi,) operating at 2 MHz’s frequency at five different temperatures and overall accuracy of ±2 m/s.The instruments was calibrated by measuring the celocity of benzene and carbon tetrachloride.",
+    "modelCodes": [
+      "F-81S"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1100727,
+    "pageNumber": 2
+  },
+  "10.56431_p-z8075e": {
+    "verified": true,
+    "snippet": "Single crystal ultrasonic pulse echo interferometer (Mittal enterprises, India; Model: F-80X) was used for measuring ultrasonic velocities.",
+    "modelCodes": [
+      "F-80X"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 677259,
+    "pageNumber": 2
+  },
+  "10.56581_ijlera.7.9.67-72": {
+    "verified": true,
+    "snippet": "The average uncertainty in the composition of the mixtures was estimated to be less than ±0.0001.A crystal controlled variable path ultrasonic interferometer supplied by M/s Mittal enterprises (model-05F), New Delhi (India), operating at a frequency of 2 MHz was used in the ultrasonic measurements.",
+    "modelCodes": [
+      "05F"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1039254,
+    "pageNumber": 2
+  },
+  "10.59324_ejtas.2023.1(5).101": {
+    "verified": true,
+    "snippet": "Sound velocity The ultrasonic velocity was measured using a multifrequency ultrasonic interferometer (Model F-80D, Mittal Enterprise, New Delhi, India) working at 3 M.Hz.",
+    "modelCodes": [
+      "F-80D"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 720286,
+    "pageNumber": 3
+  },
+  "10.63363_aijfr.2025.v06i06.2641": {
+    "verified": true,
+    "snippet": "In the current study, the ultrasonic velocity was measured using a variable path ultrasonic interferometer (Model MX-3, Mittal Enterprises, New Delhi) with an accuracy of ± 0.03% and operating frequency of 1 MHz. 3.",
+    "modelCodes": [
+      "MX-3"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 588355,
+    "pageNumber": 3
+  },
+  "10.69980_redvet.v25i1s.1454": {
+    "verified": true,
+    "snippet": "…(ρ2 t2 / ρ1 t1) ɳ1 Where, ɳ2 = solution viscosity ɳ1 = water coefficient viscosity ρ2 = solution densities ρ1 = water density Velocity Measurement An interferometer purchased from Mittal Enterprises was employed to determine the magnitude of the velocity of the ultrasonic wave in a particular liquid mixture.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 245334,
+    "pageNumber": 2
+  },
+  "10.70729_ijser151073": {
+    "verified": true,
+    "snippet": "F-05 with least count of micrometer 0.001mm of Mittal Enterprises [15] was used for calculating velocities of sound waves and all the tests were conducted as per ASTM standard [16] procedures. 3.",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 356529,
+    "pageNumber": 1
+  },
+  "10.9790_3021-04344755": {
+    "verified": true,
+    "snippet": "The refractive index of the pure components and their mixtures were measured by using Abbe’s refractometer (with Glass scale) Mittal Enterprises, New Delhi, India, having an accuracy 0.001 by reading and 0.0001 by estimation.",
+    "modelCodes": [],
+    "productHints": [
+      "abbe-refractometers"
+    ],
+    "pdfBytes": 466648,
+    "pageNumber": 2
+  },
+  "10.9790_4861-0358891": {
+    "verified": true,
+    "snippet": "In the present study, we have used the ultrasonic Interferometer (Mittal Enterprises Make) for the observation of ultrasonic velocity (C) and knowing the frequency we can find out various parameters such as adiabatic compressibilitysurface tension , viscosity.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 182522,
+    "pageNumber": 1
+  },
+  "10.9790_4861-06511924": {
+    "verified": true,
+    "snippet": "Ultrasonic velocity was measured using ultrasonic interferometer of fixed frequency 2 MHz (Model F-81, Mittal enterprises, New Delhi).",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 915845,
+    "pageNumber": 1
+  },
+  "10.9790_4861-0804010611": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity for the mixtures was measured using the ultrasonic interferometer (Mittal Enterprises, New Delhi) at fixed frequency of 2MHz with an accuracy of ± 0.1%.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 672901,
+    "pageNumber": 1
+  },
+  "10.9790_5736-025": {
+    "verified": true,
+    "snippet": "Velocity Measurement The velocity of ultrasonic waves in the liquid mixture have been measured using an ultrasonic interferometer (Mittal Enterprises, New Delhi) working at a fixed frequency of 2MHZ with a tolerance of ± 0.005%.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1756162,
+    "pageNumber": 4
+  },
+  "10.9790_5736-0250119": {
+    "verified": true,
+    "snippet": "Velocity Measurement The velocity of ultrasonic waves in the liquid mixture have been measured using an ultrasonic interferometer (Mittal Enterprises, New Delhi) working at a fixed frequency of 2MHZ with a tolerance of ± 0.005%.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1756162,
+    "pageNumber": 4
+  },
+  "10.9790_5736-1004012636": {
+    "verified": true,
+    "snippet": "Experimental And Theoretical Methods Ultrasonic velocity (u) are measured for the binary liquid mixtures of DMF and Dioxane, in the presence of ammonium salt using a single crystal ultrasonic interferometer at 2 MHz frequency (Model-83S) supplied by Mittal enterprises, New Delhi, that has an accuracy of 0.4 m/Sec at 25 0C.",
+    "modelCodes": [],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 842584,
+    "pageNumber": 2
+  },
+  "10.9790_5736-1007014456": {
+    "verified": true,
+    "snippet": "The ultrasonic velocity (u) measurements were made by a single frequency (2 MHz) variable path interferometer with an error of ± 0.0001%ultrasonic interferometer model F-05(s.no.1415342) Mittal Enterprises, New Delhi.",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1365522,
+    "pageNumber": 2
+  },
+  "10.9790_5736-1007021227": {
+    "verified": true,
+    "snippet": "The speed of sound measurements was performed using a commercially available single crystal ultrasonic in terferometer (model F-05) from Mittal Enterprises, New Delhi, India, at 2 MHz frequency at various temperatures.",
+    "modelCodes": [
+      "F-05"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 1205305,
+    "pageNumber": 2
+  },
+  "10.9790_5736-1709010812": {
+    "verified": true,
+    "snippet": "Ultrasonic velocities were measured at frequency of 2 MHz by a single crystal ultrasonic interferometer (Model F-81, Mittal Enterprises, New Delhi, India) 9.",
+    "modelCodes": [
+      "F-81"
+    ],
+    "productHints": [
+      "ultrasonic-interferometer-for-liquids"
+    ],
+    "pdfBytes": 214559,
+    "pageNumber": 1
+  }
+}

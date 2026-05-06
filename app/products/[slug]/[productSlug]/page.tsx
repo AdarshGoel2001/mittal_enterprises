@@ -13,6 +13,8 @@ import Sidebar from '@/components/Sidebar';
 import RecentlyViewed from '@/components/RecentlyViewed';
 import TrackRecent from '@/components/TrackRecent';
 import MarkdownContent from '@/components/MarkdownContent';
+import ProductCitations from '@/components/ProductCitations';
+import { citationsForProduct } from '@/lib/citations-data';
 
 export async function generateStaticParams() {
   return products.map((product) => {
@@ -74,6 +76,7 @@ export default async function ProductDetailPage({
 
   const enquiryHref = `/enquiry?product=${encodeURIComponent(product.name)}&code=${encodeURIComponent(product.itemCode)}&category=${encodeURIComponent(category.slug)}`;
   const brochureHref = getProductBrochure(product.slug);
+  const productCitations = citationsForProduct(product.slug);
 
   const canonicalUrl = `${SITE_URL}/products/${category.slug}/${product.slug}`;
   // Intentionally omits `offers`, `review`, and `aggregateRating`. Google's
@@ -101,6 +104,29 @@ export default async function ProductDetailPage({
         url: `${SITE_URL}${brochureHref}`,
         encodingFormat: 'application/pdf',
       },
+    }),
+    ...(productCitations.length > 0 && {
+      // Top 10 most-cited papers as schema.org `citation`. Helps Google
+      // associate this product with the academic literature that uses it.
+      // We deliberately use `citation` and `mentions` (factual relations) —
+      // never `Review`, since these are statements of equipment use, not
+      // user evaluations. Faking reviews would breach Google's structured-
+      // data guidelines.
+      citation: productCitations.slice(0, 10).map((c) => ({
+        '@type': 'ScholarlyArticle',
+        name: c.title,
+        url: c.url,
+        ...(c.doi && { sameAs: `https://doi.org/${c.doi}` }),
+        ...(c.year && { datePublished: String(c.year) }),
+        ...(c.journal && { isPartOf: { '@type': 'Periodical', name: c.journal } }),
+        ...(c.evidenceSnippet && { description: c.evidenceSnippet }),
+        ...(c.authors && {
+          author: c.authors.split(',').slice(0, 5).map((n) => ({
+            '@type': 'Person',
+            name: n.trim().replace(/ et al\.?$/, ''),
+          })).filter((a) => a.name && a.name !== 'Author n/a' && !a.name.endsWith('et al.')),
+        }),
+      })),
     }),
   };
   const breadcrumbJsonLd = {
@@ -232,6 +258,8 @@ export default async function ProductDetailPage({
                   <MarkdownContent source={markdown} />
                 </div>
               )}
+
+              <ProductCitations productSlug={product.slug} citations={productCitations} />
 
               {related.length > 0 && (
                 <div className="mt-16 pt-10 border-t border-rule">

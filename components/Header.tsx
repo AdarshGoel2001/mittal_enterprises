@@ -8,6 +8,7 @@ import { productCategories } from '@/lib/data';
 const nav = [
   { label: 'Profile', href: '/profile' },
   { label: 'Products', href: '/products', hasMenu: true },
+  { label: 'Research', href: '/research' },
   { label: 'Global Supplies', href: '/global-supplies' },
   { label: 'Contact', href: '/contact' },
 ];
