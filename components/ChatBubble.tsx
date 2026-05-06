@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { products } from '@/lib/products-data';
@@ -158,16 +159,18 @@ function assistantMessageBody(content: string, sources?: Source[]) {
         a: ({ href, title, children }) => {
           const childText = Array.isArray(children) ? children.join('') : String(children ?? '');
           const looksLikeCitation = /^\[\d+\]$/.test(childText);
+          const className = looksLikeCitation
+            ? 'mono text-[0.7em] text-ink-muted no-underline hover:text-ink hover:underline'
+            : 'text-ink underline underline-offset-2 hover:text-accent';
+          if (href && href.startsWith('/')) {
+            return (
+              <Link href={href} title={title} className={className}>
+                {children}
+              </Link>
+            );
+          }
           return (
-            <a
-              href={href}
-              title={title}
-              className={
-                looksLikeCitation
-                  ? 'mono text-[0.7em] text-ink-muted no-underline hover:text-ink hover:underline'
-                  : 'text-ink underline underline-offset-2 hover:text-accent'
-              }
-            >
+            <a href={href} title={title} className={className}>
               {children}
             </a>
           );
@@ -179,11 +182,32 @@ function assistantMessageBody(content: string, sources?: Source[]) {
   );
 }
 
+const STORAGE_KEY = 'mittal:chat:v1';
+
+interface PersistedState {
+  open: boolean;
+  messages: Message[];
+}
+
+function loadPersisted(): PersistedState | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.sessionStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as PersistedState;
+    if (!Array.isArray(parsed.messages)) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
 export default function ChatBubble() {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const endRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname() || '/';
 
@@ -191,8 +215,31 @@ export default function ChatBubble() {
   const hasUserSent = messages.some((m) => m.role === 'user');
 
   useEffect(() => {
+    const persisted = loadPersisted();
+    if (persisted) {
+      setMessages(persisted.messages);
+      setOpen(persisted.open);
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ open, messages }));
+    } catch {
+      // sessionStorage may be unavailable (Safari private mode); silently skip
+    }
+  }, [hydrated, open, messages]);
+
+  useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, open, sending]);
+
+  function clearChat() {
+    setMessages(INITIAL_MESSAGES);
+    setInput('');
+  }
 
   async function send(text: string) {
     const trimmed = text.trim();
@@ -297,24 +344,24 @@ export default function ChatBubble() {
                 {message.sources && message.sources.length > 0 && (
                   <div className="mt-2 flex max-w-[90%] flex-wrap gap-1.5">
                     {message.sources.map((source) => (
-                      <a
+                      <Link
                         key={source.id}
                         href={source.url}
                         className="mono inline-flex items-center border border-rule px-2 py-1 text-[0.65rem] uppercase tracking-wide text-ink-muted transition-colors hover:border-ink hover:text-ink"
                       >
                         {source.title}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 )}
                 {message.suggestion && message.suggestion.href && message.suggestion.label && (
                   <div className="mt-2 max-w-[90%]">
-                    <a
+                    <Link
                       href={message.suggestion.href}
                       className="mono inline-flex w-full items-center justify-center bg-ink px-3 py-2 text-[0.7rem] uppercase tracking-widest text-paper transition-colors hover:bg-accent"
                     >
                       {message.suggestion.label}
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
@@ -375,12 +422,21 @@ export default function ChatBubble() {
               Gemini server-side only
             </p>
             <div className="flex gap-3 text-xs">
-              <a href="/enquiry" className="text-ink-muted transition-colors hover:text-ink">
+              {hasUserSent && (
+                <button
+                  type="button"
+                  onClick={clearChat}
+                  className="text-ink-muted transition-colors hover:text-ink"
+                >
+                  Clear
+                </button>
+              )}
+              <Link href="/enquiry" className="text-ink-muted transition-colors hover:text-ink">
                 Quote
-              </a>
-              <a href="/contact" className="text-ink-muted transition-colors hover:text-ink">
+              </Link>
+              <Link href="/contact" className="text-ink-muted transition-colors hover:text-ink">
                 Contact
-              </a>
+              </Link>
             </div>
           </div>
         </div>
