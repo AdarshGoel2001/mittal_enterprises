@@ -114,6 +114,14 @@ function buildEnrichedQuery(messages: ApiMessage[]): string {
 const ENQUIRY_KEYWORDS = /\b(quote|quotes|quotation|pricing|price|prices|cost|bulk|order|orders|buy|purchase|lead\s*time|delivery|shipping|ship|custom|customi[sz]ation|customi[sz]ed)\b/i;
 const CONTACT_KEYWORDS = /\b(contact|call|email|phone|reach|speak|talk)\b/i;
 
+function slugFromSourceId(id: string): string {
+  return id.split(':')[1] ?? '';
+}
+
+function productTitle(title: string): string {
+  return title.split(' — ')[0];
+}
+
 function detectSuggestion(latestUserMessage: string, sources: ChatSource[]): ChatSuggestion | undefined {
   const wantsEnquiry = ENQUIRY_KEYWORDS.test(latestUserMessage);
   const wantsContact = CONTACT_KEYWORDS.test(latestUserMessage);
@@ -124,16 +132,17 @@ function detectSuggestion(latestUserMessage: string, sources: ChatSource[]): Cha
 
   if (wantsEnquiry) {
     if (product) {
-      const slug = product.id.replace(/^product:/, '');
+      const slug = slugFromSourceId(product.id);
+      const name = productTitle(product.title);
       return {
         kind: 'enquiry',
         productSlug: slug,
-        label: `Request a quote for ${product.title}`,
+        label: `Request a quote for ${name}`,
         href: `/enquiry?product=${encodeURIComponent(slug)}`,
       };
     }
     if (category) {
-      const slug = category.id.replace(/^category:/, '');
+      const slug = slugFromSourceId(category.id);
       return {
         kind: 'enquiry',
         categorySlug: slug,
@@ -144,13 +153,13 @@ function detectSuggestion(latestUserMessage: string, sources: ChatSource[]): Cha
     return { kind: 'enquiry', label: 'Request a quote', href: '/enquiry' };
   }
 
-  // contact intent
   if (product) {
-    const slug = product.id.replace(/^product:/, '');
+    const slug = slugFromSourceId(product.id);
+    const name = productTitle(product.title);
     return {
       kind: 'contact',
       productSlug: slug,
-      label: `Contact us about ${product.title}`,
+      label: `Contact us about ${name}`,
       href: '/contact',
     };
   }
