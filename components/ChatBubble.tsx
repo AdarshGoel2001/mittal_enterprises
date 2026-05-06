@@ -261,6 +261,7 @@ export default function ChatBubble() {
             role: message.role,
             content: message.content,
           })),
+          pathname,
         }),
       });
 

@@ -58,7 +58,56 @@ function rateLimit(ip: string): boolean {
   return true;
 }
 
-function systemPrompt(groundingContext: string) {
+interface PageContext {
+  kind: 'product' | 'category' | 'other';
+  productName?: string;
+  productSlug?: string;
+  itemCode?: string;
+  categoryName?: string;
+  categorySlug?: string;
+}
+
+function resolvePathContext(pathname: string | undefined): PageContext {
+  if (!pathname) return { kind: 'other' };
+  const productMatch = pathname.match(/^\/products\/([^/]+)\/([^/?#]+)/);
+  if (productMatch) {
+    const product = products.find((p) => p.slug === productMatch[2]);
+    const category = product
+      ? productCategories.find((c) => c.id === product.categoryId)
+      : undefined;
+    if (product) {
+      return {
+        kind: 'product',
+        productName: product.name,
+        productSlug: product.slug,
+        itemCode: product.itemCode,
+        categoryName: category?.name,
+        categorySlug: category?.slug,
+      };
+    }
+  }
+  const categoryMatch = pathname.match(/^\/products\/([^/?#]+)/);
+  if (categoryMatch) {
+    const category = productCategories.find((c) => c.slug === categoryMatch[1]);
+    if (category) {
+      return { kind: 'category', categoryName: category.name, categorySlug: category.slug };
+    }
+  }
+  return { kind: 'other' };
+}
+
+function pageContextLine(ctx: PageContext): string | null {
+  if (ctx.kind === 'product') {
+    return `The user is currently viewing the product page for ${ctx.productName} (item code ${ctx.itemCode}, category ${ctx.categoryName ?? 'unknown'}). Resolve ambiguous references like "this product", "it", or follow-up questions without an explicit subject as referring to ${ctx.productName} unless the user has clearly switched topics.`;
+  }
+  if (ctx.kind === 'category') {
+    return `The user is currently viewing the ${ctx.categoryName} category page. Resolve "this category" or unscoped follow-ups as referring to ${ctx.categoryName} unless the user has clearly switched topics.`;
+  }
+  return null;
+}
+
+function systemPrompt(groundingContext: string, pageCtx: PageContext) {
+  const pageLine = pageContextLine(pageCtx);
   return [
     'You are the website assistant for Mittal Enterprises, a Delhi-based manufacturer of laboratory scientific instruments established in 1976.',
     'Answer only from the supplied grounding context.',
@@ -70,9 +119,11 @@ function systemPrompt(groundingContext: string) {
     'Use short paragraphs or flat bullets when useful.',
     'Cite factual claims inline with the supplied source numbers like [1] or [2]. Use only source numbers that exist in the grounding context.',
     '',
+    pageLine ? `Page context: ${pageLine}` : '',
+    pageLine ? '' : '',
     'Grounding context:',
     groundingContext,
-  ].join('\n');
+  ].filter((line, i, arr) => !(line === '' && arr[i - 1] === '')).join('\n');
 }
 
 function toGeminiContents(messages: ApiMessage[]) {
@@ -122,44 +173,48 @@ function productTitle(title: string): string {
   return title.split(' — ')[0];
 }
 
-function detectSuggestion(latestUserMessage: string, sources: ChatSource[]): ChatSuggestion | undefined {
+function detectSuggestion(
+  latestUserMessage: string,
+  sources: ChatSource[],
+  pageCtx: PageContext
+): ChatSuggestion | undefined {
   const wantsEnquiry = ENQUIRY_KEYWORDS.test(latestUserMessage);
   const wantsContact = CONTACT_KEYWORDS.test(latestUserMessage);
   if (!wantsEnquiry && !wantsContact) return undefined;
 
-  const product = sources.find((s) => s.kind === 'product');
-  const category = sources.find((s) => s.kind === 'category');
+  const sourceProduct = sources.find((s) => s.kind === 'product');
+  const sourceCategory = sources.find((s) => s.kind === 'category');
+
+  const productSlug = sourceProduct ? slugFromSourceId(sourceProduct.id) : pageCtx.productSlug;
+  const productName = sourceProduct ? productTitle(sourceProduct.title) : pageCtx.productName;
+  const categorySlug = sourceCategory ? slugFromSourceId(sourceCategory.id) : pageCtx.categorySlug;
+  const categoryName = sourceCategory?.title ?? pageCtx.categoryName;
 
   if (wantsEnquiry) {
-    if (product) {
-      const slug = slugFromSourceId(product.id);
-      const name = productTitle(product.title);
+    if (productSlug && productName) {
       return {
         kind: 'enquiry',
-        productSlug: slug,
-        label: `Request a quote for ${name}`,
-        href: `/enquiry?product=${encodeURIComponent(slug)}`,
+        productSlug,
+        label: `Request a quote for ${productName}`,
+        href: `/enquiry?product=${encodeURIComponent(productSlug)}`,
       };
     }
-    if (category) {
-      const slug = slugFromSourceId(category.id);
+    if (categorySlug && categoryName) {
       return {
         kind: 'enquiry',
-        categorySlug: slug,
-        label: `Request a quote for ${category.title}`,
-        href: `/enquiry?category=${encodeURIComponent(slug)}`,
+        categorySlug,
+        label: `Request a quote for ${categoryName}`,
+        href: `/enquiry?category=${encodeURIComponent(categorySlug)}`,
       };
     }
     return { kind: 'enquiry', label: 'Request a quote', href: '/enquiry' };
   }
 
-  if (product) {
-    const slug = slugFromSourceId(product.id);
-    const name = productTitle(product.title);
+  if (productSlug && productName) {
     return {
       kind: 'contact',
-      productSlug: slug,
-      label: `Contact us about ${name}`,
+      productSlug,
+      label: `Contact us about ${productName}`,
       href: '/contact',
     };
   }
@@ -184,11 +239,12 @@ export async function POST(request: Request) {
   const start = Date.now();
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0].trim() || 'unknown';
 
-  const body = (await request.json()) as { messages?: ApiMessage[] };
+  const body = (await request.json()) as { messages?: ApiMessage[]; pathname?: string };
   const messages = (body.messages || []).filter(
     (message): message is ApiMessage =>
       Boolean(message?.content) && (message.role === 'user' || message.role === 'assistant')
   );
+  const pageCtx = resolvePathContext(typeof body.pathname === 'string' ? body.pathname : undefined);
 
   if (messages.length === 0) {
     console.log(JSON.stringify({ ip, query: '', sourceIds: [], latencyMs: Date.now() - start, status: 400 }));
@@ -232,9 +288,13 @@ export async function POST(request: Request) {
     );
   }
 
-  const query = buildEnrichedQuery(messages);
+  const baseQuery = buildEnrichedQuery(messages);
+  const pageQueryHints = [pageCtx.productName, pageCtx.itemCode, pageCtx.categoryName]
+    .filter((s): s is string => Boolean(s))
+    .join(' ');
+  const query = pageQueryHints ? `${baseQuery}\n${pageQueryHints}` : baseQuery;
   const { context, sources, mode: retrievalMode } = await buildGroundingContext(query);
-  const suggestion = detectSuggestion(latestUser, sources);
+  const suggestion = detectSuggestion(latestUser, sources, pageCtx);
 
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (!apiKey) {
@@ -255,7 +315,7 @@ export async function POST(request: Request) {
     },
     body: JSON.stringify({
       systemInstruction: {
-        parts: [{ text: systemPrompt(context) }],
+        parts: [{ text: systemPrompt(context, pageCtx) }],
       },
       contents: toGeminiContents(messages.slice(-10)),
       generationConfig: {
