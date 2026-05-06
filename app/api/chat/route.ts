@@ -207,8 +207,7 @@ function detectSuggestion(
 function extractText(payload: GeminiResponse) {
   return payload.candidates?.[0]?.content?.parts
     ?.map((part) => part.text || '')
-    .join('')
-    .trim();
+    .join('') ?? '';
 }
 
 function sanitizeCitations(text: string, sourceCount: number): string {
@@ -315,6 +314,7 @@ export async function POST(request: Request) {
         temperature: 0.3,
         topP: 0.9,
         maxOutputTokens: 700,
+        thinkingConfig: { thinkingBudget: 0 },
       },
       safetySettings: SAFETY_SETTINGS,
     }),
@@ -354,7 +354,7 @@ export async function POST(request: Request) {
         while (true) {
           const { value, done } = await reader.read();
           if (done) break;
-          buffer += decoder.decode(value, { stream: true });
+          buffer += decoder.decode(value, { stream: true }).replace(/\r\n/g, '\n');
           let sepIndex: number;
           while ((sepIndex = buffer.indexOf('\n\n')) !== -1) {
             const rawEvent = buffer.slice(0, sepIndex);

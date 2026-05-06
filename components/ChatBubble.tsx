@@ -409,32 +409,21 @@ export default function ChatBubble() {
         throw new Error('The assistant could not respond.');
       }
 
-      let assistantIndex: number | null = null;
-      const ensureAssistant = (init?: Partial<Message>) => {
+      let assistantCreated = false;
+      const upsertAssistant = (mutate: (m: Message) => Message, init?: Partial<Message>) => {
         setMessages((current) => {
-          if (assistantIndex !== null) return current;
-          assistantIndex = current.length;
-          return [
-            ...current,
-            {
-              role: 'assistant',
-              content: '',
-              ...init,
-            },
-          ];
-        });
-      };
-
-      const updateAssistant = (updater: (m: Message) => Message) => {
-        setMessages((current) => {
-          if (assistantIndex === null) return current;
           const copy = current.slice();
-          const target = copy[assistantIndex];
-          if (!target) return current;
-          copy[assistantIndex] = updater(target);
+          if (!assistantCreated) {
+            assistantCreated = true;
+            copy.push({ role: 'assistant', content: '', ...init });
+          }
+          const idx = copy.length - 1;
+          copy[idx] = mutate(copy[idx]);
           return copy;
         });
       };
+      const ensureAssistant = (init?: Partial<Message>) => upsertAssistant((m) => ({ ...m, ...init }), init);
+      const updateAssistant = (updater: (m: Message) => Message) => upsertAssistant(updater);
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
@@ -484,7 +473,7 @@ export default function ChatBubble() {
       while (true) {
         const { value, done } = await reader.read();
         if (done) break;
-        buffer += decoder.decode(value, { stream: true });
+        buffer += decoder.decode(value, { stream: true }).replace(/\r\n/g, '\n');
         let sepIndex: number;
         while ((sepIndex = buffer.indexOf('\n\n')) !== -1) {
           const rawEvent = buffer.slice(0, sepIndex);
