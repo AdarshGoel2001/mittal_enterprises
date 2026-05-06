@@ -2,8 +2,27 @@ import { companyKnowledgeSections, globalSupplyServices, profilePillars } from '
 import { companyInfo, productCategories } from '@/lib/data';
 import { products } from '@/lib/products-data';
 import { extractModelsFromMarkdown, getProductMarkdown } from '@/lib/products-content';
+import type { Chunk } from '@/lib/chat/chunks';
+import embeddingsJson from '@/lib/chat/embeddings.json';
 
 export type KnowledgeKind = 'company' | 'category' | 'product';
+
+interface EmbeddedChunk extends Chunk {
+  vector: number[];
+}
+
+interface EmbeddingsFile {
+  model: string;
+  dim: number;
+  builtAt: string;
+  chunks: EmbeddedChunk[];
+}
+
+const EMBEDDINGS = embeddingsJson as EmbeddingsFile;
+const KEYWORD_SCORE_CEILING = 100;
+const EMBED_MODEL = 'gemini-embedding-001';
+const EMBED_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${EMBED_MODEL}:embedContent`;
+const EMBED_DIM = 768;
 
 export interface ChatSource {
   id: string;
@@ -254,7 +273,97 @@ function scoreRecord(query: string, record: KnowledgeRecord) {
   return score;
 }
 
-export function searchKnowledge(query: string, limit = 6): ChatSource[] {
+function kindForSource(kind: Chunk['kind']): KnowledgeKind {
+  if (kind === 'product-identity' || kind === 'product-section') return 'product';
+  return kind;
+}
+
+async function embedQuery(query: string): Promise<number[] | null> {
+  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+  if (!apiKey) return null;
+  try {
+    const res = await fetch(`${EMBED_ENDPOINT}?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: `models/${EMBED_MODEL}`,
+        content: { parts: [{ text: query }] },
+        taskType: 'RETRIEVAL_QUERY',
+        outputDimensionality: EMBED_DIM,
+      }),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as { embedding?: { values?: number[] } };
+    const values = data.embedding?.values;
+    if (!Array.isArray(values) || values.length === 0) return null;
+    return values;
+  } catch {
+    return null;
+  }
+}
+
+function cosine(a: number[], b: number[]): number {
+  const len = Math.min(a.length, b.length);
+  let dot = 0;
+  let na = 0;
+  let nb = 0;
+  for (let i = 0; i < len; i++) {
+    dot += a[i] * b[i];
+    na += a[i] * a[i];
+    nb += b[i] * b[i];
+  }
+  if (na === 0 || nb === 0) return 0;
+  return dot / (Math.sqrt(na) * Math.sqrt(nb));
+}
+
+function keywordScoreForChunk(query: string, chunk: Chunk): number {
+  const normalizedQuery = normalize(query);
+  if (!normalizedQuery) return 0;
+  const tokens = tokensFrom(query);
+  const compactQuery = compactCode(query);
+  const title = normalize(chunk.title);
+  const searchText = normalize(chunk.text);
+  const itemCodeNormalized = chunk.itemCode ? compactCode(chunk.itemCode) : undefined;
+
+  let score = 0;
+  if (title.includes(normalizedQuery)) score += 30;
+  if (searchText.includes(normalizedQuery)) score += 18;
+  if (itemCodeNormalized && compactQuery === itemCodeNormalized) score += 80;
+
+  for (const token of tokens) {
+    if (title.includes(token)) score += 8;
+    if (searchText.includes(token)) score += 3;
+    if (itemCodeNormalized?.includes(token)) score += 12;
+  }
+
+  if ((chunk.kind === 'product-identity' || chunk.kind === 'product-section') && /\b(spec|specs|model|models|code|item)\b/.test(normalizedQuery)) {
+    score += 4;
+  }
+  if (chunk.kind === 'company' && /\b(price|pricing|quote|lead|time|bulk|shipping|international|contact|delivery)\b/.test(normalizedQuery)) {
+    score += 7;
+  }
+  if (chunk.kind === 'category' && /\b(category|categories|catalog|products)\b/.test(normalizedQuery)) {
+    score += 5;
+  }
+
+  return Math.min(score, KEYWORD_SCORE_CEILING);
+}
+
+function exactItemCodeMatch(query: string): EmbeddedChunk | undefined {
+  const compactQuery = compactCode(query);
+  if (!compactQuery) return undefined;
+  return EMBEDDINGS.chunks.find(
+    (chunk) => chunk.kind === 'product-identity' && chunk.itemCode && compactCode(chunk.itemCode) === compactQuery
+  );
+}
+
+const DEFAULT_SOURCES: ChatSource[] = [
+  { id: 'company:catalog-overview', kind: 'company', title: 'Product catalog overview', url: '/products' },
+  { id: 'company:services', kind: 'company', title: 'International and support services', url: '/global-supplies' },
+  { id: 'company:contact', kind: 'company', title: 'Contact details', url: '/contact' },
+];
+
+function keywordFallbackSources(query: string, limit: number): ChatSource[] {
   const scored = KNOWLEDGE_BASE
     .map((record) => ({ record, score: scoreRecord(query, record) }))
     .filter((item) => item.score > 0)
@@ -265,29 +374,88 @@ export function searchKnowledge(query: string, limit = 6): ChatSource[] {
   if (scored.length > 0) {
     return scored.map(({ id, kind, title, url }) => ({ id, kind, title, url }));
   }
-
-  return [
-    { id: 'company:catalog-overview', kind: 'company', title: 'Product catalog overview', url: '/products' },
-    { id: 'company:services', kind: 'company', title: 'International and support services', url: '/global-supplies' },
-    { id: 'company:contact', kind: 'company', title: 'Contact details', url: '/contact' },
-  ];
+  return DEFAULT_SOURCES;
 }
 
-export function buildGroundingContext(query: string, limit = 6) {
-  const sources = searchKnowledge(query, limit);
-  const records = sources
-    .map((source) => KNOWLEDGE_BASE.find((record) => record.id === source.id))
-    .filter((record): record is KnowledgeRecord => Boolean(record));
+export async function searchKnowledge(
+  query: string,
+  limit = 6
+): Promise<{ sources: ChatSource[]; mode: 'vector' | 'keyword-fallback' }> {
+  if (EMBEDDINGS.chunks.length === 0) {
+    return { sources: keywordFallbackSources(query, limit), mode: 'keyword-fallback' };
+  }
+  const queryVector = await embedQuery(query);
+  if (!queryVector) {
+    return { sources: keywordFallbackSources(query, limit), mode: 'keyword-fallback' };
+  }
 
-  const context = records
-    .map((record, index) => {
-      return `[${index + 1}] ${record.title}\nURL: ${record.url}\nType: ${record.kind}\nContent: ${record.text}`;
+  const scored = EMBEDDINGS.chunks
+    .map((chunk) => {
+      const cos = cosine(queryVector, chunk.vector);
+      const kw = keywordScoreForChunk(query, chunk) / KEYWORD_SCORE_CEILING;
+      return { chunk, score: 0.7 * cos + 0.3 * kw };
     })
-    .join('\n\n');
+    .sort((a, b) => b.score - a.score)
+    .map((item) => item.chunk);
+
+  const exact = exactItemCodeMatch(query);
+  const ordered: EmbeddedChunk[] = [];
+  if (exact) ordered.push(exact);
+  for (const chunk of scored) {
+    if (exact && chunk.id === exact.id) continue;
+    ordered.push(chunk);
+  }
+
+  const seenUrls = new Set<string>();
+  const sources: ChatSource[] = [];
+  for (const chunk of ordered) {
+    if (seenUrls.has(chunk.url)) continue;
+    seenUrls.add(chunk.url);
+    sources.push({
+      id: chunk.id,
+      kind: kindForSource(chunk.kind),
+      title: chunk.title,
+      url: chunk.url,
+    });
+    if (sources.length >= limit) break;
+  }
+
+  return { sources, mode: 'vector' };
+}
+
+export async function buildGroundingContext(query: string, limit = 6) {
+  const { sources, mode } = await searchKnowledge(query, limit);
+
+  const lines: string[] = [];
+  sources.forEach((source, index) => {
+    let title = source.title;
+    let text = '';
+    let kind: string = source.kind;
+
+    if (mode === 'vector') {
+      const chunk = EMBEDDINGS.chunks.find((c) => c.id === source.id);
+      if (chunk) {
+        title = chunk.title;
+        text = chunk.text;
+        kind = chunk.kind;
+      }
+    }
+    if (!text) {
+      const record = KNOWLEDGE_BASE.find((r) => r.id === source.id);
+      if (record) {
+        title = record.title;
+        text = record.text;
+        kind = record.kind;
+      }
+    }
+
+    lines.push(`[${index + 1}] ${title}\nURL: ${source.url}\nType: ${kind}\nContent: ${text}`);
+  });
 
   return {
     sources,
-    context,
+    context: lines.join('\n\n'),
+    mode,
   };
 }
 

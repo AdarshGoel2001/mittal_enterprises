@@ -224,7 +224,7 @@ export async function POST(request: Request) {
   }
 
   const query = buildEnrichedQuery(messages);
-  const { context, sources } = buildGroundingContext(query);
+  const { context, sources } = await buildGroundingContext(query);
   const suggestion = detectSuggestion(latestUser, sources);
 
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
