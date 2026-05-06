@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { buildGroundingContext, type ChatSource } from '@/lib/chat/catalog';
+import { logChatTurn } from '@/lib/chat/log';
 import { checkRateLimit } from '@/lib/chat/rate-limit';
 import { productCategories } from '@/lib/data';
 import { products } from '@/lib/products-data';
@@ -393,6 +394,15 @@ export async function POST(request: Request) {
         } else {
           const sanitized = sanitizeCitations(fullText, sourcesForStream.length);
           send('done', { text: sanitized });
+          void logChatTurn({
+            ip,
+            pathname: typeof body.pathname === 'string' ? body.pathname : undefined,
+            query: latestUser,
+            response: sanitized,
+            sourceIds,
+            retrievalMode,
+            latencyMs: Date.now() - start,
+          }).catch(() => {});
           console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds, latencyMs: Date.now() - start, status: 200, retrievalMode }));
         }
       } catch (err) {
