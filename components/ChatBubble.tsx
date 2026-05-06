@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { products } from '@/lib/products-data';
 import { productCategories } from '@/lib/data';
 
@@ -121,47 +123,60 @@ export function quickRepliesFor(pathname: string): string[] {
   return DEFAULT_QUICK_REPLIES;
 }
 
-function renderLineWithCitations(line: string, sources: Source[] | undefined) {
-  const regex = /\[(\d+)\]/g;
-  const nodes: ReactNode[] = [];
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-  let key = 0;
-
-  while ((match = regex.exec(line)) !== null) {
-    if (match.index > lastIndex) {
-      nodes.push(line.slice(lastIndex, match.index));
-    }
-    const n = parseInt(match[1], 10);
-    const source = sources && sources[n - 1];
-    if (source) {
-      nodes.push(
-        <a
-          key={`cite-${key++}`}
-          href={source.url}
-          className="mono text-[0.7em] text-ink-muted no-underline hover:text-ink hover:underline"
-          title={source.title}
-        >
-          [{n}]
-        </a>
-      );
-    } else {
-      nodes.push(match[0]);
-    }
-    lastIndex = match.index + match[0].length;
-  }
-  if (lastIndex < line.length) {
-    nodes.push(line.slice(lastIndex));
-  }
-  return nodes;
+function citationsToMarkdownLinks(content: string, sources?: Source[]): string {
+  if (!sources || sources.length === 0) return content;
+  return content.replace(/\[(\d+)\]/g, (full, num) => {
+    const idx = parseInt(num, 10) - 1;
+    const source = sources[idx];
+    if (!source) return full;
+    const safeTitle = source.title.replace(/"/g, '');
+    return `[\\[${num}\\]](${source.url} "${safeTitle}")`;
+  });
 }
 
-function messageBody(content: string, sources?: Source[]) {
+function userMessageBody(content: string) {
   return content.split('\n').map((line, index) => (
     <p key={index} className={index > 0 ? 'mt-2' : ''}>
-      {renderLineWithCitations(line, sources)}
+      {line}
     </p>
   ));
+}
+
+function assistantMessageBody(content: string, sources?: Source[]) {
+  const prepared = citationsToMarkdownLinks(content, sources);
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={{
+        p: ({ children }) => <p className="first:mt-0 mt-2">{children}</p>,
+        ul: ({ children }) => <ul className="mt-2 space-y-1 pl-4 list-disc marker:text-ink-muted">{children}</ul>,
+        ol: ({ children }) => <ol className="mt-2 space-y-1 pl-5 list-decimal marker:text-ink-muted">{children}</ol>,
+        li: ({ children }) => <li>{children}</li>,
+        strong: ({ children }) => <strong className="font-semibold text-ink">{children}</strong>,
+        em: ({ children }) => <em className="italic">{children}</em>,
+        code: ({ children }) => <code className="mono rounded-sm bg-rule/30 px-1 py-px text-[0.85em]">{children}</code>,
+        a: ({ href, title, children }) => {
+          const childText = Array.isArray(children) ? children.join('') : String(children ?? '');
+          const looksLikeCitation = /^\[\d+\]$/.test(childText);
+          return (
+            <a
+              href={href}
+              title={title}
+              className={
+                looksLikeCitation
+                  ? 'mono text-[0.7em] text-ink-muted no-underline hover:text-ink hover:underline'
+                  : 'text-ink underline underline-offset-2 hover:text-accent'
+              }
+            >
+              {children}
+            </a>
+          );
+        },
+      }}
+    >
+      {prepared}
+    </ReactMarkdown>
+  );
 }
 
 export default function ChatBubble() {
@@ -173,6 +188,7 @@ export default function ChatBubble() {
   const pathname = usePathname() || '/';
 
   const quickReplies = useMemo(() => quickRepliesFor(pathname).slice(0, 4), [pathname]);
+  const hasUserSent = messages.some((m) => m.role === 'user');
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -274,7 +290,9 @@ export default function ChatBubble() {
                       : 'ml-auto bg-ink text-paper'
                   }`}
                 >
-                  {messageBody(message.content, message.sources)}
+                  {message.role === 'assistant'
+                    ? assistantMessageBody(message.content, message.sources)
+                    : userMessageBody(message.content)}
                 </div>
                 {message.sources && message.sources.length > 0 && (
                   <div className="mt-2 flex max-w-[90%] flex-wrap gap-1.5">
@@ -313,19 +331,21 @@ export default function ChatBubble() {
         </div>
 
         <div className="border-t border-rule px-4 pb-4 pt-3">
-          <div className="mb-3 flex flex-wrap gap-1.5">
-            {quickReplies.map((reply) => (
-              <button
-                key={reply}
-                type="button"
-                onClick={() => send(reply)}
-                disabled={sending}
-                className="mono border border-rule px-2.5 py-1 text-[0.65rem] uppercase tracking-wide text-ink-muted transition-colors hover:border-ink hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {reply}
-              </button>
-            ))}
-          </div>
+          {!hasUserSent && (
+            <div className="mb-3 flex flex-wrap gap-1.5">
+              {quickReplies.map((reply) => (
+                <button
+                  key={reply}
+                  type="button"
+                  onClick={() => send(reply)}
+                  disabled={sending}
+                  className="mono border border-rule px-2.5 py-1 text-[0.65rem] uppercase tracking-wide text-ink-muted transition-colors hover:border-ink hover:text-ink disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {reply}
+                </button>
+              ))}
+            </div>
+          )}
 
           <form
             onSubmit={(event) => {
