@@ -183,6 +183,28 @@ function assistantMessageBody(content: string, sources?: Source[]) {
 }
 
 const STORAGE_KEY = 'mittal:chat:v1';
+const LEAD_DISMISSED_KEY = 'mittal:chat:lead-dismissed:v1';
+const LEAD_CAPTURED_KEY = 'mittal:chat:lead-captured:v1';
+const LEAD_PROMPT_THRESHOLD = 3;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function readSessionFlag(key: string): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return window.sessionStorage.getItem(key) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function writeSessionFlag(key: string) {
+  if (typeof window === 'undefined') return;
+  try {
+    window.sessionStorage.setItem(key, '1');
+  } catch {
+    // sessionStorage unavailable
+  }
+}
 
 interface PersistedState {
   open: boolean;
@@ -207,12 +229,42 @@ export default function ChatBubble() {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
+  const [streaming, setStreaming] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   const endRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname() || '/';
 
   const quickReplies = useMemo(() => quickRepliesFor(pathname).slice(0, 4), [pathname]);
   const hasUserSent = messages.some((m) => m.role === 'user');
+  const userMessageCount = messages.filter((m) => m.role === 'user').length;
+
+  const [leadDismissed, setLeadDismissed] = useState(false);
+  const [leadCaptured, setLeadCaptured] = useState(false);
+  const [leadFormOpen, setLeadFormOpen] = useState(false);
+  const [leadName, setLeadName] = useState('');
+  const [leadEmail, setLeadEmail] = useState('');
+  const [leadOrg, setLeadOrg] = useState('');
+  const [leadContext, setLeadContext] = useState('');
+  const [leadSubmitting, setLeadSubmitting] = useState(false);
+  const [leadError, setLeadError] = useState<string | null>(null);
+  const [leadConfirmedEmail, setLeadConfirmedEmail] = useState<string | null>(null);
+
+  const inferredTopic = useMemo(() => {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      const m = messages[i];
+      if (m.role !== 'assistant' || !m.sources) continue;
+      const productSource = m.sources.find((s) => s.kind === 'product');
+      if (productSource) return productSource.title;
+    }
+    return '';
+  }, [messages]);
+
+  const showLeadPrompt =
+    hydrated &&
+    !leadCaptured &&
+    !leadDismissed &&
+    !leadFormOpen &&
+    userMessageCount >= LEAD_PROMPT_THRESHOLD;
 
   useEffect(() => {
     const persisted = loadPersisted();
@@ -220,8 +272,68 @@ export default function ChatBubble() {
       setMessages(persisted.messages);
       setOpen(persisted.open);
     }
+    setLeadDismissed(readSessionFlag(LEAD_DISMISSED_KEY));
+    setLeadCaptured(readSessionFlag(LEAD_CAPTURED_KEY));
     setHydrated(true);
   }, []);
+
+  function dismissLead() {
+    setLeadDismissed(true);
+    writeSessionFlag(LEAD_DISMISSED_KEY);
+  }
+
+  function openLeadForm() {
+    setLeadContext(inferredTopic ? `Following up on chat about ${inferredTopic}` : '');
+    setLeadError(null);
+    setLeadFormOpen(true);
+  }
+
+  async function submitLead(event: React.FormEvent) {
+    event.preventDefault();
+    if (leadSubmitting) return;
+    const name = leadName.trim();
+    const email = leadEmail.trim();
+    if (!name) {
+      setLeadError('Please enter your name.');
+      return;
+    }
+    if (!EMAIL_RE.test(email)) {
+      setLeadError('Please enter a valid email address.');
+      return;
+    }
+    setLeadError(null);
+    setLeadSubmitting(true);
+    try {
+      const transcript = messages
+        .filter((m) => m.role === 'user' || m.role === 'assistant')
+        .map((m) => ({ role: m.role, content: m.content }));
+      const response = await fetch('/api/chat/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          organization: leadOrg.trim() || undefined,
+          context: leadContext.trim() || undefined,
+          pathname,
+          transcript,
+        }),
+      });
+      const payload = (await response.json().catch(() => ({}))) as { error?: string };
+      if (!response.ok) {
+        setLeadError(payload.error || 'Could not send. Please try again.');
+        return;
+      }
+      setLeadConfirmedEmail(email);
+      setLeadCaptured(true);
+      setLeadFormOpen(false);
+      writeSessionFlag(LEAD_CAPTURED_KEY);
+    } catch {
+      setLeadError('Could not send. Please check your connection and retry.');
+    } finally {
+      setLeadSubmitting(false);
+    }
+  }
 
   useEffect(() => {
     if (!hydrated) return;
@@ -249,6 +361,7 @@ export default function ChatBubble() {
     setMessages(nextMessages);
     setInput('');
     setSending(true);
+    setStreaming(false);
 
     try {
       const response = await fetch('/api/chat', {
@@ -265,27 +378,120 @@ export default function ChatBubble() {
         }),
       });
 
-      const payload = (await response.json()) as {
-        configured?: boolean;
-        message?: string;
-        error?: string;
-        sources?: Source[];
-        suggestion?: Suggestion;
-      };
+      const contentType = response.headers.get('content-type') || '';
 
-      if (!response.ok) {
-        throw new Error(payload.error || 'The assistant could not respond.');
+      if (!contentType.includes('text/event-stream')) {
+        const payload = (await response.json()) as {
+          configured?: boolean;
+          message?: string;
+          error?: string;
+          sources?: Source[];
+          suggestion?: Suggestion;
+        };
+
+        if (!response.ok) {
+          throw new Error(payload.error || 'The assistant could not respond.');
+        }
+
+        setMessages((current) => [
+          ...current,
+          {
+            role: 'assistant',
+            content: payload.message || 'I could not generate an answer.',
+            sources: payload.sources,
+            suggestion: payload.suggestion,
+          },
+        ]);
+        return;
       }
 
-      setMessages((current) => [
-        ...current,
-        {
-          role: 'assistant',
-          content: payload.message || 'I could not generate an answer.',
-          sources: payload.sources,
-          suggestion: payload.suggestion,
-        },
-      ]);
+      if (!response.body) {
+        throw new Error('The assistant could not respond.');
+      }
+
+      let assistantIndex: number | null = null;
+      const ensureAssistant = (init?: Partial<Message>) => {
+        setMessages((current) => {
+          if (assistantIndex !== null) return current;
+          assistantIndex = current.length;
+          return [
+            ...current,
+            {
+              role: 'assistant',
+              content: '',
+              ...init,
+            },
+          ];
+        });
+      };
+
+      const updateAssistant = (updater: (m: Message) => Message) => {
+        setMessages((current) => {
+          if (assistantIndex === null) return current;
+          const copy = current.slice();
+          const target = copy[assistantIndex];
+          if (!target) return current;
+          copy[assistantIndex] = updater(target);
+          return copy;
+        });
+      };
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      const handleEvent = (rawEvent: string) => {
+        let eventName = 'message';
+        const dataLines: string[] = [];
+        for (const line of rawEvent.split('\n')) {
+          if (line.startsWith('event:')) {
+            eventName = line.slice(6).trim();
+          } else if (line.startsWith('data:')) {
+            dataLines.push(line.slice(5).trimStart());
+          }
+        }
+        if (dataLines.length === 0) return;
+        let data: unknown;
+        try {
+          data = JSON.parse(dataLines.join('\n'));
+        } catch {
+          return;
+        }
+
+        if (eventName === 'meta') {
+          const meta = data as { sources?: Source[]; suggestion?: Suggestion };
+          ensureAssistant({ sources: meta.sources, suggestion: meta.suggestion });
+        } else if (eventName === 'token') {
+          const tokenData = data as { text?: string };
+          if (!tokenData.text) return;
+          ensureAssistant();
+          setStreaming(true);
+          updateAssistant((m) => ({ ...m, content: m.content + (tokenData.text || '') }));
+        } else if (eventName === 'done') {
+          const doneData = data as { text?: string };
+          ensureAssistant();
+          updateAssistant((m) => ({ ...m, content: doneData.text ?? m.content }));
+        } else if (eventName === 'error') {
+          const errData = data as { message?: string };
+          ensureAssistant();
+          updateAssistant((m) => ({
+            ...m,
+            content: errData.message || 'The assistant could not respond. Please try again in a moment.',
+          }));
+        }
+      };
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        let sepIndex: number;
+        while ((sepIndex = buffer.indexOf('\n\n')) !== -1) {
+          const rawEvent = buffer.slice(0, sepIndex);
+          buffer = buffer.slice(sepIndex + 2);
+          if (rawEvent.trim()) handleEvent(rawEvent);
+        }
+      }
     } catch (error) {
       const fallback =
         error instanceof Error
@@ -301,6 +507,7 @@ export default function ChatBubble() {
       ]);
     } finally {
       setSending(false);
+      setStreaming(false);
     }
   }
 
@@ -368,9 +575,110 @@ export default function ChatBubble() {
               </div>
             ))}
 
-            {sending && (
+            {sending && !streaming && (
               <div className="max-w-[90%] rounded-sm border border-rule bg-surface px-3.5 py-2.5 text-sm text-ink-muted">
                 Checking the catalog...
+              </div>
+            )}
+
+            {showLeadPrompt && (
+              <div className="rounded-sm border border-rule bg-surface p-3.5">
+                <p className="mono text-[0.6rem] uppercase tracking-widest text-ink-muted">
+                  Tailored Quote
+                </p>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink-2">
+                  Want a quote tailored to your use case? Share your details and we&apos;ll follow up with the conversation context.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={openLeadForm}
+                    className="mono inline-flex items-center justify-center bg-ink px-3 py-2 text-[0.7rem] uppercase tracking-widest text-paper transition-colors hover:bg-accent"
+                  >
+                    Yes, send →
+                  </button>
+                  <button
+                    type="button"
+                    onClick={dismissLead}
+                    className="mono inline-flex items-center justify-center border border-rule px-3 py-2 text-[0.7rem] uppercase tracking-widest text-ink-muted transition-colors hover:border-ink hover:text-ink"
+                  >
+                    Not now
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {leadFormOpen && !leadCaptured && (
+              <form
+                onSubmit={submitLead}
+                className="space-y-2 rounded-sm border border-rule bg-surface p-3.5"
+              >
+                <p className="mono text-[0.6rem] uppercase tracking-widest text-ink-muted">
+                  Your Details
+                </p>
+                <input
+                  type="text"
+                  value={leadName}
+                  onChange={(e) => setLeadName(e.target.value)}
+                  placeholder="Name"
+                  required
+                  disabled={leadSubmitting}
+                  className="w-full border border-rule bg-paper px-3 py-2 text-sm text-ink focus:border-ink focus:outline-none disabled:opacity-50"
+                />
+                <input
+                  type="email"
+                  value={leadEmail}
+                  onChange={(e) => setLeadEmail(e.target.value)}
+                  placeholder="Email"
+                  required
+                  disabled={leadSubmitting}
+                  className="w-full border border-rule bg-paper px-3 py-2 text-sm text-ink focus:border-ink focus:outline-none disabled:opacity-50"
+                />
+                <input
+                  type="text"
+                  value={leadOrg}
+                  onChange={(e) => setLeadOrg(e.target.value)}
+                  placeholder="Organization (optional)"
+                  disabled={leadSubmitting}
+                  className="w-full border border-rule bg-paper px-3 py-2 text-sm text-ink focus:border-ink focus:outline-none disabled:opacity-50"
+                />
+                <input
+                  type="text"
+                  value={leadContext}
+                  onChange={(e) => setLeadContext(e.target.value)}
+                  placeholder="Context (optional)"
+                  disabled={leadSubmitting}
+                  className="w-full border border-rule bg-paper px-3 py-2 text-sm text-ink focus:border-ink focus:outline-none disabled:opacity-50"
+                />
+                {leadError && (
+                  <p className="text-xs text-red-700">{leadError}</p>
+                )}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  <button
+                    type="submit"
+                    disabled={leadSubmitting}
+                    className="mono inline-flex items-center justify-center bg-ink px-3 py-2 text-[0.7rem] uppercase tracking-widest text-paper transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {leadSubmitting ? 'Sending…' : 'Send details'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setLeadFormOpen(false);
+                      setLeadError(null);
+                    }}
+                    disabled={leadSubmitting}
+                    className="mono inline-flex items-center justify-center border border-rule px-3 py-2 text-[0.7rem] uppercase tracking-widest text-ink-muted transition-colors hover:border-ink hover:text-ink disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            )}
+
+            {leadCaptured && leadConfirmedEmail && (
+              <div className="rounded-sm border border-rule bg-surface px-3.5 py-2.5 text-sm text-ink-2">
+                Thanks — Adarsh will follow up at <span className="mono">{leadConfirmedEmail}</span> shortly.
               </div>
             )}
 

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { buildGroundingContext, type ChatSource } from '@/lib/chat/catalog';
+import { checkRateLimit } from '@/lib/chat/rate-limit';
 import { productCategories } from '@/lib/data';
 import { products } from '@/lib/products-data';
 
@@ -10,8 +11,6 @@ const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models
 
 const MAX_MESSAGE_CHARS = 1500;
 const MAX_MESSAGES = 20;
-const RATE_LIMIT_MAX = 20;
-const RATE_LIMIT_WINDOW_MS = 5 * 60 * 1000;
 
 interface ApiMessage {
   role: 'user' | 'assistant';
@@ -40,22 +39,6 @@ export interface ChatSuggestion {
   categorySlug?: string;
   label: string;
   href: string;
-}
-
-// Sliding-window rate limit. Single-region Vercel — module-level Map is fine.
-const rateBuckets = new Map<string, number[]>();
-
-function rateLimit(ip: string): boolean {
-  const now = Date.now();
-  const cutoff = now - RATE_LIMIT_WINDOW_MS;
-  const hits = (rateBuckets.get(ip) || []).filter((t) => t > cutoff);
-  if (hits.length >= RATE_LIMIT_MAX) {
-    rateBuckets.set(ip, hits);
-    return false;
-  }
-  hits.push(now);
-  rateBuckets.set(ip, hits);
-  return true;
 }
 
 interface PageContext {
@@ -228,6 +211,16 @@ function extractText(payload: GeminiResponse) {
     .trim();
 }
 
+function sanitizeCitations(text: string, sourceCount: number): string {
+  let out = text.replace(/\[(\d+)\]/g, (full, num: string) => {
+    const n = parseInt(num, 10);
+    if (Number.isNaN(n) || n < 1 || n > sourceCount) return '';
+    return full;
+  });
+  out = out.replace(/(\[\d+\])(?:\1)+/g, '$1');
+  return out;
+}
+
 const SAFETY_SETTINGS = [
   { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
   { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
@@ -276,7 +269,7 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!rateLimit(ip)) {
+  if (!(await checkRateLimit(ip))) {
     console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds: [], latencyMs: Date.now() - start, status: 429 }));
     return NextResponse.json(
       {
@@ -308,7 +301,7 @@ export async function POST(request: Request) {
     });
   }
 
-  const response = await fetch(`${GEMINI_ENDPOINT}/${GEMINI_MODEL}:generateContent?key=${apiKey}`, {
+  const upstream = await fetch(`${GEMINI_ENDPOINT}/${GEMINI_MODEL}:streamGenerateContent?alt=sse&key=${apiKey}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -327,43 +320,96 @@ export async function POST(request: Request) {
     }),
   });
 
-  const payload = (await response.json()) as GeminiResponse;
-  if (!response.ok) {
-    console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds: sources.map((s) => s.id), latencyMs: Date.now() - start, status: response.status }));
-    return NextResponse.json(
-      {
-        error: payload.error?.message || 'Gemini request failed.',
-      },
-      { status: 502 }
-    );
+  if (!upstream.ok || !upstream.body) {
+    let errorMessage = 'Gemini request failed.';
+    try {
+      const errPayload = (await upstream.json()) as GeminiResponse;
+      errorMessage = errPayload.error?.message || errorMessage;
+    } catch {
+      // body wasn't JSON
+    }
+    console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds: sources.map((s) => s.id), latencyMs: Date.now() - start, status: upstream.status }));
+    return NextResponse.json({ error: errorMessage }, { status: 502 });
   }
 
-  if (payload.promptFeedback?.blockReason) {
-    console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds: sources.map((s) => s.id), latencyMs: Date.now() - start, status: 200, blocked: payload.promptFeedback.blockReason }));
-    return NextResponse.json({
-      configured: true,
-      message: 'I could not answer that request because Gemini blocked the prompt. Please rephrase it and try again.',
-      sources,
-      suggestion,
-    });
-  }
+  const sourcesForStream = sources;
+  const sourceIds = sources.map((s) => s.id);
 
-  const message = extractText(payload);
-  if (!message) {
-    console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds: sources.map((s) => s.id), latencyMs: Date.now() - start, status: 502 }));
-    return NextResponse.json(
-      {
-        error: 'Gemini did not return any text.',
-      },
-      { status: 502 }
-    );
-  }
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      const encoder = new TextEncoder();
+      const decoder = new TextDecoder();
+      const send = (event: string, data: unknown) => {
+        controller.enqueue(encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`));
+      };
 
-  console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds: sources.map((s) => s.id), latencyMs: Date.now() - start, status: 200, retrievalMode }));
-  return NextResponse.json({
-    configured: true,
-    message,
-    sources,
-    suggestion,
+      send('meta', { sources: sourcesForStream, suggestion });
+
+      let fullText = '';
+      let buffer = '';
+      let blockReason: string | undefined;
+
+      try {
+        const reader = upstream.body!.getReader();
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          let sepIndex: number;
+          while ((sepIndex = buffer.indexOf('\n\n')) !== -1) {
+            const rawEvent = buffer.slice(0, sepIndex);
+            buffer = buffer.slice(sepIndex + 2);
+            const dataLines = rawEvent
+              .split('\n')
+              .filter((line) => line.startsWith('data:'))
+              .map((line) => line.slice(5).trimStart());
+            if (dataLines.length === 0) continue;
+            const dataStr = dataLines.join('\n');
+            if (!dataStr) continue;
+            try {
+              const payload = JSON.parse(dataStr) as GeminiResponse;
+              if (payload.promptFeedback?.blockReason) {
+                blockReason = payload.promptFeedback.blockReason;
+              }
+              const chunkText = extractText(payload);
+              if (chunkText) {
+                fullText += chunkText;
+                send('token', { text: chunkText });
+              }
+            } catch {
+              // partial / non-JSON data line; ignore
+            }
+          }
+        }
+
+        if (blockReason && !fullText) {
+          send('error', {
+            message: 'I could not answer that request because Gemini blocked the prompt. Please rephrase it and try again.',
+          });
+          console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds, latencyMs: Date.now() - start, status: 200, blocked: blockReason }));
+        } else if (!fullText) {
+          send('error', { message: 'Gemini did not return any text.' });
+          console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds, latencyMs: Date.now() - start, status: 502 }));
+        } else {
+          const sanitized = sanitizeCitations(fullText, sourcesForStream.length);
+          send('done', { text: sanitized });
+          console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds, latencyMs: Date.now() - start, status: 200, retrievalMode }));
+        }
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Stream failed.';
+        send('error', { message });
+        console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds, latencyMs: Date.now() - start, status: 502, streamError: message }));
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      'Content-Type': 'text/event-stream; charset=utf-8',
+      'Cache-Control': 'no-cache, no-transform',
+      Connection: 'keep-alive',
+    },
   });
 }
