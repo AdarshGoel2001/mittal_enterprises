@@ -252,7 +252,12 @@ function scoreRecord(query: string, record: KnowledgeRecord) {
 }
 
 function kindForSource(kind: Chunk['kind']): KnowledgeKind {
-  if (kind === 'product-identity' || kind === 'product-section') return 'product';
+  if (
+    kind === 'product-identity' ||
+    kind === 'product-section' ||
+    kind === 'product-citations-summary' ||
+    kind === 'citation'
+  ) return 'product';
   return kind;
 }
 

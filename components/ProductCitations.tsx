@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import type { Citation } from '@/lib/citations-data';
+import { anchorForCitation } from '@/lib/citations-anchor';
 import CitationCard from './CitationCard';
 
 const INITIAL_VISIBLE = 3;
@@ -16,13 +17,24 @@ export default function ProductCitations({
 }) {
   const [expanded, setExpanded] = useState(false);
 
+  useEffect(() => {
+    const hash = window.location.hash.replace(/^#/, '');
+    if (!hash) return;
+    const idx = citations.findIndex((c) => anchorForCitation(c.doi) === hash);
+    if (idx === -1) return;
+    if (idx >= INITIAL_VISIBLE) setExpanded(true);
+    requestAnimationFrame(() => {
+      document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, [citations]);
+
   if (citations.length === 0) return null;
 
   const visible = expanded ? citations : citations.slice(0, INITIAL_VISIBLE);
   const remaining = citations.length - INITIAL_VISIBLE;
 
   return (
-    <div className="mt-16 pt-10 border-t border-rule">
+    <div id="research-citations" className="mt-16 pt-10 border-t border-rule scroll-mt-24">
       <div className="flex items-end justify-between mb-6 gap-6 flex-wrap">
         <div>
           <p className="eyebrow mb-2">Research citations</p>
@@ -44,7 +56,7 @@ export default function ProductCitations({
 
       <ul className="border border-rule divide-y divide-rule">
         {visible.map((c) => (
-          <li key={c.url} className="px-5 py-5">
+          <li key={c.url} id={anchorForCitation(c.doi)} className="px-5 py-5 scroll-mt-24">
             <CitationCard citation={c} />
           </li>
         ))}

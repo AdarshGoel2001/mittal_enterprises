@@ -13,7 +13,13 @@ interface EmbedResponse {
   error?: { message?: string };
 }
 
-async function embedOne(apiKey: string, text: string): Promise<number[]> {
+function parseRetrySeconds(message: string | undefined): number | null {
+  if (!message) return null;
+  const m = /retry in ([\d.]+)s/i.exec(message);
+  return m ? Math.ceil(parseFloat(m[1])) : null;
+}
+
+async function embedOne(apiKey: string, text: string, attempt = 0): Promise<number[]> {
   const response = await fetch(`${ENDPOINT}?key=${apiKey}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -25,6 +31,12 @@ async function embedOne(apiKey: string, text: string): Promise<number[]> {
     }),
   });
   const payload = (await response.json()) as EmbedResponse;
+  if (response.status === 429 && attempt < 3) {
+    const wait = parseRetrySeconds(payload.error?.message) ?? 60;
+    console.log(`  rate limited, waiting ${wait}s (attempt ${attempt + 1})`);
+    await new Promise((r) => setTimeout(r, wait * 1000 + 500));
+    return embedOne(apiKey, text, attempt + 1);
+  }
   if (!response.ok || !payload.embedding?.values) {
     throw new Error(`Gemini embed failed: ${payload.error?.message || response.statusText}`);
   }

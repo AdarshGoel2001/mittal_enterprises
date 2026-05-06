@@ -2,8 +2,16 @@ import { companyKnowledgeSections, globalSupplyServices, profilePillars } from '
 import { companyInfo, productCategories } from '@/lib/data';
 import { products } from '@/lib/products-data';
 import { extractModelsFromMarkdown, getProductMarkdown } from '@/lib/products-content';
+import { citations, type Citation } from '@/lib/citations-data';
+import { anchorForCitation } from '@/lib/citations-anchor';
 
-export type ChunkKind = 'company' | 'category' | 'product-identity' | 'product-section';
+export type ChunkKind =
+  | 'company'
+  | 'category'
+  | 'product-identity'
+  | 'product-section'
+  | 'product-citations-summary'
+  | 'citation';
 
 export interface Chunk {
   id: string;
@@ -215,5 +223,97 @@ export function buildChunks(): Chunk[] {
     }
   }
 
+  for (const chunk of buildCitationChunks()) chunks.push(chunk);
+
   return chunks;
+}
+
+const CITATION_TARGET_TOTAL = 110;
+const CITATION_MIN_PER_PRODUCT = 4;
+
+function citationProductUrl(productSlug: string): { url: string; categorySlug?: string } | null {
+  const product = products.find((p) => p.slug === productSlug);
+  if (!product) return null;
+  const category = productCategories.find((c) => c.id === product.categoryId);
+  if (!category) return null;
+  return { url: `/products/${category.slug}/${product.slug}`, categorySlug: category.slug };
+}
+
+function citationToText(c: Citation): string {
+  const yearJournal = [c.year, c.journal].filter(Boolean).join(', ');
+  const head = `${c.title}${yearJournal ? ` (${yearJournal})` : ''}.`;
+  const authors = c.authors ? ` Authors: ${c.authors}.` : '';
+  const cited = c.citedByCount > 0 ? ` Cited by ${c.citedByCount} papers.` : '';
+  const models = c.modelCodes.length > 0 ? ` Mittal model(s): ${c.modelCodes.join(', ')}.` : '';
+  const snippet = c.evidenceSnippet ? ` Mention: "${c.evidenceSnippet}"` : '';
+  return `${head}${authors}${cited}${models}${snippet}`.trim();
+}
+
+function buildCitationChunks(): Chunk[] {
+  const out: Chunk[] = [];
+  const verified = citations.filter((c) => c.verified && c.products.length > 0);
+
+  // Per-product summary chunks: one per product that has any verified citations.
+  const byProduct = new Map<string, Citation[]>();
+  for (const c of verified) {
+    for (const slug of c.products) {
+      if (!byProduct.has(slug)) byProduct.set(slug, []);
+      byProduct.get(slug)!.push(c);
+    }
+  }
+  for (const [slug, list] of byProduct) {
+    const ctx = citationProductUrl(slug);
+    if (!ctx) continue;
+    const product = products.find((p) => p.slug === slug);
+    if (!product) continue;
+    const sorted = [...list].sort((a, b) => b.citedByCount - a.citedByCount);
+    const top = sorted.slice(0, 5);
+    const lines = top.map((c, i) => `${i + 1}) ${citationToText(c)}`).join(' ');
+    out.push({
+      id: `product-citations-summary:${slug}`,
+      kind: 'product-citations-summary',
+      title: `${product.name} — Research citations`,
+      url: `${ctx.url}#research-citations`,
+      text: `${product.name} is cited in ${list.length} verified peer-reviewed papers. Top by impact: ${lines}`,
+      itemCode: product.itemCode,
+      productSlug: product.slug,
+      categorySlug: ctx.categorySlug,
+    });
+  }
+
+  // Selection: per-product floor, then global top-up by citedByCount.
+  const selected = new Map<string, Citation>(); // doi -> citation
+  for (const [slug, list] of byProduct) {
+    const sorted = [...list].sort((a, b) => b.citedByCount - a.citedByCount);
+    for (const c of sorted.slice(0, CITATION_MIN_PER_PRODUCT)) selected.set(c.doi, c);
+  }
+  if (selected.size < CITATION_TARGET_TOTAL) {
+    const remaining = verified
+      .filter((c) => !selected.has(c.doi))
+      .sort((a, b) => b.citedByCount - a.citedByCount);
+    for (const c of remaining) {
+      if (selected.size >= CITATION_TARGET_TOTAL) break;
+      selected.set(c.doi, c);
+    }
+  }
+
+  for (const c of selected.values()) {
+    const primarySlug = c.products[0];
+    const ctx = citationProductUrl(primarySlug);
+    if (!ctx) continue;
+    const product = products.find((p) => p.slug === primarySlug);
+    if (!product) continue;
+    out.push({
+      id: `citation:${anchorForCitation(c.doi)}`,
+      kind: 'citation',
+      title: `${product.name} — ${c.title.slice(0, 80)}${c.title.length > 80 ? '…' : ''}`,
+      url: `${ctx.url}#${anchorForCitation(c.doi)}`,
+      text: `Research paper citing ${product.name} (${product.itemCode}). ${citationToText(c)}`,
+      itemCode: product.itemCode,
+      productSlug: product.slug,
+      categorySlug: ctx.categorySlug,
+    });
+  }
+
+  return out;
 }
