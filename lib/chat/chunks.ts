@@ -138,7 +138,7 @@ export function buildChunks(): Chunk[] {
   });
   for (const section of companyKnowledgeSections) {
     chunks.push({
-      id: `company:${section.id}`,
+      id: `company:section:${section.id}`,
       kind: 'company',
       title: section.title,
       url: section.url,
