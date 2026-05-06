@@ -224,7 +224,7 @@ export async function POST(request: Request) {
   }
 
   const query = buildEnrichedQuery(messages);
-  const { context, sources } = await buildGroundingContext(query);
+  const { context, sources, mode: retrievalMode } = await buildGroundingContext(query);
   const suggestion = detectSuggestion(latestUser, sources);
 
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
@@ -290,7 +290,7 @@ export async function POST(request: Request) {
     );
   }
 
-  console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds: sources.map((s) => s.id), latencyMs: Date.now() - start, status: 200 }));
+  console.log(JSON.stringify({ ip, query: latestUser.slice(0, 80), sourceIds: sources.map((s) => s.id), latencyMs: Date.now() - start, status: 200, retrievalMode }));
   return NextResponse.json({
     configured: true,
     message,
